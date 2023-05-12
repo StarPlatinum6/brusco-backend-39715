@@ -1,0 +1,55 @@
+<div class="p-4 h-auto">
+  <nav class="mb-4 py-8 bg-gray-900/80 rounded-md">
+    <ul class="flex flex-row justify-evenly">
+      <li>
+        <a href="/home">
+          <button
+            class="text-slate-100 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2"
+          >Home 🏚️</button>
+        </a>
+      </li>
+      <li>
+        <a href="/realTimeProducts">
+          <button
+            class="text-slate-100 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2"
+          >Real Time Products 🛩️</button>
+        </a>
+      </li>
+      <li>
+        <a href="/chat">
+          <button
+            class="text-slate-100 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-500 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2"
+          >Chat 💬</button>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <h1 class="text-center my-8 font-mono text-xl text-slate-200">Your Profile</h1>
+  <div
+    class="flex justify-center max-w-md border rounded-lg shadow-lg bg-gray-900 border-gray-700 m-auto font-mono"
+  >
+    <div class="flex flex-col pb-10 w-60">
+      <svg
+        class="mt-6 w-16 h-16 mb-3 rounded-full shadow-lg text-gray-400"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+          clip-rule="evenodd"
+        ></path>
+      </svg>
+      <h5
+        class="mb-1 text-xl font-medium text-white tracking-widest"
+      >{{user.name}}</h5>
+      <span class="text-sm text-gray-500 dark:text-gray-400">Role:
+        {{user.role}}</span>
+      <span class="text-sm text-gray-500 dark:text-gray-400">Email:
+        {{user.email}}</span>
+      <span class="text-sm text-gray-500 dark:text-gray-400">Age:
+        {{user.age}}</span>
+    </div>
+  </div>
+</div>

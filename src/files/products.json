@@ -1,0 +1,72 @@
+[
+	{
+		"id": 1,
+		"status": true,
+		"title": "Nvidia RTX 2060",
+		"description": "Mid-end Nvidia Gaming GPU",
+		"code": "RTX2060",
+		"price": 400,
+		"stock": 27,
+		"category": "GPU",
+		"thumbnails": [
+			"http://localhost:8080/images/image3.jpg",
+			"http://localhost:8080/images/image4.jpg"
+		]
+	},
+	{
+		"id": 2,
+		"status": true,
+		"title": "Nvidia RTX 2080",
+		"description": "High-end Nvidia Gaming GPU",
+		"code": "RTX2080",
+		"price": 1400,
+		"stock": 50,
+		"category": "GPU",
+		"thumbnails": [
+			"http://localhost:8080/images/image3.jpg",
+			"http://localhost:8080/images/image4.jpg"
+		]
+	},
+	{
+		"id": 3,
+		"status": true,
+		"title": "Nvidia RTX 3090",
+		"description": "High-end Nvidia Gaming GPU",
+		"code": "RTX3090",
+		"price": 2400,
+		"stock": 450,
+		"category": "GPU",
+		"thumbnails": [
+			"http://localhost:8080/images/image3.jpg",
+			"http://localhost:8080/images/image4.jpg"
+		]
+	},
+	{
+		"id": 4,
+		"status": true,
+		"title": "Nvidia RTX 4090",
+		"description": "High-end Nvidia Gaming GPU",
+		"code": "RTX4090",
+		"price": 8400,
+		"stock": 450,
+		"category": "GPU",
+		"thumbnails": [
+			"http://localhost:8080/images/image3.jpg",
+			"http://localhost:8080/images/image4.jpg"
+		]
+	},
+	{
+		"id": 5,
+		"status": true,
+		"title": "Nvidia RTX 1660",
+		"description": "Low-end Nvidia Gaming GPU",
+		"code": "RTX1660",
+		"price": 1400,
+		"stock": 450,
+		"category": "GPU",
+		"thumbnails": [
+			"http://localhost:8080/images/image3.jpg",
+			"http://localhost:8080/images/image4.jpg"
+		]
+	}
+]
