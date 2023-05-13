@@ -68,8 +68,6 @@ router.get(
   "/githubcallback",
   passport.authenticate("github", { session: false, failureRedirect: "/" }),
   async (req, res) => {
-    console.log("request", req.user);
-
     req.user.email === "adminCoder@coder.com"
       ? (req.user.role = "admin")
       : (req.user.role = "user");
@@ -86,7 +84,6 @@ router.get(
     const token = jwt.sign(req.user, config.JWT_SECRET, { expiresIn: "3h" });
 
     return res.cookie("jwtCookie", token, { httpOnly: true }).redirect("/home");
-    // .send({ status: "success", message: "Logged in, redirecting..." })
   }
 );
 

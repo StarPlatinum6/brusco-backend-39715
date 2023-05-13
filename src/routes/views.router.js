@@ -29,7 +29,7 @@ router.get("/register", (req, res) => {
   });
 });
 
-router.get("/profile", passport.authenticate("jwt", { session: false }), (req, res) => {
+router.get("/profile", passport.authenticate("jwt", {session: false}), (req, res) => {
   res.render("profile", {
     user: req.user,
     style: "styles.css",
@@ -45,9 +45,54 @@ router.get("/restore", (req, res) => {
   });
 });
 
+router.get("/home", passport.authenticate("jwt", {session: false}), async (req, res) => {
+  console.log(req.user)
+  const { limit = 10, page = 1, category, available, sort } = req.query;
+  const {
+    docs: products,
+    hasPrevPage,
+    hasNextPage,
+    nextPage,
+    prevPage,
+  } = await productManager.getProducts(page, limit, category, available, sort);
+  res.render("home", {
+    user: req.user,
+    products,
+    page,
+    hasPrevPage,
+    hasNextPage,
+    prevPage,
+    nextPage,
+    style: "styles.css",
+    title: "Ephemer - Products",
+  });
+});
+
+router.get("/product/:pid", passport.authenticate("jwt", {session: false}), async (req, res) => {
+  const { pid } = req.params;
+  const product = await productManager.getProductById(pid);
+  res.render("product", {
+    product,
+    style: "styles.css",
+    title: "Ephemer - Product Detail",
+  });
+});
+
+router.get("/cart/:cid", passport.authenticate("jwt", {session: false}), async (req, res) => {
+  const { cid } = req.params;
+  const cart = await cartManager.getCartById(cid);
+  res.render("cart", {
+    cart,
+    style: "styles.css",
+    title: "Ephemer - Cart Detail",
+  });
+});
+
+//////////////////////////////////////////////////////
+
 router.get(
-  "/home",
-  passport.authenticate("jwt", { session: false }),
+  "/realtimeproducts",
+  passport.authenticate("jwt", {session: false}),
   async (req, res) => {
     const { limit = 10, page = 1, category, available, sort } = req.query;
     const {
@@ -63,8 +108,8 @@ router.get(
       available,
       sort
     );
-    res.render("home", {
-      user: req.user,
+
+    res.render("realTimeProducts", {
       products,
       page,
       hasPrevPage,
@@ -72,56 +117,12 @@ router.get(
       prevPage,
       nextPage,
       style: "styles.css",
-      title: "Ephemer - Products",
+      title: "Ephemer - Real Time Products",
     });
   }
 );
 
-router.get("/product/:pid", async (req, res) => {
-  const { pid } = req.params;
-  const product = await productManager.getProductById(pid);
-  res.render("product", {
-    product,
-    style: "styles.css",
-    title: "Ephemer - Product Detail",
-  });
-});
-
-router.get("/cart/:cid", async (req, res) => {
-  const { cid } = req.params;
-  const cart = await cartManager.getCartById(cid);
-  res.render("cart", {
-    cart,
-    style: "styles.css",
-    title: "Ephemer - Cart Detail",
-  });
-});
-
-//////////////////////////////////////////////////////
-
-router.get("/realtimeproducts", async (req, res) => {
-  const { limit = 10, page = 1, category, available, sort } = req.query;
-  const {
-    docs: products,
-    hasPrevPage,
-    hasNextPage,
-    nextPage,
-    prevPage,
-  } = await productManager.getProducts(page, limit, category, available, sort);
-
-  res.render("realTimeProducts", {
-    products,
-    page,
-    hasPrevPage,
-    hasNextPage,
-    prevPage,
-    nextPage,
-    style: "styles.css",
-    title: "Ephemer - Real Time Products",
-  });
-});
-
-router.get("/chat", async (req, res) => {
+router.get("/chat", passport.authenticate("jwt", {session: false}), async (req, res) => {
   const messages = await messageManager.getMessages();
   res.render("chat", {
     messages,
