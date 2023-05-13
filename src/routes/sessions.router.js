@@ -3,7 +3,6 @@ import passport from "passport";
 import jwt from "jsonwebtoken";
 
 import config from "../config.js";
-// import userModel from "../dao/models/user.model.js";
 import UserManager from "../dao/dbManagers/userManager.js";
 
 import { createHash, isValidPassword } from "../utils.js";

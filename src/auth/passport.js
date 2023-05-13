@@ -3,9 +3,6 @@ import local from "passport-local";
 import GitHubStrategy from "passport-github2";
 import jwt from "passport-jwt";
 
-// import cartModel from "../dao/models/carts.model.js";
-// import userModel from "../dao/models/user.model.js";
-
 import UserManager from "../dao/dbManagers/userManager.js";
 import CartManager from "../dao/dbManagers/cartManager.js";
 
@@ -46,14 +43,12 @@ const initializePassport = () => {
           let { role } = req.body;
 
           const userExists = await userManager.getUser({ email: username });
-          // const userExists = await userModel.findOne({ email: username });
 
           if (userExists) {
             console.log("User already exists");
             return done(null, false);
           }
 
-          // const cart = await cartModel.create({});
           const cart = await cartManager.createCart();
 
           const newUser = {
@@ -69,7 +64,6 @@ const initializePassport = () => {
             cart: cart._id,
           };
 
-          // const result = await userModel.create(newUser);
           const result = await userManager.registerUser(newUser);
 
           return done(null, result);
@@ -101,12 +95,10 @@ const initializePassport = () => {
       },
       async (accessToken, refreshToken, profile, done) => {
         try {
-          // const user = await userModel.findOne({ email: profile._json.email });
           const user = await userManager.getUser({
             email: profile._json.email,
           });
           if (!user) {
-            // const cart = await cartModel.create({});
             const cart = await cartManager.createCart();
             let role;
 
@@ -123,7 +115,6 @@ const initializePassport = () => {
               cart: cart._id,
             };
 
-            // const result = await userModel.create(newUser); //!
             const result = await userManager.registerUser(newUser);
             return done(null, result);
           }
