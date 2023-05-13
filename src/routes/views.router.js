@@ -46,7 +46,6 @@ router.get("/restore", (req, res) => {
 });
 
 router.get("/home", passport.authenticate("jwt", {session: false}), async (req, res) => {
-  console.log(req.user)
   const { limit = 10, page = 1, category, available, sort } = req.query;
   const {
     docs: products,

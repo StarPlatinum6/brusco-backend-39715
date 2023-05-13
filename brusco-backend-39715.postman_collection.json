@@ -1,0 +1,674 @@
+{
+	"info": {
+		"_postman_id": "6dd0ef14-cc09-427f-b2f7-1cdbb265a714",
+		"name": "brusco-backend-39715",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26212110"
+	},
+	"item": [
+		{
+			"name": "carts",
+			"item": [
+				{
+					"name": "get-cart-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/carts/64375f50269875b3e53f72cf",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"64375f50269875b3e53f72cf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{lh8080}}/api/carts",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"carts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-to-cart",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quantity\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{lh8080}}/api/carts/64375f50269875b3e53f72cf/product/642c8adb6dbaaa8e907e0140",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"64375f50269875b3e53f72cf",
+								"product",
+								"642c8adb6dbaaa8e907e0140"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-cart",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"productId\": \"TEST33\",\r\n        \"quantity\": 2\r\n    },\r\n    {\r\n        \"productId\": \"TEST55\",\r\n        \"quantity\": 14\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{lh8080}}/api/carts/6438719a792ee4cb866c2d0b",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"6438719a792ee4cb866c2d0b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-product-from-cart",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quantity\": 15\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{lh8080}}/api/carts/6437837c9598669483f2b76a/product/642c8b4401c05a13f3d48efc",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"6437837c9598669483f2b76a",
+								"product",
+								"642c8b4401c05a13f3d48efc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/carts/6438719a792ee4cb866c2d0b",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"6438719a792ee4cb866c2d0b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-product-from-cart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/carts/64375f50269875b3e53f72cf/product/642c8b9d01c05a13f3d48f00",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"64375f50269875b3e53f72cf",
+								"product",
+								"642c8b9d01c05a13f3d48f00"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "messages",
+			"item": [
+				{
+					"name": "get-messages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/messages",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"messages"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "get-products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/products",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-products-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/products/642c8adb6dbaaa8e907e0140",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"642c8adb6dbaaa8e907e0140"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-products-limit",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/products?limit=2",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-products-page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/products?page=2&limit=2",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-products-query",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/products?available=true&category=gpu",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "available",
+									"value": "true"
+								},
+								{
+									"key": "category",
+									"value": "gpu"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-products-sort",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/products?sort=1",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-products-all-params",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/products?limit=2&page=2&category=gpu&available=true&sort=1",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "page",
+									"value": "2"
+								},
+								{
+									"key": "category",
+									"value": "gpu"
+								},
+								{
+									"key": "available",
+									"value": "true"
+								},
+								{
+									"key": "sort",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-product-raw",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\t{\r\n\t\t\"title\": \"Postman Test\",\r\n\t\t\"description\": \"This is a Postman Test Product\",\r\n\t\t\"code\": \"POSTMAN-TEST\",\r\n\t\t\"price\": 500,\r\n\t\t\"stock\": 50,\r\n\t\t\"category\": \"TEST\",\r\n\t\t\"thumbnails\": [\r\n\t\t\t\"http://localhost:8080/images/TEST1.jpg\",\r\n\t\t\t\"http://localhost:8080/images/TEST2.jpg\"\r\n\t\t]\r\n\t}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{lh8080}}/api/products",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-product-form",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "Postman Test",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "This is a Postman Test Product",
+									"type": "text"
+								},
+								{
+									"key": "code",
+									"value": "POSTMAN-TEST",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "500",
+									"type": "text"
+								},
+								{
+									"key": "stock",
+									"value": "50",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "TEST",
+									"type": "text"
+								},
+								{
+									"key": "thumbnails",
+									"type": "file",
+									"src": [
+										"/E:/Pictures/backend pictures/0074 disfraces magicos1.jpg",
+										"/E:/Pictures/backend pictures/To the moon.jpg"
+									]
+								}
+							]
+						},
+						"url": {
+							"raw": "{{lh8080}}/api/products",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\t{\r\n\t\t\"status\": true,\r\n\t\t\"title\": \"This is a Test Product\",\r\n\t\t\"description\": \"Test Product\",\r\n\t\t\"code\": \"TEST-PROD\",\r\n\t\t\"price\": 454560,\r\n\t\t\"stock\": 12,\r\n\t\t\"category\": \"TEST\",\r\n\t\t\"thumbnails\": [\r\n\t\t\t\"http://localhost:8080/images/image3.jpg\",\r\n\t\t\t\"http://localhost:8080/images/image4.jpg\"\r\n\t\t]\r\n\t}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{lh8080}}/api/products/6438724f792ee4cb866c2d27",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"6438724f792ee4cb866c2d27"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/products/6438724f792ee4cb866c2d27",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"6438724f792ee4cb866c2d27"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "sessions-jwt",
+			"item": [
+				{
+					"name": "current-user",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/sessions/current",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"sessions",
+								"current"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user-logout",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/sessions/logout",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"sessions",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user-login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"nicolasbrusco@hotmail.com\",\r\n    \"password\": \"159\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{lh8080}}/api/sessions/login",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"sessions",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user-register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"testUser@hotmail.com\",\r\n    \"password\": \"778899\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{lh8080}}/api/sessions/register",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"sessions",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "restore-password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"nicolasbrusco@hotmail.com\",\r\n    \"password\": \"456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{lh8080}}/api/sessions/restore",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"sessions",
+								"restore"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

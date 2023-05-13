@@ -86,6 +86,14 @@ router.get(
   }
 );
 
+router.get(
+  "/current",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    return res.status(200).send({ status: "success", message: req.user });
+  }
+);
+
 router.get("/logout", (req, res) => {
   return res
     .clearCookie("jwtCookie")
@@ -105,7 +113,7 @@ router.put("/restore", async (req, res) => {
 
     const hashedPassword = createHash(password);
 
-    await userManager.updateUserPassword(
+    await userManager.updatePassword(
       { email },
       { password: hashedPassword }
     );
