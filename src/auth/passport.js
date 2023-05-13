@@ -3,8 +3,12 @@ import local from "passport-local";
 import GitHubStrategy from "passport-github2";
 import jwt from "passport-jwt";
 
-import cartModel from "../dao/models/carts.model.js";
-import userModel from "../dao/models/user.model.js";
+// import cartModel from "../dao/models/carts.model.js";
+// import userModel from "../dao/models/user.model.js";
+
+import UserManager from "../dao/dbManagers/userManager.js";
+import CartManager from "../dao/dbManagers/cartManager.js";
+
 import config from "../config.js";
 
 import { createHash } from "../utils.js";
@@ -25,6 +29,9 @@ const jwtOptions = {
   jwtFromRequest: extractJwt.fromExtractors([cookieExtractor]),
 };
 
+const cartManager = new CartManager();
+const userManager = new UserManager();
+
 const initializePassport = () => {
   passport.use(
     "register",
@@ -38,14 +45,17 @@ const initializePassport = () => {
           const { first_name, last_name, age } = req.body;
           let { role } = req.body;
 
-          const userExists = await userModel.findOne({ email: username });
+          const userExists = await userManager.getUser({ email: username });
+          // const userExists = await userModel.findOne({ email: username });
 
           if (userExists) {
             console.log("User already exists");
             return done(null, false);
           }
 
-          const cart = await cartModel.create({});
+          // const cart = await cartModel.create({});
+          const cart = await cartManager.createCart();
+
           const newUser = {
             first_name,
             last_name,
@@ -59,7 +69,8 @@ const initializePassport = () => {
             cart: cart._id,
           };
 
-          const result = await userModel.create(newUser);
+          // const result = await userModel.create(newUser);
+          const result = await userManager.registerUser(newUser);
 
           return done(null, result);
         } catch (error) {
@@ -90,12 +101,16 @@ const initializePassport = () => {
       },
       async (accessToken, refreshToken, profile, done) => {
         try {
-          let user = await userModel.findOne({ email: profile._json.email });
+          // const user = await userModel.findOne({ email: profile._json.email });
+          const user = await userManager.getUser({
+            email: profile._json.email,
+          });
           if (!user) {
-            const cart = await cartModel.create({});
+            // const cart = await cartModel.create({});
+            const cart = await cartManager.createCart();
             let role;
 
-            let newUser = {
+            const newUser = {
               first_name: profile._json.name,
               last_name: "",
               age: 18,
@@ -108,7 +123,8 @@ const initializePassport = () => {
               cart: cart._id,
             };
 
-            let result = await userModel.create(newUser);
+            // const result = await userModel.create(newUser); //!
+            const result = await userManager.registerUser(newUser);
             return done(null, result);
           }
 
@@ -125,7 +141,7 @@ const initializePassport = () => {
   });
 
   passport.deserializeUser(async (id, done) => {
-    let user = await userModel.findById(id);
+    const user = await userManager.getUserById(id);
     done(null, user);
   });
 };

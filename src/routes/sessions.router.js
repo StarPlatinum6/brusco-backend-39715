@@ -3,7 +3,7 @@ import passport from "passport";
 import jwt from "jsonwebtoken";
 
 import config from "../config.js";
-import userModel from "../dao/models/user.model.js";
+// import userModel from "../dao/models/user.model.js";
 import UserManager from "../dao/dbManagers/userManager.js";
 
 import { createHash, isValidPassword } from "../utils.js";
@@ -97,7 +97,7 @@ router.put("/restore", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    const user = await userModel.findOne({ email });
+    const user = await userManager.getUser({ email });
     if (!user) {
       return res
         .status(404)
@@ -106,7 +106,10 @@ router.put("/restore", async (req, res) => {
 
     const hashedPassword = createHash(password);
 
-    await userModel.updateOne({ email }, { password: hashedPassword });
+    await userManager.updateUserPassword(
+      { email },
+      { password: hashedPassword }
+    );
 
     return res.send({
       status: "success",

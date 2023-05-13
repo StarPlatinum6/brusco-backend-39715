@@ -12,10 +12,29 @@ export default class UserManager {
     }
   };
 
+  getUserById = async (id) => {
+    try {
+      const user = await userModel.findById(id);
+      return user;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   registerUser = async (user) => {
     try {
       const newUser = await userModel.create(user);
       return newUser;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  updatePassword = async (query, update) => {
+    try {
+      const updatedUser = await userModel.updateOne(query, update);
+      console.log("Password updated successfully!");
+      return updatedUser;
     } catch (error) {
       console.log(error);
     }
