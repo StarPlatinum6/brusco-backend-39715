@@ -1,13 +1,11 @@
 import express from "express";
 import handlebars from "express-handlebars";
 import morgan from "morgan";
-import session from "express-session";
-import MongoStore from "connect-mongo";
 import initializePassport from "./auth/passport.js";
+import cookieParser from "cookie-parser";
 
 import database from "./db.js";
 import __dirname from "./utils.js";
-import config from "./config.js";
 import { multiply } from "./views/helpers.js";
 import socket from "./socket.js";
 
@@ -24,19 +22,9 @@ const env = async () => {
   app.use(express.urlencoded({ extended: true }));
   app.use(express.static(`${__dirname}/public`));
   app.use(morgan("dev"));
-  initializePassport();
 
-  app.use(
-    session({
-      store: MongoStore.create({
-        mongoUrl: config.DB_URL,
-        ttl: 180,
-      }),
-      resave: true,
-      saveUninitialized: false,
-      secret: config.SESSION_SECRET,
-    })
-  );
+  app.use(cookieParser());
+  initializePassport();
 
   app.use("/api/products", productsRouter);
   app.use("/api/carts", cartsRouter);

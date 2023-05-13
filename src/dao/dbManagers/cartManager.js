@@ -1,4 +1,4 @@
-import { cartModel } from "../../dao/models/carts.model.js";
+import cartModel from "../../dao/models/carts.model.js";
 
 export default class CartManager {
   constructor() {}
