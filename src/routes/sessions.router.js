@@ -113,10 +113,7 @@ router.put("/restore", async (req, res) => {
 
     const hashedPassword = createHash(password);
 
-    await userManager.updatePassword(
-      { email },
-      { password: hashedPassword }
-    );
+    await userManager.updatePassword({ email }, { password: hashedPassword });
 
     return res.send({
       status: "success",
