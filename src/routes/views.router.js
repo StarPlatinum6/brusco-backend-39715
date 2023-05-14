@@ -37,14 +37,6 @@ router.get("/profile", checkLogin, (req, res) => {
   });
 });
 
-router.get("/restore", (req, res) => {
-  res.render("restore", {
-    user: req.session.user,
-    style: "styles.css",
-    title: "Ephemer - Your Profile",
-  });
-});
-
 router.get("/home", checkLogin, async (req, res) => {
   const { limit = 10, page = 1, category, available, sort } = req.query;
   const {

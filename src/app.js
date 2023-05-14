@@ -3,7 +3,6 @@ import handlebars from "express-handlebars";
 import morgan from "morgan";
 import session from "express-session";
 import MongoStore from "connect-mongo";
-import initializePassport from "./auth/passport.js";
 
 import database from "./db.js";
 import __dirname from "./utils.js";
@@ -24,13 +23,11 @@ const env = async () => {
   app.use(express.urlencoded({ extended: true }));
   app.use(express.static(`${__dirname}/public`));
   app.use(morgan("dev"));
-  initializePassport();
-
   app.use(
     session({
       store: MongoStore.create({
         mongoUrl: config.DB_URL,
-        ttl: 180,
+        // ttl: 180,
       }),
       resave: true,
       saveUninitialized: false,

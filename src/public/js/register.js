@@ -17,7 +17,7 @@ form.addEventListener("submit", async (e) => {
   });
 
   let result = await response.json();
-  console.log(result);
+  console.log(result)
 
   if (result.status === "success") {
     Swal.fire({
