@@ -72,7 +72,7 @@ router.get(
       : (req.user.role = "user");
 
     req.user = {
-      first_name: req.user.first_name,
+      name: req.user.first_name,
       last_name: req.user.last_name,
       age: req.user.age,
       email: req.user.email,

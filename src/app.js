@@ -6,7 +6,7 @@ import cookieParser from "cookie-parser";
 
 import database from "./db.js";
 import __dirname from "./utils.js";
-import { multiply } from "./views/helpers.js";
+import { multiply, compare } from "./views/helpers.js";
 import socket from "./socket.js";
 
 import productsRouter from "./routes/products.router.js";
@@ -37,6 +37,7 @@ const env = async () => {
     handlebars.engine({
       helpers: {
         multiply: multiply,
+        compare: compare
       },
       defaultLayout: "main",
     })

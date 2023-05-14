@@ -5,7 +5,7 @@ const addToCartForms = document.querySelectorAll('[id^="addToCartForm-"]');
 const goToCartBtn = document.getElementById("goToCartBtn");
 const logoutBtn = document.getElementById("logoutButton");
 
-const thumbnails = document.getElementById("thumbnails").files;
+const thumbnails = document.getElementById("thumbnails")?.files;
 
 const nextLink = document.getElementById("nextLink");
 const prevLink = document.getElementById("prevLink");
@@ -25,7 +25,7 @@ const prevUrl = "/home?" + searchParams.toString();
 nextLink?.setAttribute("href", nextUrl);
 prevLink?.setAttribute("href", prevUrl);
 
-addProductForm.addEventListener("submit", (e) => {
+addProductForm?.addEventListener("submit", (e) => {
   e.preventDefault();
   const formData = new FormData(addProductForm);
   for (let i = 0; i < thumbnails.length; i++) {
@@ -38,7 +38,7 @@ addProductForm.addEventListener("submit", (e) => {
   });
 });
 
-deleteProductForm.addEventListener("submit", (e) => {
+deleteProductForm?.addEventListener("submit", (e) => {
   e.preventDefault();
   const productId = document.getElementById("pid").value;
   fetch(`/api/products/${productId}`, {
@@ -49,10 +49,10 @@ deleteProductForm.addEventListener("submit", (e) => {
   });
 });
 
-addToCartForms.forEach((form) => {
+addToCartForms?.forEach((form) => {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const cartId = form.querySelector("#cid").value;
+    const cartId = document.querySelector("#userCartId").textContent;
     const productId = form.getAttribute("id").split("-")[1];
     const prodTitle = form.closest("div").querySelector("h5").textContent;
 
@@ -77,7 +77,7 @@ addToCartForms.forEach((form) => {
   });
 });
 
-createCartForm.addEventListener("submit", (e) => {
+createCartForm?.addEventListener("submit", (e) => {
   e.preventDefault();
   fetch(`/api/carts`, {
     method: "POST",
@@ -104,7 +104,7 @@ createCartForm.addEventListener("submit", (e) => {
     .catch((error) => console.log(error));
 });
 
-goToCartBtn.addEventListener("click", () => {
+goToCartBtn?.addEventListener("click", () => {
   const cid = document.getElementById("cid").value;
   window.location.href = `/cart/${cid}`;
 });
