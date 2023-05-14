@@ -1,0 +1,323 @@
+<div id="app" class="p-4 bg-slate-800/95">
+  <h1
+    class="flex p-4 mb-4 justify-center font-mono text-2xl text-slate-200"
+  >Welcome to Ephemer Gaming backend testing!</h1>
+
+  <div class="grid grid-cols-2">
+    <form
+      action="/api/products"
+      id="addProductForm"
+      method="post"
+      enctype="multipart/form-data"
+      class="w-auto m-2 bg-gray-700/50 border-gray-70 px-8 py-4 rounded-xl"
+    >
+      <h3
+        class="flex p-2 justify-center font-mono text-lg text-slate-200"
+      >Upload a new product:</h3>
+      <div class="relative z-0 w-full mb-6 group">
+        <input
+          type="text"
+          name="title"
+          id="title"
+          class="block py-2.5 px-0 w-full text-sm text-slate-200 bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-blue-700 peer"
+          placeholder=" "
+          required
+        />
+        <label
+          for="title"
+          class="peer-focus:font-medium absolute text-sm text-slate-200 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-6"
+        >Title</label>
+      </div>
+      <div class="relative z-0 w-full mb-6 group">
+        <input
+          class="block py-2.5 px-0 w-full text-sm text-slate-200 bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-blue-500 peer"
+          placeholder=" "
+          type="text"
+          name="description"
+          id="description"
+          required
+        />
+        <label
+          class="peer-focus:font-medium absolute text-sm text-slate-200 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-6"
+          for="description"
+        >Description</label>
+      </div>
+      <div class="relative z-0 w-full mb-6 group">
+        <input
+          class="block py-2.5 px-0 w-full text-sm text-slate-200 bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-blue-500 peer"
+          placeholder=" "
+          type="text"
+          name="code"
+          id="code"
+          required
+        />
+        <label
+          class="peer-focus:font-medium absolute text-sm text-slate-200 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-6"
+          for="code"
+        >Code</label>
+      </div>
+      <div class="relative z-0 w-full mb-6 group">
+        <input
+          class="block py-2.5 px-0 w-full text-sm text-slate-200 bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-blue-500 peer"
+          placeholder=" "
+          type="number"
+          name="price"
+          id="price"
+          required
+        />
+        <label
+          class="peer-focus:font-medium absolute text-sm text-slate-200 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-6"
+          for="price"
+        >Price</label>
+      </div>
+      <div class="relative z-0 w-full mb-6 group">
+        <input
+          class="block py-2.5 px-0 w-full text-sm text-slate-200 bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-blue-500 peer"
+          placeholder=" "
+          type="number"
+          name="stock"
+          id="stock"
+          required
+        />
+        <label
+          class="peer-focus:font-medium absolute text-sm text-slate-200 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-6"
+          for="stock"
+        >Stock</label>
+      </div>
+      <div class="relative z-0 w-full mb-6 group">
+        <input
+          class="block py-2.5 px-0 w-full text-sm text-slate-200 bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-blue-500 peer"
+          placeholder=" "
+          type="text"
+          name="category"
+          id="category"
+          required
+        />
+        <label
+          class="peer-focus:font-medium absolute text-sm text-slate-200 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-6"
+          for="category"
+        >Category</label>
+      </div>
+      <div class="relative z-0 w-full mb-6 group -mt-1">
+        <label
+          class="block mb-2 text-sm text-slate-200"
+          for="thumbnails"
+        >Product Thumbnails</label>
+        <input
+          class="block w-full text-sm border rounded-lg cursor-pointer text-gray-400 focus:outline-none bg-gray-700 border-gray-600"
+          type="file"
+          id="thumbnails"
+          name="thumbnails"
+          multiple
+        />
+
+      </div>
+      <button
+        type="submit"
+        class="text-slate-100 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2"
+      >Submit! 🖥️</button>
+      <button
+        type="reset"
+        class="text-slate-100 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center ml-2"
+      >Reset</button>
+    </form>
+    <div class="flex flex-col justify-between">
+      <form
+        action=""
+        id="deleteProductForm"
+        class="w-auto m-2 bg-gray-700/50 px-8 py-4 rounded-xl"
+      >
+        <h3
+          class="flex p-2 justify-center font-mono text-lg text-slate-200"
+        >Delete a product:</h3>
+        <div class="relative z-0 w-full mb-6 group">
+          <input
+            type="text"
+            name="pid"
+            id="pid"
+            class="block py-2.5 px-0 w-full text-sm text-slate-200 bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-blue-500 peer"
+            placeholder=" "
+            required
+          />
+          <label
+            for="pid"
+            class="peer-focus:font-medium absolute text-sm text-slate-200 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-6"
+          >Product ID</label>
+        </div>
+        <div class="flex justify-end">
+          <button
+            type="submit"
+            class="text-slate-100 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2"
+          >Delete! 🗑️</button>
+          <button
+            type="reset"
+            class="text-slate-100 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center ml-2 mr-4"
+          >Reset</button>
+        </div>
+      </form>
+
+      <div class="w-auto mx-2">
+        <br /><hr /><br />
+      </div>
+
+      <form
+        id="createCartForm"
+        method="post"
+        class="flex justify-around w-auto m-2 bg-gray-700/50 px-8 py-4 rounded-xl"
+      >
+        <h3
+          class="flex p-2 justify-center font-mono text-lg text-slate-200"
+        >Create an empty cart:</h3>
+        <button
+          type="submit"
+          class="text-slate-100 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2"
+        >Create! 🛒</button>
+      </form>
+      <div
+        class="flex flex-col justify-around w-auto m-2 bg-gray-700/50 px-8 py-4 rounded-xl"
+      >
+        <h3
+          class="flex p-2 justify-center font-mono text-lg text-slate-200"
+        >Cart details:</h3>
+        <div class="flex justify-around">
+          <div class="flex relative z-0 group w-9/12">
+            <input
+              class="w-full block py-2.5 px-0 text-sm text-slate-200 bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-blue-500 peer"
+              placeholder=" "
+              type="text"
+              name="cid"
+              id="cid"
+              required
+            />
+            <label
+              class="peer-focus:font-medium absolute text-sm text-slate-200 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-6"
+              for="cid"
+            >Cart ID</label>
+          </div>
+          <button
+            id="goToCartBtn"
+            class="text-slate-100 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
+          >Go! 🛒</button>
+        </div>
+      </div>
+      <div class="w-auto mx-2">
+        <br /><hr /><br />
+      </div>
+      <div
+        class="flex justify-around w-auto m-2 bg-gray-700/50 px-8 py-8 rounded-xl"
+      >
+        <h3
+          class="flex p-2 justify-center font-mono text-lg text-slate-200"
+        >Chat with us:</h3>
+        <a href="/chat">
+          <button
+            class="text-slate-100 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2"
+          >Go to chat section! 💬</button>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-auto mx-2">
+    <br /><hr /><br />
+  </div>
+
+  <h1
+    class="flex p-2 justify-center font-mono text-2xl text-slate-200"
+  >Socket.io & Products from MongoDB using Mongoose + Paginate</h1>
+  <h2 class="flex p-2 justify-center font-mono text-xl text-slate-200">Check our
+    products:</h2>
+  <div id="productsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+    {{#each products}}
+      <div
+        class="max-w-sm border rounded-lg shadow bg-gray-800 border-gray-700 m-1"
+        id="{{this._id}}"
+      >
+        <div class="flex flex-wrap w-full p-2 justify-evenly">
+          {{#each this.thumbnails}}
+            <img
+              src="{{this}}"
+              alt="product image"
+              class="aspect-square max-h-40 m-2 ring-4 rounded-xl"
+            />
+          {{/each}}
+        </div>
+
+        <div class="px-5 pb-5">
+          <h5
+            class="text-2xl font-semibold tracking-tight text-white"
+          >{{this.title}}</h5>
+          <p
+            class="text-xs font-semibold tracking-tight text-white"
+          >{{this.description}}</p>
+          <form id="addToCartForm-{{this._id}}">
+            <div class="flex items-center justify-between">
+              <p class="text-3xl font-bold text-white pt-2">${{this.price}}</p>
+              <button
+                type="submit"
+                class="text-slate-100 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center -mb-3"
+              >Add to cart 🛒</button>
+            </div>
+            <div class="relative z-0 w-full mt-4 group">
+              <input
+                class="block py-2.5 px-0 w-full text-sm text-slate-200 bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-blue-500 peer"
+                placeholder=" "
+                type="text"
+                name="cid"
+                id="cid"
+                required
+              />
+              <label
+                class="peer-focus:font-medium absolute text-sm text-slate-200 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-90 peer-focus:-translate-y-6"
+                for="cid"
+              >Cart ID</label>
+            </div>
+          </form>
+          <a href="product/{{this._id}}">
+            <button
+              class="text-slate-100 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mt-2"
+            >Product Details</button>
+          </a>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+  <div class="flex flex-row justify-center m-4">
+    {{#if hasPrevPage}}
+      <a href="/realTimeProducts?page={{prevPage}}"><button
+          class="text-slate-100 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center ml-2"
+        >Previous</button></a>
+    {{/if}}
+
+    <p
+      class="text-slate-100 bg-gray-500/50 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-6 py-2.5 text-center mx-4"
+    >{{page}}</p>
+
+    {{#if hasNextPage}}
+      <a href="/realTimeProducts?page={{nextPage}}"><button
+          class="text-slate-100 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-8 py-2.5 text-center ml-2"
+        >Next</button></a>
+    {{/if}}
+  </div>
+  <div class="w-auto mx-2">
+    <br /><hr /><br />
+  </div>
+  <div
+    class="flex justify-around w-auto m-2 bg-gray-700/50 px-8 py-8 rounded-xl"
+  >
+    <h3 class="flex p-2 justify-center font-mono text-lg text-slate-200">Go back
+      to the homepage:</h3>
+    <a href="/">
+      <button
+        class="text-slate-100 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2"
+      >Take me home! 🏚️</button>
+    </a>
+  </div>
+</div>
+<script
+  src="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js
+"
+></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realTimeProducts.js"></script>
