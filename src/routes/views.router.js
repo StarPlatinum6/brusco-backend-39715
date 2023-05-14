@@ -36,7 +36,6 @@ router.get(
   isProtected,
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-    console.log(req.user)
     res.render("profile", {
       user: req.user,
       style: "styles.css",
@@ -72,7 +71,6 @@ router.get(
       available,
       sort
     );
-    console.log(req.user)
     res.render("home", {
       user: req.user,
       products,

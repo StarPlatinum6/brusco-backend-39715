@@ -28,7 +28,7 @@ router.get("/failRegister", (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, rememberMe } = req.body;
   const user = await userManager.getUser({ email });
 
   if (!user)
@@ -50,7 +50,11 @@ router.post("/login", async (req, res) => {
     cart: user.cart,
   };
 
-  const token = jwt.sign(jwtUser, config.JWT_SECRET, { expiresIn: "3h" });
+  const expireTime = rememberMe ? "7d" : "3h";
+
+  const token = jwt.sign(jwtUser, config.JWT_SECRET, {
+    expiresIn: `${expireTime}`,
+  });
 
   return res
     .cookie("jwtCookie", token, { httpOnly: true })

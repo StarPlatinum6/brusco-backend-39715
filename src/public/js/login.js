@@ -1,5 +1,6 @@
 const form = document.getElementById("loginForm");
 const ghBtn = document.getElementById("ghBtn");
+const rememberMe = document.getElementById("rememberMe");
 
 ghBtn.addEventListener("click", (e) => {
   if (e.target.matches("#ghBtn")) {
@@ -26,6 +27,8 @@ form.addEventListener("submit", async (e) => {
   const obj = {};
 
   data.forEach((value, key) => (obj[key] = value));
+
+  obj["rememberMe"] = rememberMe.checked
 
   let response = await fetch("/api/sessions/login", {
     method: "POST",
