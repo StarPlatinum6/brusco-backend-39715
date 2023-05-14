@@ -4,28 +4,9 @@ import socket from "../../socket.js";
 export default class ProductManager {
   constructor() {}
 
-  getProducts = async (page, limit, category, available, sort) => {
+  getProducts = async () => {
     try {
-      let queries = {};
-      category ? (queries.category = category.toUpperCase()) : null;
-      available ? (queries.status = available.toLowerCase()) : null;
-      parseInt(sort) === 1 ? (sort = { price: 1 }) : null;
-      parseInt(sort) === -1 ? (sort = { price: -1 }) : null;
-
-      const products = await productModel.paginate(queries, {
-        limit,
-        page,
-        lean: true,
-        sort,
-      });
-
-      products.hasPrevPage
-        ? (products.prevLink = `/?page=${products.prevPage}`)
-        : (products.prevLink = null);
-      products.hasNextPage
-        ? (products.nextLink = `/?page=${products.nextPage}`)
-        : (products.nextLink = null);
-
+      const products = await productModel.find().lean();
       return products;
     } catch (error) {
       console.log(error);
@@ -34,9 +15,7 @@ export default class ProductManager {
 
   getProductById = async (productId) => {
     try {
-      const filteredProduct = await productModel
-        .findOne({ _id: productId })
-        .lean();
+      const filteredProduct = await productModel.find({ _id: productId });
       return filteredProduct;
     } catch (error) {
       console.log(error);
@@ -52,7 +31,7 @@ export default class ProductManager {
       if (product?.thumbnails[0]?.hasOwnProperty("fieldname")) {
         const imgPaths = product.thumbnails.map(
           (prod) => `images/${prod.filename}`
-        );
+        ); // ! Revisar esto por el tema del __dirname y las rutas, consultar como sirve en dbs?
         product.thumbnails = imgPaths;
       }
 

@@ -1,55 +1,46 @@
 import express from "express";
 import handlebars from "express-handlebars";
-import morgan from "morgan";
-import initializePassport from "./auth/passport.js";
-import cookieParser from "cookie-parser";
-
-import database from "./db.js";
-import __dirname from "./utils.js";
-import { multiply, compare } from "./views/helpers.js";
 import socket from "./socket.js";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 
 import productsRouter from "./routes/products.router.js";
 import cartsRouter from "./routes/carts.router.js";
-import messagesRouter from "./routes/messages.router.js";
+import messagesRouter from "./routes/messages.router.js"
 import viewsRouter from "./routes/views.router.js";
-import sessionsRouter from "./routes/sessions.router.js";
+
+import __dirname from "./utils.js";
 
 const env = async () => {
+  dotenv.config();
+
+  const PORT = process.env.PORT || 8080;
+  const DB_NAME = process.env.DB_NAME;
+  const DB_USERNAME = process.env.DB_USERNAME;
+  const DB_PASSWORD = process.env.DB_PASSWORD;
+
   const app = express();
 
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
   app.use(express.static(`${__dirname}/public`));
-  app.use(morgan("dev"));
-
-  app.use(cookieParser());
-  initializePassport();
 
   app.use("/api/products", productsRouter);
   app.use("/api/carts", cartsRouter);
   app.use("/api/messages", messagesRouter);
-  app.use("/api/sessions", sessionsRouter);
   app.use("/", viewsRouter);
 
-  app.engine(
-    "handlebars",
-    handlebars.engine({
-      helpers: {
-        multiply: multiply,
-        compare: compare
-      },
-      defaultLayout: "main",
-    })
-  );
+  app.engine("handlebars", handlebars.engine());
   app.set("view engine", "handlebars");
   app.set("views", __dirname + "/views");
 
-  const httpServer = app.listen(8080, () =>
+  const httpServer = app.listen(`${PORT}`, () =>
     console.log("Server up in port 8080!")
   );
 
-  database.connect();
+  mongoose.connect(
+    `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@${DB_NAME}.lihzhkv.mongodb.net/?retryWrites=true&w=majority`
+  );
 
   socket.connect(httpServer);
 };

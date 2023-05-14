@@ -1,0 +1,284 @@
+{
+	"info": {
+		"_postman_id": "f2a322a3-d42c-423a-b489-82bbfb9ed61b",
+		"name": "integradora-1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26212110"
+	},
+	"item": [
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "get-products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/products",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-products-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/products/6427066befad4dfa738e3752",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"6427066befad4dfa738e3752"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-products-limit",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/products?limit=2",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\t{\r\n\t\t\"status\": true,\r\n\t\t\"title\": \"Nvidia RTX 2060\",\r\n\t\t\"description\": \"Mid-end Nvidia Gaming GPU\",\r\n\t\t\"code\": \"RTX208060\",\r\n\t\t\"price\": 400,\r\n\t\t\"stock\": 27,\r\n\t\t\"category\": \"GPU\",\r\n\t\t\"thumbnails\": [\r\n\t\t\t\"http://localhost:8080/images/image3.jpg\",\r\n\t\t\t\"http://localhost:8080/images/image4.jpg\"\r\n\t\t]\r\n\t}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{lh8080}}/api/products",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\t{\r\n\t\t\"status\": true,\r\n\t\t\"title\": \"Papanata\",\r\n\t\t\"description\": \"Quien te conoce\",\r\n\t\t\"code\": \"UUUUWU\",\r\n\t\t\"price\": 454560,\r\n\t\t\"stock\": 12,\r\n\t\t\"category\": \"CPU\",\r\n\t\t\"thumbnails\": [\r\n\t\t\t\"http://localhost:8080/images/image3.jpg\",\r\n\t\t\t\"http://localhost:8080/images/image4.jpg\"\r\n\t\t]\r\n\t}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{lh8080}}/api/products/642c3346352a82aeb9802dfe",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"642c3346352a82aeb9802dfe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/products/642c34e04ab1ca3da469266f",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"products",
+								"642c34e04ab1ca3da469266f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "carts",
+			"item": [
+				{
+					"name": "create-cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{lh8080}}/api/carts",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"carts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-to-cart",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quantity\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{lh8080}}/api/carts/642c4d51e45a7604e32bc7fd/product/64271e05d72fb16aecc52857",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"642c4d51e45a7604e32bc7fd",
+								"product",
+								"64271e05d72fb16aecc52857"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-carts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/carts/",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-cart-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/carts/6427155c5aabc5949c14afc8",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"carts",
+								"6427155c5aabc5949c14afc8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "messages",
+			"item": [
+				{
+					"name": "get-messages",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/products",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

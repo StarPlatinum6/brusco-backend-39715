@@ -3,11 +3,11 @@ import mongoose from "mongoose";
 const cartsCollection = "carts";
 
 const cartSchema = new mongoose.Schema({
+  // products: Array
   products: [
     {
       productId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "products",
+        type: String,
         required: true,
       },
       quantity: {
@@ -18,10 +18,4 @@ const cartSchema = new mongoose.Schema({
   ],
 });
 
-cartSchema.pre("findOne", function () {
-  this.populate("products.productId");
-});
-
-const cartModel = mongoose.model(cartsCollection, cartSchema);
-
-export default cartModel;
+export const cartModel = mongoose.model(cartsCollection, cartSchema);

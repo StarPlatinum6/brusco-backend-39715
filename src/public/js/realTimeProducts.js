@@ -5,9 +5,6 @@ const productList = document.getElementById("productsList");
 const deleteProductForm = document.getElementById("deleteProductForm");
 const addProductForm = document.getElementById("addProductForm");
 const createCartForm = document.getElementById("createCartForm");
-const addToCartForms = document.querySelectorAll('[id^="addToCartForm-"]');
-const goToCartBtn = document.getElementById("goToCartBtn");
-
 const thumbnails = document.getElementById("thumbnails").files;
 
 addProductForm.addEventListener("submit", (e) => {
@@ -34,34 +31,6 @@ deleteProductForm.addEventListener("submit", (e) => {
   });
 });
 
-addToCartForms.forEach((form) => {
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const cartId = form.querySelector("#cid").value;
-    const productId = form.getAttribute("id").split("-")[1];
-    const prodTitle = form.closest("div").querySelector("h5").textContent;
-
-    fetch(`/api/carts/${cartId}/product/${productId}`, {
-      method: "POST",
-    })
-      .then(() => {
-        Swal.fire({
-          title: "Product added to cart!",
-          text: `You added 1 unit of ${prodTitle}`,
-          toast: true,
-          position: "top-right",
-          icon: "success",
-          customClass: {
-            popup: "!text-slate-200 !bg-slate-800/90 !rounded-3xl",
-            confirmButton: "!bg-blue-600 !px-5",
-            timerProgressBar: "!m-auto !h-1 !my-2 !bg-blue-600/90 !rounded-3xl",
-          },
-        });
-      })
-      .catch((error) => console.log(error));
-  });
-});
-
 createCartForm.addEventListener("submit", (e) => {
   e.preventDefault();
   fetch(`/api/carts`, {
@@ -85,11 +54,6 @@ createCartForm.addEventListener("submit", (e) => {
       });
     })
     .catch((error) => console.log(error));
-});
-
-goToCartBtn.addEventListener("click", () => {
-  const cid = document.getElementById("cid").value;
-  window.location.href = `/cart/${cid}`;
 });
 
 socket.on("product_add", (product) => {

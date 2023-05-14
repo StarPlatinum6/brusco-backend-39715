@@ -1,11 +1,20 @@
-import cartModel from "../../dao/models/carts.model.js";
+import { cartModel } from "../../dao/models/carts.model.js";
 
 export default class CartManager {
   constructor() {}
 
+  getCarts = async () => {
+    try {
+      const carts = await cartModel.find();
+      return carts;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   getCartById = async (cartId) => {
     try {
-      const filteredCart = await cartModel.findOne({ _id: cartId }).lean();
+      const filteredCart = await cartModel.find({ _id: cartId });
       return filteredCart;
     } catch (error) {
       console.log(error);
@@ -27,74 +36,27 @@ export default class CartManager {
     try {
       let cartFound = await cartModel.findOne({ _id: cartId });
 
-      const productIdInCart = cartFound.products.findIndex((product) => {
-        return product.productId._id.toString() === productId;
-      });
+      const productIdInCart = cartFound.products.findIndex(
+        (product) => product.productId === productId
+      );
 
       if (productIdInCart !== -1) {
-        await cartModel.updateOne(
-          { _id: cartId, "products.productId": productId },
+        const updatedCart = await cartModel.updateOne(
+          { _id: cartId, products: { $elemMatch: { productId: productId } } },
           { $inc: { "products.$.quantity": 1 } }
         );
-        const updatedCartWithProduct = await cartModel.findOne({ _id: cartId });
-        return updatedCartWithProduct;
+        return updatedCart;
       } else {
         const productAddToCart = {
           productId: productId,
           quantity: quantity ? quantity : 1,
         };
-        await cartModel.updateOne(
+        const updatedCart = await cartModel.updateOne(
           { _id: cartId },
           { $push: { products: productAddToCart } }
         );
-        const updatedCartWithProduct = await cartModel.findOne({ _id: cartId });
-        return updatedCartWithProduct;
+        return updatedCart;
       }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  updateCart = async (cartId, products) => {
-    try {
-      const updatedCart = await cartModel.updateOne(
-        { _id: cartId },
-        { products: products }
-      );
-      return updatedCart;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  updateProductFromCart = async (cartId, productId, quantity) => {
-    try {
-      const updatedCartProduct = await cartModel.updateOne(
-        { _id: cartId, "products.productId": productId },
-        { "products.$.quantity": quantity }
-      );
-      return updatedCartProduct;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  deleteCart = async (cartId) => {
-    try {
-      const deletedCart = await cartModel.deleteOne({ _id: cartId });
-      return deletedCart;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  deleteProductFromCart = async (cartId, productId) => {
-    try {
-      const updatedCart = await cartModel.updateOne(
-        { _id: cartId },
-        { $pull: { products: { productId: productId } } }
-      );
-      return updatedCart;
     } catch (error) {
       console.log(error);
     }

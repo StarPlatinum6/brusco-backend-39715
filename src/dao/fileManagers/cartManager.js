@@ -35,9 +35,7 @@ export default class CartManager {
   getCartById = async (cartId) => {
     try {
       const carts = await this.getCarts();
-      const filteredCart = await carts.filter(
-        (cart) => cart.id === parseInt(cartId)
-      );
+      const filteredCart = await carts.filter((cart) => cart.id === parseInt(cartId));
       return filteredCart;
     } catch (error) {
       console.log(error);
@@ -73,23 +71,16 @@ export default class CartManager {
 
       const carts = await this.getCarts();
 
-      const cartIdFound = carts.findIndex(
-        (cart) => cart.id === parseInt(cartId)
-      );
-      const productIdFound = carts[cartIdFound].products.findIndex(
-        (prod) => prod.id === parseInt(productId)
-      );
+      const cartIdFound = carts.findIndex((cart) => cart.id === parseInt(cartId));
+      const productIdFound = carts[cartIdFound].products.findIndex((prod) => prod.id === parseInt(productId))
 
       if (cartIdFound !== -1) {
-        if (productIdFound !== -1) {
+        if ( productIdFound !== -1 ) {
           carts[cartIdFound].products[productIdFound].quantity++;
         } else {
           carts[cartIdFound].products.push(productToAdd);
         }
-        await fs.promises.writeFile(
-          this.path,
-          JSON.stringify(carts, null, "\t")
-        );
+        await fs.promises.writeFile(this.path,JSON.stringify(carts, null, "\t"));
       } else {
         throw new Error(`Add: Cart with ID ${cartId} was not found`);
       }
