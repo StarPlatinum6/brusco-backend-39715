@@ -1,11 +1,11 @@
 import fs from "fs";
 import { Blob } from "buffer";
-import socket from "../../socket.js";
+import socket from "./socket.js";
 
 export default class ProductManager {
   constructor() {
     this.dir = "./files";
-    this.path = "./src/files/products.json";
+    this.path = "./files/products.json";
   }
 
   getProducts = async (logProducts) => {
