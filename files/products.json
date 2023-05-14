@@ -1,0 +1,20 @@
+[
+	{
+		"title": "Test product 2",
+		"description": "this is a test product 2",
+		"price": 500,
+		"thumbnail": "No image",
+		"code": "BBC456",
+		"stock": 150,
+		"id": 1
+	},
+	{
+		"title": "Test product 3",
+		"description": "this is a test product 3",
+		"price": 1500,
+		"thumbnail": "No image",
+		"code": "CBAC789",
+		"stock": 85,
+		"id": 2
+	}
+]
