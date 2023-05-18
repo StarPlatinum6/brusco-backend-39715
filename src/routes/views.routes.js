@@ -1,168 +1,69 @@
 import { Router } from "express";
 import passport from "passport";
 
-// import ProductManager from "../dao/fileManagers/productManager.js";
-import ProductManager from "../dao/dbManagers/productManager.js";
-
-// import MessageManager from "../dao/fileManagers/messageManager.js";
-import MessageManager from "../dao/dbManagers/messageManager.js";
-
-import CartManager from "../dao/dbManagers/cartManager.js";
-
 import { checkLogged, isProtected } from "../middlewares/auth.js";
+import {
+  cartView,
+  chatView,
+  homeView,
+  loginView,
+  productView,
+  profileView,
+  realTimeProductsView,
+  registerView,
+  restorePasswordView,
+} from "../controllers/views.controller.js";
 
-const productManager = new ProductManager();
-const messageManager = new MessageManager();
-const cartManager = new CartManager();
+const viewsRouter = Router();
 
-const router = Router();
+viewsRouter.get("/", checkLogged, loginView);
 
-router.get("/", checkLogged, (req, res) => {
-  res.render("login", {
-    style: "styles.css",
-    title: "Ephemer - Login",
-  });
-});
+viewsRouter.get("/register", checkLogged, registerView);
 
-router.get("/register", checkLogged, (req, res) => {
-  res.render("register", {
-    style: "styles.css",
-    title: "Ephemer - Register",
-  });
-});
-
-router.get(
+viewsRouter.get(
   "/profile",
   isProtected,
   passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    res.render("profile", {
-      user: req.user,
-      style: "styles.css",
-      title: "Ephemer - Your Profile",
-    });
-  }
+  profileView
 );
 
-router.get("/restore", (req, res) => {
-  res.render("restore", {
-    user: req.user,
-    style: "styles.css",
-    title: "Ephemer - Password Restore",
-  });
-});
+viewsRouter.get("/restore", restorePasswordView);
 
-router.get(
+viewsRouter.get(
   "/home",
   isProtected,
   passport.authenticate("jwt", { session: false }),
-  async (req, res) => {
-    const { limit = 10, page = 1, category, available, sort } = req.query;
-    const {
-      docs: products,
-      hasPrevPage,
-      hasNextPage,
-      nextPage,
-      prevPage,
-    } = await productManager.getProducts(
-      page,
-      limit,
-      category,
-      available,
-      sort
-    );
-    res.render("home", {
-      user: req.user,
-      products,
-      page,
-      hasPrevPage,
-      hasNextPage,
-      prevPage,
-      nextPage,
-      style: "styles.css",
-      title: "Ephemer - Products",
-    });
-  }
+  homeView
 );
 
-router.get(
+viewsRouter.get(
   "/product/:pid",
   isProtected,
   passport.authenticate("jwt", { session: false }),
-  async (req, res) => {
-    const { pid } = req.params;
-    const product = await productManager.getProductById(pid);
-    res.render("product", {
-      cartId: req.user.cart,
-      product,
-      style: "styles.css",
-      title: "Ephemer - Product Detail",
-    });
-  }
+  productView
 );
 
-router.get(
+viewsRouter.get(
   "/cart/:cid",
   isProtected,
   passport.authenticate("jwt", { session: false }),
-  async (req, res) => {
-    const { cid } = req.params;
-    const cart = await cartManager.getCartById(cid);
-    res.render("cart", {
-      cart,
-      style: "styles.css",
-      title: "Ephemer - Cart Detail",
-    });
-  }
+  cartView
 );
 
 //////////////////////////////////////////////////////
 
-router.get(
+viewsRouter.get(
   "/realtimeproducts",
   isProtected,
   passport.authenticate("jwt", { session: false }),
-  async (req, res) => {
-    const { limit = 10, page = 1, category, available, sort } = req.query;
-    const {
-      docs: products,
-      hasPrevPage,
-      hasNextPage,
-      nextPage,
-      prevPage,
-    } = await productManager.getProducts(
-      page,
-      limit,
-      category,
-      available,
-      sort
-    );
-
-    res.render("realTimeProducts", {
-      products,
-      page,
-      hasPrevPage,
-      hasNextPage,
-      prevPage,
-      nextPage,
-      style: "styles.css",
-      title: "Ephemer - Real Time Products",
-    });
-  }
+  realTimeProductsView
 );
 
-router.get(
+viewsRouter.get(
   "/chat",
   isProtected,
   passport.authenticate("jwt", { session: false }),
-  async (req, res) => {
-    const messages = await messageManager.getMessages();
-    res.render("chat", {
-      messages,
-      style: "styles.css",
-      title: "Ephemer - Chat",
-    });
-  }
+  chatView
 );
 
-export default router;
+export default viewsRouter;

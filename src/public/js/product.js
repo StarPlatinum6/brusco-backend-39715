@@ -8,7 +8,7 @@ addToCartForm.addEventListener("submit", (e) => {
     .closest("div")
     .querySelector("h5").textContent;
 
-  fetch(`/api/carts/${cartId}/product/${productId}`, {
+  fetch(`/api/v1/carts/${cartId}/product/${productId}`, {
     method: "POST",
   })
     .then(() => {

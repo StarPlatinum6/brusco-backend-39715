@@ -11,7 +11,7 @@ removeFromCartForms.forEach((form) => {
       .closest(".max-w-4xl")
       .querySelector("h5").textContent;
 
-    fetch(`/api/carts/${cartId}/product/${productId}`, {
+    fetch(`/api/v1/carts/${cartId}/product/${productId}`, {
       method: "DELETE",
     })
       .then(() => {
