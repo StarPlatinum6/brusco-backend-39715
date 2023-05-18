@@ -9,12 +9,12 @@ import sessionsRouter from "./sessions.routes.js";
 const routerAPI = (app) => {
   const router = Router();
   app.use("/api/v1", router);
-
-  app.use("/api/products", productsRouter);
-  app.use("/api/carts", cartsRouter);
-  app.use("/api/messages", messagesRouter);
-  app.use("/api/sessions", sessionsRouter);
   app.use("/", viewsRouter);
+
+  router.use("/products", productsRouter);
+  router.use("/carts", cartsRouter);
+  router.use("/messages", messagesRouter);
+  router.use("/sessions", sessionsRouter);
 };
 
 export default routerAPI;
