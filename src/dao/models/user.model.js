@@ -13,6 +13,7 @@ const userSchema = new mongoose.Schema({
   password: String,
   role: {
     type: String,
+    enum: ["admin", "user"],
     default: "user",
   },
   cart: {
@@ -20,7 +21,6 @@ const userSchema = new mongoose.Schema({
     ref: "carts",
   },
 });
-
 
 const userModel = mongoose.model(userCollection, userSchema);
 
