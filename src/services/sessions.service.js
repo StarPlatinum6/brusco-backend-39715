@@ -24,7 +24,6 @@ class UserService {
   }
 
   generateJwtToken(user, rememberMe) {
-    console.log(user)
     try {
       const jwtUser = {
         name: `${user.first_name} ${user.last_name}`,

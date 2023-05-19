@@ -1,7 +1,8 @@
-// import ProductManager from "../dao/fileManagers/ProductManager.js";
-import ProductManager from "../dao/dbManagers/productManager.js";
+// // import ProductManager from "../dao/fileManagers/ProductManager.js";
+// import ProductManager from "../dao/dbManagers/productManager.js";
+// const productManager = new ProductManager();
 
-const productManager = new ProductManager();
+import { productsService } from "../services/products.service.js";
 
 /////////////////////////
 ///////GET METHODS///////
@@ -17,28 +18,14 @@ export const getProducts = async (req, res) => {
       sort = null,
     } = req.query;
 
-    const products = await productManager.getProducts(
-      page,
-      limit,
-      category,
-      available,
-      sort
-    );
-
-    if (!products)
-      return res.status(404).send({
-        status: "error",
-        error: `No products found`,
-      });
-
-    if (isNaN(limit)) {
+    if (isNaN(limit) || limit <= 0) {
       return res.status(400).send({
         status: "error",
         error: `Limit ${limit} is not a valid value`,
       });
     }
 
-    if (isNaN(page)) {
+    if (isNaN(page) || page <= 0) {
       return res.status(400).send({
         status: "error",
         error: `Page ${page} is not a valid value`,
@@ -52,19 +39,37 @@ export const getProducts = async (req, res) => {
       });
     }
 
+    const products = await productsService.getProducts(
+      page,
+      limit,
+      category,
+      available,
+      sort
+    );
+
+    if (!products)
+      return res.status(404).send({
+        status: "error",
+        error: `No products found`,
+      });
+
     res.status(200).send({
       status: "success",
       payload: products,
     });
   } catch (error) {
     console.log(`Cannot get products with mongoose ${error}`);
+    return res.status(500).send({
+      status: "error",
+      error: "Failed to get products",
+    });
   }
 };
 
 export const getProductById = async (req, res) => {
   try {
     const pid = req.params.pid;
-    const filteredProduct = await productManager.getProductById(pid);
+    const filteredProduct = await productsService.getProductById(pid);
 
     if (!filteredProduct || filteredProduct == 0)
       return res.status(404).send({
@@ -78,6 +83,10 @@ export const getProductById = async (req, res) => {
     });
   } catch (error) {
     console.log(`Cannot get product with mongoose ${error}`);
+    return res.status(500).send({
+      status: "error",
+      error: `Failed to get product with id ${pid}`,
+    });
   }
 };
 
@@ -87,40 +96,42 @@ export const getProductById = async (req, res) => {
 
 export const addProduct = async (req, res) => {
   try {
-    let { title, description, code, price, stock, category, thumbnails } =
-      req.body;
+    const { title, description, code, price, stock, category } = req.body;
+    let { thumbnails } = req.body;
 
     if (req.files) thumbnails = req.files;
 
     if (!req.files && !thumbnails) {
       return res.status(400).send({
         status: "error",
-        error: `Thumbnails could not be saved`,
+        error: `Failed to save thumbnails`,
       });
     }
 
-    const productObj = {
+    const addedProduct = await productsService.addProduct(
       title,
       description,
       code,
       price,
       stock,
       category,
-      thumbnails,
-    };
-
-    const addedProduct = await productManager.addProduct(productObj);
+      thumbnails
+    );
 
     if (!addedProduct) {
       return res.status(400).send({
         status: "error",
-        error: "Product couldn't be added.",
+        error: "Failed to add product",
       });
     }
 
     res.status(201).send({ status: "Success", payload: addedProduct });
   } catch (error) {
-    console.log(error);
+    console.log(`Cannot add product with mongoose ${error}`);
+    return res.status(500).send({
+      status: "error",
+      error: "Failed to add product",
+    });
   }
 };
 
@@ -140,7 +151,7 @@ export const updateProduct = async (req, res) => {
       });
     }
 
-    const updatedProduct = await productManager.updateProduct(
+    const updatedProduct = await productsService.updateProduct(
       updateId,
       updateProd
     );
@@ -151,6 +162,10 @@ export const updateProduct = async (req, res) => {
     });
   } catch (error) {
     console.log(`Cannot update product with mongoose ${error}`);
+    return res.status(500).send({
+      status: "error",
+      error: "Failed to update product",
+    });
   }
 };
 
@@ -169,12 +184,12 @@ export const deleteProduct = async (req, res) => {
       });
     }
 
-    let deletedProduct = await productManager.deleteProduct(deleteId);
+    const deletedProduct = await productsService.deleteProduct(deleteId);
 
-    if (deletedProduct.deletedCount === 0) {
+    if (!deletedProduct || deletedProduct.deletedCount === 0) {
       return res.status(404).send({
         status: "error",
-        error: `Could not delete product. No product found with ID ${deleteId} in the database`,
+        error: `Failed to delete product with ID ${deleteId}`,
       });
     }
 
@@ -184,5 +199,9 @@ export const deleteProduct = async (req, res) => {
     });
   } catch (error) {
     console.log(`Cannot delete product with mongoose ${error}`);
+    return res.status(500).send({
+      status: "error",
+      error: "Failed to delete product",
+    });
   }
 };
