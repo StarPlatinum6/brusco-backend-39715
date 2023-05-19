@@ -1,7 +1,3 @@
-// // import ProductManager from "../dao/fileManagers/ProductManager.js";
-// import ProductManager from "../dao/dbManagers/productManager.js";
-// const productManager = new ProductManager();
-
 import { productsService } from "../services/products.service.js";
 
 /////////////////////////
@@ -119,7 +115,7 @@ export const addProduct = async (req, res) => {
     );
 
     if (!addedProduct) {
-      return res.status(400).send({
+      return res.status(404).send({
         status: "error",
         error: "Failed to add product",
       });
@@ -155,6 +151,13 @@ export const updateProduct = async (req, res) => {
       updateId,
       updateProd
     );
+
+    if (!updatedProduct) {
+      return res.status(404).send({
+        status: "error",
+        error: "Failed to update product",
+      });
+    }
 
     return res.status(200).send({
       status: "success",
