@@ -1,8 +1,3 @@
-// // import CartManager from "../dao/fileManagers/cartManager.js";
-// import CartManager from "../dao/dbManagers/cartManager.js";
-
-// const cartManager = new CartManager();
-
 import { cartsService } from "../services/carts.service.js";
 
 /////////////////////////

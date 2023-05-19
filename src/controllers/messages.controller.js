@@ -1,13 +1,13 @@
-// import MessageManager from "../dao/fileManagers/messageManager.js";
-import MessageManager from "../dao/dbManagers/messageManager.js";
-
-const messageManager = new MessageManager();
+import { messagesService } from "../services/messages.service.js";
 
 export const getMessages = async (req, res) => {
   try {
-    const messages = await messageManager.getMessages();
+    const messages = await messagesService.getMessages();
     return res.send({ status: "success", payload: messages });
   } catch (error) {
-    console.log(`Failed get messages: ${error}`);
+    console.log(`Failed to get messages: ${error}`);
+    return res
+      .status(500)
+      .send({ status: "error", error: "Failed to get messages" });
   }
-  };
+};
