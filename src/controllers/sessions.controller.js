@@ -14,7 +14,9 @@ export const registerUser = async (req, res) => {
 };
 
 export const failRegister = async (req, res) => {
-  return res.send({ status: "error", message: "User already exists" });
+  return res
+    .status(409)
+    .send({ status: "error", message: "User already exists" });
 };
 
 export const loginUser = async (req, res) => {
@@ -104,7 +106,7 @@ export const restoreUserPassword = async (req, res) => {
         .send({ status: "error", error: "Failed to update password" });
     }
 
-    return res.send({
+    return res.status(204).send({
       status: "success",
       message: "Successfully updated password",
     });
