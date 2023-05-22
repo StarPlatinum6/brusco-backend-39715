@@ -1,14 +1,11 @@
-// import ProductManager from "../dao/fileManagers/ProductManager.js";
-import ProductManager from "../dao/dbManagers/productManager.js";
-
-const productManager = new ProductManager();
+import { productsRepository } from "../dao/repositories/products.repository.js";
 
 class ProductService {
   constructor() {}
 
   async getProducts(page, limit, category, available, sort) {
     try {
-      const products = await productManager.getProducts(
+      const products = await productsRepository.getProducts(
         page,
         limit,
         category,
@@ -25,7 +22,7 @@ class ProductService {
 
   async getProductById(pid) {
     try {
-      const filteredProduct = await productManager.getProductById(pid);
+      const filteredProduct = await productsRepository.getProductById(pid);
 
       return filteredProduct;
     } catch (error) {
@@ -54,7 +51,7 @@ class ProductService {
         thumbnails,
       };
 
-      const addedProduct = await productManager.addProduct(productObj);
+      const addedProduct = await productsRepository.addProduct(productObj);
 
       return addedProduct;
     } catch (error) {
@@ -65,7 +62,7 @@ class ProductService {
 
   async updateProduct(updateId, updateProd) {
     try {
-      const updatedProduct = await productManager.updateProduct(
+      const updatedProduct = await productsRepository.updateProduct(
         updateId,
         updateProd
       );
@@ -78,7 +75,7 @@ class ProductService {
 
   async deleteProduct(deleteId) {
     try {
-      const deletedProduct = await productManager.deleteProduct(deleteId);
+      const deletedProduct = await productsRepository.deleteProduct(deleteId);
       return deletedProduct;
     } catch (error) {
       console.log(`Failed to delete product with error: ${error}`);

@@ -1,14 +1,11 @@
-// import MessageManager from "../dao/fileManagers/messageManager.js";
-import MessageManager from "../dao/dbManagers/messageManager.js";
-
-const messageManager = new MessageManager();
+import { messagesRepository } from "../dao/repositories/messages.repository.js";
 
 class MessageService {
   constructor() {}
 
   async getMessages() {
     try {
-      const messages = await messageManager.getMessages();
+      const messages = await messagesRepository.getMessages();
 
       return messages || [];
     } catch (error) {

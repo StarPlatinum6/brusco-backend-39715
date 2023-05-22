@@ -2,16 +2,15 @@ import jwt from "jsonwebtoken";
 
 import config from "../config.js";
 import { createHash, isValidPassword } from "../utils.js";
-import UserManager from "../dao/dbManagers/userManager.js";
 
-const userManager = new UserManager();
+import { usersRepository } from "../dao/repositories/sessions.repository.js";
 
 class UserService {
   constructor() {}
 
   async getUser(email) {
     try {
-      const user = await userManager.getUser({ email });
+      const user = await usersRepository.getUser({ email });
       return user;
     } catch (error) {
       console.log(`Failed to get user with error: ${error}`);
@@ -50,7 +49,7 @@ class UserService {
     try {
       const hashedPassword = createHash(password);
 
-      const passwordUpdate = await userManager.updatePassword(
+      const passwordUpdate = await usersRepository.updatePassword(
         { email },
         { password: hashedPassword }
       );

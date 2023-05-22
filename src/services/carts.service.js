@@ -1,14 +1,11 @@
-// import CartManager from "../dao/fileManagers/cartManager.js";
-import CartManager from "../dao/dbManagers/cartManager.js";
-
-const cartManager = new CartManager();
+import { cartsRepository } from "../dao/repositories/carts.repository.js";
 
 class CartService {
   constructor() {}
 
   async getCartById(cid) {
     try {
-      const filteredCart = await cartManager.getCartById(cid);
+      const filteredCart = await cartsRepository.getCartById(cid);
       return filteredCart;
     } catch (error) {
       console.log(`Failed to get cart with error: ${error}`);
@@ -18,7 +15,7 @@ class CartService {
 
   async createCart() {
     try {
-      const newCart = await cartManager.createCart();
+      const newCart = await cartsRepository.createCart();
       return newCart;
     } catch (error) {
       console.log(`Failed to create cart with error: ${error}`);
@@ -28,7 +25,7 @@ class CartService {
 
   async addToCart(cid, pid, quantity) {
     try {
-      const productAddedToCart = await cartManager.addToCart(
+      const productAddedToCart = await cartsRepository.addToCart(
         cid,
         pid,
         quantity
@@ -42,7 +39,7 @@ class CartService {
 
   async updateCart(cid, products) {
     try {
-      const updatedCart = await cartManager.updateCart(cid, products);
+      const updatedCart = await cartsRepository.updateCart(cid, products);
       return updatedCart;
     } catch (error) {
       console.log(`Failed to update cart with error: ${error}`);
@@ -52,7 +49,7 @@ class CartService {
 
   async updateProductFromCart(cid, pid, quantity) {
     try {
-      const updatedProductFromCart = await cartManager.updateProductFromCart(
+      const updatedProductFromCart = await cartsRepository.updateProductFromCart(
         cid,
         pid,
         quantity
@@ -67,7 +64,7 @@ class CartService {
 
   async deleteCart(cid) {
     try {
-      const deletedCart = await cartManager.deleteCart(cid);
+      const deletedCart = await cartsRepository.deleteCart(cid);
       return deletedCart;
     } catch (error) {
       console.log(`Failed to delete cart with error: ${error}`);
@@ -77,7 +74,7 @@ class CartService {
 
   async deleteProductFromCart(cid, pid) {
     try {
-      const deletedProductFromCart = await cartManager.deleteProductFromCart(
+      const deletedProductFromCart = await cartsRepository.deleteProductFromCart(
         cid,
         pid
       );
