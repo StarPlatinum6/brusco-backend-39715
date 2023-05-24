@@ -58,7 +58,7 @@ const initializePassport = () => {
             age,
             password: createHash(password),
             role:
-              username === "adminCoder@coder.com"
+              username === `${config.ADMIN_EMAIL}`
                 ? (role = "admin")
                 : (role = "user"),
             cart: cart._id,
@@ -109,7 +109,7 @@ const initializePassport = () => {
               email: profile._json.email,
               password: "",
               role:
-                profile._json.email === "adminCoder@coder.com"
+                profile._json.email === `${config.ADMIN_EMAIL}`
                   ? (role = "admin")
                   : (role = "user"),
               cart: cart._id,
