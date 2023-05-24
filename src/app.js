@@ -13,6 +13,9 @@ import socket from "./socket.js";
 
 import routerAPI from "./routes/routes.js";
 
+import cowsay from "cowsay";
+import colors from "colors";
+
 const env = async () => {
   const app = express();
 
@@ -23,14 +26,14 @@ const env = async () => {
   app.use(cookieParser());
   initializePassport();
 
-  routerAPI(app)
+  routerAPI(app);
 
   app.engine(
     "handlebars",
     handlebars.engine({
       helpers: {
         multiply: multiply,
-        compare: compare
+        compare: compare,
       },
       defaultLayout: "main",
     })
@@ -39,7 +42,12 @@ const env = async () => {
   app.set("views", __dirname + "/views");
 
   const httpServer = app.listen(8080, () =>
-    console.log("Server up in port 8080!")
+    console.log(
+      cowsay.say({
+        text: "Server up in port 8080!",
+        e: "^^",
+      }).rainbow
+    )
   );
 
   database.connect();
