@@ -6,6 +6,7 @@ class MessageService {
   async getMessages() {
     try {
       const messages = await messagesRepository.getMessages();
+      if (!messages) throw new Error("Error: No messages found");
 
       return messages || [];
     } catch (error) {

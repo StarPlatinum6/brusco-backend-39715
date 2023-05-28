@@ -65,6 +65,14 @@ export const getProducts = async (req, res) => {
 export const getProductById = async (req, res) => {
   try {
     const pid = req.params.pid;
+
+    if (!pid) {
+      return res.status(400).send({
+        status: "error",
+        error: "Incomplete values",
+      });
+    }
+
     const filteredProduct = await productsService.getProductById(pid);
 
     if (!filteredProduct || filteredProduct == 0)

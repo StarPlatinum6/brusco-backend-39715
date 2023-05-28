@@ -12,6 +12,7 @@ class ProductService {
         available,
         sort
       );
+      if (!products) throw new Error("Couldn't find products");
 
       return products;
     } catch (error) {
@@ -23,6 +24,8 @@ class ProductService {
   async getProductById(pid) {
     try {
       const filteredProduct = await productsRepository.getProductById(pid);
+      if (!filteredProduct)
+        throw new Error(`Product with id: ${pid} does not exist`);
 
       return filteredProduct;
     } catch (error) {
@@ -52,6 +55,7 @@ class ProductService {
       };
 
       const addedProduct = await productsRepository.addProduct(productObj);
+      if (!addedProduct) throw new Error("Error adding new product");
 
       return addedProduct;
     } catch (error) {
@@ -66,6 +70,9 @@ class ProductService {
         updateId,
         updateProd
       );
+      if (!updatedProduct)
+        throw new Error(`Error updating product with id: ${updateId}`);
+
       return updatedProduct;
     } catch (error) {
       console.log(`Failed to update product with error: ${error}`);
@@ -76,6 +83,8 @@ class ProductService {
   async deleteProduct(deleteId) {
     try {
       const deletedProduct = await productsRepository.deleteProduct(deleteId);
+      if (!deletedProduct)
+        throw new Error(`Error deleting product with id: ${deleteId}`);
       return deletedProduct;
     } catch (error) {
       console.log(`Failed to delete product with error: ${error}`);

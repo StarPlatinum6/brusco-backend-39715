@@ -7,12 +7,20 @@ import { cartsService } from "../services/carts.service.js";
 export const getCartById = async (req, res) => {
   try {
     const { cid } = req.params;
+
+    if (!cid) {
+      return res.status(400).send({
+        status: "error",
+        error: "Incomplete values",
+      });
+    }
+
     const filteredCart = await cartsService.getCartById(cid);
 
     if (!filteredCart) {
       return res.status(404).send({
         status: "error",
-        error: "Failed to get to cart",
+        error: "Cart not found",
       });
     }
 

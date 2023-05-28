@@ -23,6 +23,13 @@ export const loginUser = async (req, res) => {
   try {
     const { email, password, rememberMe } = req.body;
 
+    if (!email || !password) {
+      return res.status(400).send({
+        status: "error",
+        error: "Incomplete values",
+      });
+    }
+
     const user = await userService.getUser(email);
 
     if (!user) {
@@ -89,6 +96,13 @@ export const logoutUser = (req, res) => {
 export const restoreUserPassword = async (req, res) => {
   try {
     const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).send({
+        status: "error",
+        error: "Incomplete values",
+      });
+    }
 
     const user = await userService.getUser({ email });
 

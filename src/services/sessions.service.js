@@ -11,6 +11,8 @@ class UserService {
   async getUser(email) {
     try {
       const user = await usersRepository.getUser({ email });
+      if (!user) throw new Error(`User with email ${email} does not exist`);
+
       return user;
     } catch (error) {
       console.log(`Failed to get user with error: ${error}`);
@@ -37,6 +39,7 @@ class UserService {
       const token = jwt.sign(jwtUser, config.JWT_SECRET, {
         expiresIn: expireTime,
       });
+      if (!token) throw new Error("Auth token signing failed");
 
       return token;
     } catch (error) {
@@ -48,11 +51,14 @@ class UserService {
   async updatePassword(email, password) {
     try {
       const hashedPassword = createHash(password);
+      if (!hashedPassword) throw new Error("Password hashing failed");
 
       const passwordUpdate = await usersRepository.updatePassword(
         { email },
         { password: hashedPassword }
       );
+      if (!passwordUpdate)
+        throw new Error(`Password update failed for user with email ${email}`);
 
       return passwordUpdate;
     } catch (error) {
