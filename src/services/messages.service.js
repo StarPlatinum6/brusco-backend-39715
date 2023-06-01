@@ -1,4 +1,4 @@
-import { messagesRepository } from "../dao/repositories/messages.repository.js";
+import { messagesRepository } from "../repositories/index.js";
 
 class MessageService {
   constructor() {}

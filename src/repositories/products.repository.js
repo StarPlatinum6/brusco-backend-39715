@@ -1,4 +1,4 @@
-import { productModel } from "../models/products.model.js";
+import { productModel } from "../dao/models/products.model.js";
 
 export default class ProductsRepository {
   constructor() {

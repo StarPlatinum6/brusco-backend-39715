@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import config from "../config.js";
 import { createHash, isValidPassword } from "../utils.js";
 
-import { usersRepository } from "../dao/repositories/sessions.repository.js";
+import { usersRepository } from "../repositories/index.js";
 
 class UserService {
   constructor() {}

@@ -1,4 +1,4 @@
-import { cartsRepository } from "../dao/repositories/carts.repository.js";
+import { cartsRepository } from "../repositories/index.js";
 
 class CartService {
   constructor() {}
