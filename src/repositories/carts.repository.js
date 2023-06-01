@@ -1,108 +1,82 @@
-import { cartModel } from "../dao/models/carts.model.js";
-
 export default class CartsRepository {
-  constructor() {
-    this.model = cartModel;
+  constructor(dao) {
+    this.dao = dao;
   }
 
   getCartById = async (cartId) => {
     try {
-      const filteredCart = await this.model.findOne({ _id: cartId }).lean();
+      const filteredCart = await this.dao.getCartById(cartId);
       return filteredCart;
     } catch (error) {
       console.log(error);
+      return null;
     }
   };
 
   createCart = async () => {
     try {
-      const newCart = await this.model.create({
-        products: [],
-      });
+      const newCart = await this.dao.createCart();
       return newCart;
     } catch (error) {
       console.log(error);
+      return null;
     }
   };
 
   addToCart = async (cartId, productId, quantity) => {
     try {
-      let cartFound = await this.model.findOne({ _id: cartId });
-
-      const productIdInCart = cartFound.products.findIndex((product) => {
-        return product.productId._id.toString() === productId;
-      });
-
-      if (productIdInCart !== -1) {
-        await this.model.updateOne(
-          { _id: cartId, "products.productId": productId },
-          { $inc: { "products.$.quantity": 1 } }
-        );
-        const updatedCartWithProduct = await this.model.findOne({
-          _id: cartId,
-        });
-        return updatedCartWithProduct;
-      } else {
-        const productAddToCart = {
-          productId: productId,
-          quantity: quantity ? quantity : 1,
-        };
-        await this.model.updateOne(
-          { _id: cartId },
-          { $push: { products: productAddToCart } }
-        );
-        const updatedCartWithProduct = await this.model.findOne({
-          _id: cartId,
-        });
-        return updatedCartWithProduct;
-      }
+      let result = await this.dao.addToCart(cartId, productId, quantity);
+      return result;
     } catch (error) {
       console.log(error);
+      return null;
     }
   };
 
   updateCart = async (cartId, products) => {
     try {
-      const updatedCart = await this.model.updateOne(
-        { _id: cartId },
-        { products: products }
-      );
+      const updatedCart = await this.dao.updateCart(cartId, products);
       return updatedCart;
     } catch (error) {
       console.log(error);
+      return null;
     }
   };
 
   updateProductFromCart = async (cartId, productId, quantity) => {
     try {
-      const updatedCartProduct = await this.model.updateOne(
-        { _id: cartId, "products.productId": productId },
-        { "products.$.quantity": quantity }
+      const updatedCartProduct = await this.dao.updateProductFromCart(
+        cartId,
+        productId,
+        quantity
       );
       return updatedCartProduct;
     } catch (error) {
       console.log(error);
+      return null;
     }
   };
 
   deleteCart = async (cartId) => {
     try {
-      const deletedCart = await this.model.deleteOne({ _id: cartId });
+      const deletedCart = await this.dao.deleteCart(cartId);
       return deletedCart;
     } catch (error) {
       console.log(error);
+      return null;
     }
   };
 
   deleteProductFromCart = async (cartId, productId) => {
     try {
-      const updatedCart = await this.model.updateOne(
-        { _id: cartId },
-        { $pull: { products: { productId: productId } } }
+      const updatedCart = await this.dao.deleteProductFromCart(
+        cartId,
+        productId
       );
       return updatedCart;
     } catch (error) {
       console.log(error);
+      return null;
     }
   };
 }

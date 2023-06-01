@@ -1,25 +1,23 @@
 import { Server } from "socket.io";
-import ProductManager from "./dao/dbManagers/productManager.js";
-import MessagesManager from "./dao/dbManagers/messageManager.js";
 
 const socket = {};
 
 socket.connect = (server) => {
-  const productManager = new ProductManager();
-  const messageManager = new MessagesManager();
-
   socket.io = new Server(server);
 
   let { io } = socket;
 
   io.on("connection", async (socket) => {
+    const { productsRepository, messagesRepository } = await import(
+      "./repositories/index.js"
+    );
     console.log(`Socket ${socket.id} is online!`);
 
-    const products = await productManager.getProducts();
+    const products = await productsRepository.getProducts();
     io.emit("products", products);
 
     socket.on("add-message", async (message) => {
-      await messageManager.saveMessage(message);
+      await messagesRepository.saveMessage(message);
     });
 
     socket.on("user-auth", async (user) => {

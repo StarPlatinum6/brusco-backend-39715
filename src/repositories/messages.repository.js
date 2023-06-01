@@ -1,26 +1,25 @@
-import { messageModel } from "../dao/models/messages.model.js";
-
 export default class MessagesRepository {
-  constructor() {
-    this.model = messageModel;
+  constructor(dao) {
+    this.dao = dao;
   }
 
   getMessages = async () => {
     try {
-      const messages = await this.model.find().lean();
+      const messages = await this.dao.getMessages();
       return messages;
     } catch (error) {
       console.log(error);
+      return null;
     }
   };
 
   saveMessage = async (message) => {
     try {
-      const createdMessage = await this.model.create(message);
-      socket.io.emit("message_add", createdMessage);
+      const createdMessage = await this.dao.saveMessage(message);
       return createdMessage;
     } catch (error) {
       console.log(error);
+      return null;
     }
   };
 }

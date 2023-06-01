@@ -1,5 +1,6 @@
-import { userModel } from "../models/user.model.js";
-export default class UserManager {
+import { userModel } from "./models/user.model.js";
+
+class User {
   constructor() {}
 
   getUser = async (query) => {
@@ -39,3 +40,5 @@ export default class UserManager {
     }
   };
 }
+
+export const userMongo = new User();

@@ -1,7 +1,7 @@
 import fs from "fs";
 import { Blob } from "buffer";
 
-export default class CartManager {
+class Cart {
   constructor() {
     this.dir = "./files";
     this.path = "./src/files/carts.json";
@@ -98,3 +98,5 @@ export default class CartManager {
     }
   };
 }
+
+export const cartFs = new Cart();

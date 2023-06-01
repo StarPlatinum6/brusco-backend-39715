@@ -2,7 +2,7 @@ import fs from "fs";
 import { Blob } from "buffer";
 import socket from "../../socket.js";
 
-export default class ProductManager {
+class Product {
   constructor() {
     this.dir = "./files";
     this.path = "./src/files/products.json";
@@ -126,3 +126,5 @@ export default class ProductManager {
     }
   };
 }
+
+export const productFs = new Product();

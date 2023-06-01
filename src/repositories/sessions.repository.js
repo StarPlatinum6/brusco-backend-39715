@@ -1,44 +1,45 @@
-import { userModel } from "../dao/models/user.model.js";
-
 export default class UsersRepository {
-  constructor() {
-    this.model = userModel;
+  constructor(dao) {
+    this.dao = dao;
   }
 
   getUser = async (query) => {
     try {
-      const user = await this.model.findOne(query);
+      const user = await this.dao.getUser(query);
       return user;
     } catch (error) {
       console.log(error);
+      return null;
     }
   };
 
   getUserById = async (id) => {
     try {
-      const user = await this.model.findById(id);
+      const user = await this.dao.getUserById(id);
       return user;
     } catch (error) {
       console.log(error);
+      return null;
     }
   };
 
   registerUser = async (user) => {
     try {
-      const newUser = await this.model.create(user);
+      const newUser = await this.dao.registerUser(user);
       return newUser;
     } catch (error) {
       console.log(error);
+      return null;
     }
   };
 
   updatePassword = async (query, update) => {
     try {
-      const updatedUser = await this.model.updateOne(query, update);
-      console.log("Password updated successfully!");
+      const updatedUser = await this.dao.updatePassword(query, update);
       return updatedUser;
     } catch (error) {
       console.log(error);
+      return null;
     }
   };
 }

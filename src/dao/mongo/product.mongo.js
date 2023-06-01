@@ -1,7 +1,7 @@
-import { productModel } from "../models/products.model.js";
+import { productModel } from "./models/products.model.js";
 import socket from "../../socket.js";
 
-export default class ProductManager {
+class Product {
   constructor() {}
 
   getProducts = async (page, limit, category, available, sort) => {
@@ -88,3 +88,5 @@ export default class ProductManager {
     }
   };
 }
+
+export const productMongo = new Product();

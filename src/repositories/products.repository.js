@@ -1,88 +1,64 @@
-import { productModel } from "../dao/models/products.model.js";
-
 export default class ProductsRepository {
-  constructor() {
-    this.model = productModel;
+  constructor(dao) {
+    this.dao = dao;
   }
 
   getProducts = async (page, limit, category, available, sort) => {
     try {
-      let queries = {};
-      category ? (queries.category = category.toUpperCase()) : null;
-      available ? (queries.status = available.toLowerCase()) : null;
-      parseInt(sort) === 1 ? (sort = { price: 1 }) : null;
-      parseInt(sort) === -1 ? (sort = { price: -1 }) : null;
-
-      const products = await this.model.paginate(queries, {
-        limit,
+      const products = await this.dao.getProducts(
         page,
-        lean: true,
-        sort,
-      });
-
-      products.hasPrevPage
-        ? (products.prevLink = `/?page=${products.prevPage}`)
-        : (products.prevLink = null);
-      products.hasNextPage
-        ? (products.nextLink = `/?page=${products.nextPage}`)
-        : (products.nextLink = null);
-
+        limit,
+        category,
+        available,
+        sort
+      );
       return products;
     } catch (error) {
       console.log(error);
+      return null;
     }
   };
 
   getProductById = async (productId) => {
     try {
-      const filteredProduct = await this.model
-        .findOne({ _id: productId })
-        .lean();
+      const filteredProduct = await this.dao.getProductById(productId);
       return filteredProduct;
     } catch (error) {
       console.log(error);
+      return null;
     }
   };
 
   addProduct = async (product) => {
     try {
-      product.stock > 0
-        ? (product = { status: true, ...product })
-        : (product = { status: false, ...product });
-
-      if (product?.thumbnails[0]?.hasOwnProperty("fieldname")) {
-        const imgPaths = product.thumbnails.map(
-          (prod) => `images/${prod.filename}`
-        );
-        product.thumbnails = imgPaths;
-      }
-
-      const newProduct = await this.model.create(product);
-
+      const newProduct = await this.dao.addProduct(product);
       return newProduct;
     } catch (error) {
       console.log(error);
+      return null;
     }
   };
 
   updateProduct = async (productId, updateProd) => {
     try {
-      const updatedProduct = await this.model.updateOne(
-        { _id: productId },
+      const updatedProduct = await this.dao.updateProduct(
+        productId,
         updateProd
       );
       return updatedProduct;
     } catch (error) {
       console.log(error);
+      return null;
     }
   };
 
   deleteProduct = async (deleteId) => {
     try {
-      const deletedProduct = await this.model.deleteOne({ _id: deleteId });
+      const deletedProduct = await this.dao.deleteProduct(deleteId);
       return deletedProduct;
     } catch (error) {
       console.log(error);
+      return null;
     }
   };
 }

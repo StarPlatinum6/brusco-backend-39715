@@ -1,7 +1,7 @@
-import { messageModel } from "../models/messages.model.js";
+import { messageModel } from "./models/messages.model.js";
 import socket from "../../socket.js";
 
-export default class MessagesManager {
+class Message {
   constructor() {}
 
   getMessages = async () => {
@@ -23,3 +23,5 @@ export default class MessagesManager {
     }
   };
 }
+
+export const messageMongo = new Message();

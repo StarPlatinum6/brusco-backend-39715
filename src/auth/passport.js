@@ -3,8 +3,8 @@ import local from "passport-local";
 import GitHubStrategy from "passport-github2";
 import jwt from "passport-jwt";
 
-import UserManager from "../dao/dbManagers/userManager.js";
-import CartManager from "../dao/dbManagers/cartManager.js";
+import { usersRepository } from "../repositories/index.js";
+import { cartsRepository } from "../repositories/index.js";
 
 import config from "../config.js";
 
@@ -26,9 +26,6 @@ const jwtOptions = {
   jwtFromRequest: extractJwt.fromExtractors([cookieExtractor]),
 };
 
-const cartManager = new CartManager();
-const userManager = new UserManager();
-
 const initializePassport = () => {
   passport.use(
     "register",
@@ -42,14 +39,14 @@ const initializePassport = () => {
           const { first_name, last_name, age } = req.body;
           let { role } = req.body;
 
-          const userExists = await userManager.getUser({ email: username });
+          const userExists = await usersRepository.getUser({ email: username });
 
           if (userExists) {
             console.log("User already exists");
             return done(null, false);
           }
 
-          const cart = await cartManager.createCart();
+          const cart = await cartsRepository.createCart();
 
           const newUser = {
             first_name,
@@ -64,7 +61,7 @@ const initializePassport = () => {
             cart: cart._id,
           };
 
-          const result = await userManager.registerUser(newUser);
+          const result = await usersRepository.registerUser(newUser);
 
           return done(null, result);
         } catch (error) {
@@ -95,11 +92,11 @@ const initializePassport = () => {
       },
       async (accessToken, refreshToken, profile, done) => {
         try {
-          const user = await userManager.getUser({
+          const user = await usersRepository.getUser({
             email: profile._json.email,
           });
           if (!user) {
-            const cart = await cartManager.createCart();
+            const cart = await cartsRepository.createCart();
             let role;
 
             const newUser = {
@@ -115,7 +112,7 @@ const initializePassport = () => {
               cart: cart._id,
             };
 
-            const result = await userManager.registerUser(newUser);
+            const result = await usersRepository.registerUser(newUser);
             return done(null, result);
           }
 
@@ -132,7 +129,7 @@ const initializePassport = () => {
   });
 
   passport.deserializeUser(async (id, done) => {
-    const user = await userManager.getUserById(id);
+    const user = await usersRepository.getUserById(id);
     done(null, user);
   });
 };

@@ -1,7 +1,7 @@
 import __dirname from "../../utils.js";
 import fs from "fs";
 
-export default class MessagesManager {
+class Message {
   constructor() {}
 
   saveMessage = async (data) => {
@@ -42,3 +42,5 @@ export default class MessagesManager {
     }
   };
 }
+
+export const messageFs = new Message();

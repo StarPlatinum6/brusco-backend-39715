@@ -7,14 +7,12 @@ import { multiply, compare } from "./views/helpers.js";
 import cookieParser from "cookie-parser";
 import initializePassport from "./auth/passport.js";
 
-import database from "./db.js";
 import __dirname from "./utils.js";
 import socket from "./socket.js";
 
 import routerAPI from "./routes/routes.js";
 
 import cowsay from "cowsay";
-import colors from "colors";
 
 const env = async () => {
   const app = express();
@@ -49,8 +47,6 @@ const env = async () => {
       }).rainbow
     )
   );
-
-  database.connect();
 
   socket.connect(httpServer);
 };

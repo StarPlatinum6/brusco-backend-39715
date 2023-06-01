@@ -1,6 +1,6 @@
-import { cartModel } from "../../dao/models/carts.model.js";
+import { cartModel } from "./models/carts.model.js";
 
-export default class CartManager {
+class Cart {
   constructor() {}
 
   getCartById = async (cartId) => {
@@ -100,3 +100,5 @@ export default class CartManager {
     }
   };
 }
+
+export const cartMongo = new Cart();
