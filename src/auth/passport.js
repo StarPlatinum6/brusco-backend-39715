@@ -123,15 +123,6 @@ const initializePassport = () => {
       }
     )
   );
-
-  passport.serializeUser((user, done) => {
-    done(null, user._id);
-  });
-
-  passport.deserializeUser(async (id, done) => {
-    const user = await usersRepository.getUserById(id);
-    done(null, user);
-  });
 };
 
 export default initializePassport;

@@ -13,16 +13,6 @@ export default class UsersRepository {
     }
   };
 
-  getUserById = async (id) => {
-    try {
-      const user = await this.dao.getUserById(id);
-      return user;
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
-  };
-
   registerUser = async (user) => {
     try {
       const newUser = await this.dao.registerUser(user);

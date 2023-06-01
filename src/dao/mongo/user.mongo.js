@@ -12,15 +12,6 @@ class User {
     }
   };
 
-  getUserById = async (id) => {
-    try {
-      const user = await userModel.findById(id);
-      return user;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   registerUser = async (user) => {
     try {
       const newUser = await userModel.create(user);

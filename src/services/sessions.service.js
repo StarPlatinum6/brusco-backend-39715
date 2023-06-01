@@ -4,6 +4,7 @@ import config from "../config.js";
 import { createHash, isValidPassword } from "../utils.js";
 
 import { usersRepository } from "../repositories/index.js";
+import UserDTO from "../dao/dtos/user.dto.js";
 
 class UserService {
   constructor() {}
