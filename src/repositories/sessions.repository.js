@@ -1,6 +1,6 @@
-import { userModel } from "../models/user.model.js";
+import { userModel } from "../dao/models/user.model.js";
 
-class UsersRepository {
+export default class UsersRepository {
   constructor() {
     this.model = userModel;
   }
@@ -42,5 +42,3 @@ class UsersRepository {
     }
   };
 }
-
-export const usersRepository = new UsersRepository();

@@ -1,6 +1,6 @@
 import { messageModel } from "../models/messages.model.js";
 
-class MessagesRepository {
+export default class MessagesRepository {
   constructor() {
     this.model = messageModel;
   }
@@ -24,5 +24,3 @@ class MessagesRepository {
     }
   };
 }
-
-export const messagesRepository = new MessagesRepository();

@@ -1,6 +1,6 @@
-import { cartModel } from "../models/carts.model.js";
+import { cartModel } from "../dao/models/carts.model.js";
 
-class CartsRepository {
+export default class CartsRepository {
   constructor() {
     this.model = cartModel;
   }
@@ -38,7 +38,9 @@ class CartsRepository {
           { _id: cartId, "products.productId": productId },
           { $inc: { "products.$.quantity": 1 } }
         );
-        const updatedCartWithProduct = await this.model.findOne({ _id: cartId });
+        const updatedCartWithProduct = await this.model.findOne({
+          _id: cartId,
+        });
         return updatedCartWithProduct;
       } else {
         const productAddToCart = {
@@ -49,7 +51,9 @@ class CartsRepository {
           { _id: cartId },
           { $push: { products: productAddToCart } }
         );
-        const updatedCartWithProduct = await this.model.findOne({ _id: cartId });
+        const updatedCartWithProduct = await this.model.findOne({
+          _id: cartId,
+        });
         return updatedCartWithProduct;
       }
     } catch (error) {
@@ -101,7 +105,4 @@ class CartsRepository {
       console.log(error);
     }
   };
-
 }
-
-export const cartsRepository = new CartsRepository();

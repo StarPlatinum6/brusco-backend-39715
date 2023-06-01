@@ -1,6 +1,6 @@
 import { productModel } from "../models/products.model.js";
 
-class ProductsRepository {
+export default class ProductsRepository {
   constructor() {
     this.model = productModel;
   }
@@ -86,5 +86,3 @@ class ProductsRepository {
     }
   };
 }
-
-export const productsRepository = new ProductsRepository();
