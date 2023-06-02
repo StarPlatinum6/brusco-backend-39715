@@ -79,8 +79,8 @@ export const productView = async (req, res) => {
         title: "Ephemer - Error",
       });
     }
-
     res.render("product", {
+      role: req.user.role,
       cartId: req.user.cart,
       product,
       style: "styles.css",

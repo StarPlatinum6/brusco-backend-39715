@@ -1,7 +1,7 @@
 import { Router } from "express";
 import passport from "passport";
 
-import { checkLogged, isProtected } from "../middlewares/auth.js";
+import { checkLogged, isProtected, verifyRole } from "../middlewares/auth.js";
 import {
   cartView,
   chatView,
@@ -46,6 +46,7 @@ viewsRouter.get(
 viewsRouter.get(
   "/cart/:cid",
   isProtected,
+  (req, res, next) => verifyRole(req, res, next, "user"),
   passport.authenticate("jwt", { session: false }),
   cartView
 );
@@ -62,6 +63,7 @@ viewsRouter.get(
 viewsRouter.get(
   "/chat",
   isProtected,
+  (req, res, next) => verifyRole(req, res, next, "user"),
   passport.authenticate("jwt", { session: false }),
   chatView
 );

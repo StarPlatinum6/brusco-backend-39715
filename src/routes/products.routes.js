@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { uploader } from "../utils.js";
+import { verifyRole } from "../middlewares/auth.js";
 import {
   addProduct,
   deleteProduct,
@@ -12,8 +13,21 @@ const productsRouter = Router();
 
 productsRouter.get("/", getProducts);
 productsRouter.get("/:pid", getProductById);
-productsRouter.post("/", uploader.array("thumbnails"), addProduct);
-productsRouter.put("/:pid", updateProduct);
-productsRouter.delete("/:pid", deleteProduct);
+productsRouter.post(
+  "/",
+  (req, res, next) => verifyRole(req, res, next, "admin"),
+  uploader.array("thumbnails"),
+  addProduct
+);
+productsRouter.put(
+  "/:pid",
+  (req, res, next) => verifyRole(req, res, next, "admin"),
+  updateProduct
+);
+productsRouter.delete(
+  "/:pid",
+  (req, res, next) => verifyRole(req, res, next, "admin"),
+  deleteProduct
+);
 
 export default productsRouter;
