@@ -6,7 +6,7 @@ import jwt from "passport-jwt";
 import { usersRepository } from "../repositories/index.js";
 import { cartsRepository } from "../repositories/index.js";
 
-import config from "../config.js";
+import config from "../config/config.js";
 
 import { createHash } from "../utils.js";
 

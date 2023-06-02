@@ -1,10 +1,9 @@
-import config from "../config.js";
 import database from "../db.js";
+import persistenceType from "../config/commander.js";
 
 export let productDAO, cartDAO, userDAO, messageDAO, ticketDAO;
 
-// ! Acá tocará cambiar config.persistence por lo que venga en el process por CLI
-switch (config.PERSISTENCE) {
+switch (persistenceType) {
   case "MONGO":
     database.connect();
     const { productMongo } = await import("./mongo/product.mongo.js");
@@ -30,4 +29,6 @@ switch (config.PERSISTENCE) {
     const { ticketFs } = await import("./fs/ticket.fs.js");
     ticketDAO = ticketFs;
     break;
+  default:
+    throw new Error(`${persistenceType} is not a valid persistence type, you must select "MONGO" or "FILESYSTEM"`);
 }
