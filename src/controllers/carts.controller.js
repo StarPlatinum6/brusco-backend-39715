@@ -1,4 +1,5 @@
 import { cartsService } from "../services/carts.service.js";
+import { ticketsService } from "../services/tickets.service.js";
 
 /////////////////////////
 ///////GET METHODS///////
@@ -41,6 +42,34 @@ export const getCartById = async (req, res) => {
 ///////POST METHODS//////
 /////////////////////////
 
+export const createTicket = async (req, res) => {
+  try {
+    const { cid } = req.params;
+
+    if (!cid) {
+      return res.status(400).send({
+        status: "error",
+        error: "Incomplete values",
+      });
+    }
+
+    const newTicket = await ticketsService.createTicket(cid);
+
+    if (!newTicket) {
+      return res.status(404).send({
+        status: "error",
+        error: "Failed to create ticket",
+      });
+    }
+
+    res.status(201).send({ status: "Success", payload: newTicket });
+  } catch (error) {
+    console.log(`Failed to create ticket with mongoose ${error}`);
+    return res
+      .status(500)
+      .send({ status: "error", error: "Failed to create ticket" });
+  }
+};
 export const createCart = async (req, res) => {
   try {
     const newCart = await cartsService.createCart();

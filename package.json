@@ -24,6 +24,7 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "colors": "^1.4.0",
+    "commander": "^10.0.1",
     "connect-mongo": "^5.0.0",
     "cookie-parser": "^1.4.6",
     "cowsay": "^1.5.0",
@@ -41,7 +42,8 @@
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
     "socket.io": "^4.6.1",
-    "sweetalert2": "^11.7.3"
+    "sweetalert2": "^11.7.3",
+    "uuid": "^9.0.0"
   },
   "nodemonConfig": {
     "ignore": [

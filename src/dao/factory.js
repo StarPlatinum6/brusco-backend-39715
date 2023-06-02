@@ -1,7 +1,7 @@
 import config from "../config.js";
 import database from "../db.js";
 
-export let productDAO, cartDAO, userDAO, messageDAO;
+export let productDAO, cartDAO, userDAO, messageDAO, ticketDAO;
 
 // ! Acá tocará cambiar config.persistence por lo que venga en el process por CLI
 switch (config.PERSISTENCE) {
@@ -15,6 +15,8 @@ switch (config.PERSISTENCE) {
     userDAO = userMongo;
     const { messageMongo } = await import("./mongo/message.mongo.js");
     messageDAO = messageMongo;
+    const { ticketMongo } = await import("./mongo/ticket.mongo.js");
+    ticketDAO = ticketMongo;
     break;
   case "FILESYSTEM":
     const { productFs } = await import("./fs/product.fs.js");
@@ -25,5 +27,7 @@ switch (config.PERSISTENCE) {
     userDAO = userFs;
     const { messageFs } = await import("./fs/message.fs.js");
     messageDAO = messageFs;
+    const { ticketFs } = await import("./fs/ticket.fs.js");
+    ticketDAO = ticketFs;
     break;
 }

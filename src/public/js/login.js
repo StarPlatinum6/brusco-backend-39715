@@ -30,7 +30,7 @@ form.addEventListener("submit", async (e) => {
 
   obj["rememberMe"] = rememberMe.checked
 
-  let response = await fetch("/api/v1/sessions/login", {
+  let response = await fetch("/api/v1/users/login", {
     method: "POST",
     body: JSON.stringify(obj),
     headers: {

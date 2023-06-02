@@ -20,6 +20,17 @@ class UserService {
     }
   }
 
+  async getUserByCartId(cartId) {
+    try {
+      const user = await usersRepository.getUserByCartId(cartId);
+      if (!user) throw new Error(`User with cart ID ${cartId} does not exist`);
+      return user;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
   passwordValidate(user, password) {
     return isValidPassword(user, password);
   }

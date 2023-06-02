@@ -9,42 +9,42 @@ import {
   logoutUser,
   registerUser,
   restoreUserPassword,
-} from "../controllers/sessions.controller.js";
+} from "../controllers/users.controller.js";
 
-const sessionsRouter = Router();
+const usersRouter = Router();
 
-sessionsRouter.post(
+usersRouter.post(
   "/register",
   passport.authenticate("register", {
     session: false,
-    failureRedirect: "/api/v1/sessions/failRegister",
+    failureRedirect: "/api/v1/users/failRegister",
   }),
   registerUser
 );
 
-sessionsRouter.get("/failRegister", failRegister);
-sessionsRouter.post("/login", loginUser);
+usersRouter.get("/failRegister", failRegister);
+usersRouter.post("/login", loginUser);
 
-sessionsRouter.get(
+usersRouter.get(
   "/github",
   passport.authenticate("github", { scope: ["user:email"] }),
   githubLogin
 );
 
-sessionsRouter.get(
+usersRouter.get(
   "/githubcallback",
   passport.authenticate("github", { session: false, failureRedirect: "/" }),
   githubCallback
 );
 
-sessionsRouter.get(
+usersRouter.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
   currentUser
 );
 
-sessionsRouter.get("/logout", logoutUser);
+usersRouter.get("/logout", logoutUser);
 
-sessionsRouter.put("/restore", restoreUserPassword);
+usersRouter.put("/restore", restoreUserPassword);
 
-export default sessionsRouter;
+export default usersRouter;

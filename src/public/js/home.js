@@ -110,7 +110,7 @@ goToCartBtn?.addEventListener("click", () => {
 });
 
 logoutBtn.addEventListener("click", () => {
-  fetch(`/api/v1/sessions/logout`, {
+  fetch(`/api/v1/users/logout`, {
     method: "GET",
   })
     .then(() => {

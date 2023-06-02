@@ -12,6 +12,15 @@ class User {
     }
   };
 
+  getUserByCartId = async (cartId) => {
+    try {
+      const user = await userModel.findOne({ cart: cartId });
+      return user;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   registerUser = async (user) => {
     try {
       const newUser = await userModel.create(user);

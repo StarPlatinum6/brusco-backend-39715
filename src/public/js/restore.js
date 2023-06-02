@@ -8,7 +8,7 @@ form.addEventListener("submit", async (e) => {
 
   data.forEach((value, key) => (obj[key] = value));
 
-  let response = await fetch("/api/v1/sessions/restore", {
+  let response = await fetch("/api/v1/users/restore", {
     method: "PUT",
     body: JSON.stringify(obj),
     headers: {

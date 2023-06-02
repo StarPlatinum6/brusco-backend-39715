@@ -13,6 +13,16 @@ export default class UsersRepository {
     }
   };
 
+  getUserByCartId = async (cartId) => {
+    try {
+      const user = await this.dao.getUserByCartId(cartId);
+      return user;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
   registerUser = async (user) => {
     try {
       const newUser = await this.dao.registerUser(user);
