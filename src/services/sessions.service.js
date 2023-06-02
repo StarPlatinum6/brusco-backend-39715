@@ -13,7 +13,6 @@ class UserService {
     try {
       const user = await usersRepository.getUser({ email });
       if (!user) throw new Error(`User with email ${email} does not exist`);
-
       return user;
     } catch (error) {
       console.log(`Failed to get user with error: ${error}`);
@@ -27,13 +26,8 @@ class UserService {
 
   generateJwtToken(user, rememberMe) {
     try {
-      const jwtUser = {
-        name: `${user.first_name} ${user.last_name}`,
-        email: user.email,
-        age: user.age,
-        role: user.role,
-        cart: user.cart,
-      };
+      const userDTO = new UserDTO(user);
+      const jwtUser = JSON.parse(JSON.stringify(userDTO));
 
       const expireTime = rememberMe ? "7d" : "3h";
 
