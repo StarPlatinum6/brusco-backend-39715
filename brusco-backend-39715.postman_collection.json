@@ -58,6 +58,36 @@
 					"response": []
 				},
 				{
+					"name": "create-ticket",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{lh8080}}/api/v1/carts/6460771a9d94f3d716abd6ae/purchase",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"carts",
+								"6460771a9d94f3d716abd6ae",
+								"purchase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "add-to-cart",
 					"event": [
 						{
@@ -687,6 +717,58 @@
 								"v1",
 								"sessions",
 								"restore"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "tickets",
+			"item": [
+				{
+					"name": "get-tickets",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{lh8080}}/api/v1/tickets/",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"tickets",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-ticket-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/v1/tickets/6479736b0855eb3d0c569184",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"tickets",
+								"6479736b0855eb3d0c569184"
 							]
 						}
 					},
