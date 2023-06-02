@@ -129,7 +129,7 @@ export const addProduct = async (req, res) => {
       });
     }
 
-    res.status(201).send({ status: "Success", payload: addedProduct });
+    res.status(201).send({ status: "success", payload: addedProduct });
   } catch (error) {
     console.log(`Cannot add product with mongoose ${error}`);
     return res.status(500).send({

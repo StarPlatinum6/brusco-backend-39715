@@ -51,6 +51,8 @@ addToCartForms.forEach((form) => {
           toast: true,
           position: "top-right",
           icon: "success",
+          timer: 2000,
+          timerProgressBar: true,
           customClass: {
             popup: "!text-slate-200 !bg-slate-800/90 !rounded-3xl",
             confirmButton: "!bg-blue-600 !px-5",

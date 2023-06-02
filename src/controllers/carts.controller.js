@@ -62,7 +62,7 @@ export const createTicket = async (req, res) => {
       });
     }
 
-    res.status(201).send({ status: "Success", payload: newTicket });
+    res.status(201).send({ status: "success", payload: newTicket });
   } catch (error) {
     console.log(`Failed to create ticket with mongoose ${error}`);
     return res
@@ -81,7 +81,7 @@ export const createCart = async (req, res) => {
       });
     }
 
-    res.status(201).send({ status: "Success", payload: newCart });
+    res.status(201).send({ status: "success", payload: newCart });
   } catch (error) {
     console.log(`Failed to create cart with mongoose ${error}`);
     return res
@@ -113,7 +113,7 @@ export const addToCart = async (req, res) => {
 
     return res
       .status(201)
-      .send({ status: "Success", payload: productAddedToCart });
+      .send({ status: "success", payload: productAddedToCart });
   } catch (error) {
     console.log(`Cannot add to cart with mongoose ${error}`);
     return res

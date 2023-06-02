@@ -35,7 +35,42 @@ addProductForm?.addEventListener("submit", (e) => {
   fetch(`/api/v1/products`, {
     method: "POST",
     body: formData,
-  });
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.status === "success") {
+        Swal.fire({
+          title: "Product successfully created!",
+          html: `You created ${data.payload.title}.<br>
+          New product ID is: ${data.payload._id}.`,
+          toast: true,
+          position: "top-right",
+          icon: "success",
+          timer: 3000,
+          timerProgressBar: true,
+          customClass: {
+            popup: "!text-slate-200 !bg-slate-800/90 !rounded-3xl",
+            confirmButton: "!bg-blue-600 !px-5",
+            timerProgressBar: "!m-auto !h-1 !my-2 !bg-blue-600/90 !rounded-3xl",
+          },
+        });
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: `${data.error}`,
+          toast: true,
+          position: "top-right",
+          icon: "error",
+          timer: 3000,
+          timerProgressBar: true,
+          customClass: {
+            popup: "!text-slate-200 !bg-slate-800/90 !rounded-3xl",
+            confirmButton: "!bg-blue-600 !px-5",
+            timerProgressBar: "!m-auto !h-1 !my-2 !bg-blue-600/90 !rounded-3xl",
+          },
+        });
+      }
+    });
 });
 
 deleteProductForm?.addEventListener("submit", (e) => {
@@ -46,7 +81,41 @@ deleteProductForm?.addEventListener("submit", (e) => {
     headers: {
       "Content-Type": "application/json",
     },
-  });
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.status === "success") {
+        Swal.fire({
+          title: "Product successfully deleted!",
+          text: `Product ID: ${productId}`,
+          toast: true,
+          position: "top-right",
+          icon: "success",
+          timer: 3000,
+          timerProgressBar: true,
+          customClass: {
+            popup: "!text-slate-200 !bg-slate-800/90 !rounded-3xl",
+            confirmButton: "!bg-blue-600 !px-5",
+            timerProgressBar: "!m-auto !h-1 !my-2 !bg-blue-600/90 !rounded-3xl",
+          },
+        });
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: `${data.error}`,
+          toast: true,
+          position: "top-right",
+          icon: "error",
+          timer: 3000,
+          timerProgressBar: true,
+          customClass: {
+            popup: "!text-slate-200 !bg-slate-800/90 !rounded-3xl",
+            confirmButton: "!bg-blue-600 !px-5",
+            timerProgressBar: "!m-auto !h-1 !my-2 !bg-blue-600/90 !rounded-3xl",
+          },
+        });
+      }
+    });
 });
 
 addToCartForms?.forEach((form) => {
@@ -55,25 +124,48 @@ addToCartForms?.forEach((form) => {
     const cartId = document.querySelector("#userCartId").textContent;
     const productId = form.getAttribute("id").split("-")[1];
     const prodTitle = form.closest("div").querySelector("h5").textContent;
+    const prodStock = form.nextElementSibling
+      .querySelector("#prodStock")
+      .getAttribute("data-stock");
 
-    fetch(`/api/v1/carts/${cartId}/product/${productId}`, {
-      method: "POST",
-    })
-      .then(() => {
-        Swal.fire({
-          title: "Product added to cart!",
-          text: `You added 1 unit of ${prodTitle}`,
-          toast: true,
-          position: "top-right",
-          icon: "success",
-          customClass: {
-            popup: "!text-slate-200 !bg-slate-800/90 !rounded-3xl",
-            confirmButton: "!bg-blue-600 !px-5",
-            timerProgressBar: "!m-auto !h-1 !my-2 !bg-blue-600/90 !rounded-3xl",
-          },
-        });
+    if (prodStock > 1) {
+      fetch(`/api/v1/carts/${cartId}/product/${productId}`, {
+        method: "POST",
       })
-      .catch((error) => console.log(error));
+        .then(() => {
+          Swal.fire({
+            title: "Product added to cart!",
+            text: `You added 1 unit of ${prodTitle}`,
+            toast: true,
+            position: "top-right",
+            icon: "success",
+            timer: 3000,
+            timerProgressBar: true,
+            customClass: {
+              popup: "!text-slate-200 !bg-slate-800/90 !rounded-3xl",
+              confirmButton: "!bg-blue-600 !px-5",
+              timerProgressBar:
+                "!m-auto !h-1 !my-2 !bg-blue-600/90 !rounded-3xl",
+            },
+          });
+        })
+        .catch((error) => console.log(error));
+    } else {
+      Swal.fire({
+        title: "Woops!!",
+        text: `${prodTitle} is out of stock! Sorry!`,
+        toast: true,
+        position: "top-right",
+        icon: "error",
+        timer: 3000,
+        timerProgressBar: true,
+        customClass: {
+          popup: "!text-slate-200 !bg-slate-800/90 !rounded-3xl",
+          confirmButton: "!bg-blue-600 !px-5",
+          timerProgressBar: "!m-auto !h-1 !my-2 !bg-blue-600/90 !rounded-3xl",
+        },
+      });
+    }
   });
 });
 
@@ -82,24 +174,38 @@ createCartForm?.addEventListener("submit", (e) => {
   fetch(`/api/v1/carts`, {
     method: "POST",
   })
-    .then((response) => {
-      return response.json();
-    })
-    .then((response) => {
-      Swal.fire({
-        title: "New cart created!",
-        text: `The cart ID is ${response.payload._id}`,
-        toast: true,
-        confirmButton: false,
-        position: "top-right",
-        icon: "success",
-        customClass: {
-          popup: "!text-slate-200 !bg-slate-800/90 !rounded-3xl",
-          confirmButton: "!bg-blue-600 !px-5",
-          timerProgressBar: "!m-auto !h-1 !my-2 !bg-blue-600/90 !rounded-3xl",
-        },
-        onclose,
-      });
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.status === "success") {
+        Swal.fire({
+          title: "New cart created!",
+          text: `The cart ID is ${data.payload._id}`,
+          toast: true,
+          confirmButton: false,
+          position: "top-right",
+          icon: "success",
+          customClass: {
+            popup: "!text-slate-200 !bg-slate-800/90 !rounded-3xl",
+            confirmButton: "!bg-blue-600 !px-5",
+            timerProgressBar: "!m-auto !h-1 !my-2 !bg-blue-600/90 !rounded-3xl",
+          },
+        });
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: `${data.error}`,
+          toast: true,
+          position: "top-right",
+          icon: "error",
+          timer: 3000,
+          timerProgressBar: true,
+          customClass: {
+            popup: "!text-slate-200 !bg-slate-800/90 !rounded-3xl",
+            confirmButton: "!bg-blue-600 !px-5",
+            timerProgressBar: "!m-auto !h-1 !my-2 !bg-blue-600/90 !rounded-3xl",
+          },
+        });
+      }
     })
     .catch((error) => console.log(error));
 });

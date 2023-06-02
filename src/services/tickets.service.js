@@ -36,48 +36,39 @@ class TicketService {
 
   async createTicket(cid) {
     try {
+      const cart = await cartsRepository.getCartById(cid);
+      if (!cart) throw new Error(`Cart with id: ${cid} does not exist`);
+
       const products = [];
       let ammount = 0;
 
-      const filteredCart = await cartsRepository.getCartById(cid);
-      if (!filteredCart) throw new Error(`Cart with id: ${cid} does not exist`);
+      cart.products.forEach(
+        ({ productId: { _id: pid, stock, price, title }, quantity: qty }) => {
+          if (qty > stock) {
+            const deletedProductFromCart =
+              cartsRepository.deleteProductFromCart(cid, pid);
+            if (!deletedProductFromCart)
+              throw new Error(`Error deleting product ${pid} from cart ${cid}`);
+            console.warn(`Product ${title} is out of stock. Removed from cart`);
+          } else {
+            products.push({ item: title, quantity: qty, total: price * qty });
 
-      filteredCart.products.forEach((product) => {
-        const pid = product.productId._id,
-          qty = product.quantity,
-          stock = product.productId.stock,
-          price = product.productId.price,
-          title = product.productId.title;
+            const deletedProductFromCart =
+              cartsRepository.deleteProductFromCart(cid, pid);
+            if (!deletedProductFromCart)
+              throw new Error(`Error deleting product ${pid} from cart ${cid}`);
 
-        if (qty > stock) {
-          const deletedProductFromCart = cartsRepository.deleteProductFromCart(
-            cid,
-            pid
-          );
-          if (!deletedProductFromCart)
-            throw new Error(`Error deleting product ${pid} from cart ${cid}`);
-          console.warn(
-            `Product ${title} is out of stock and has been removed from the cart`
-          );
-        } else {
-          products.push({ item: title, quantity: qty, total: price * qty });
-
-          const deletedProductFromCart = cartsRepository.deleteProductFromCart(
-            cid,
-            pid
-          );
-          if (!deletedProductFromCart)
-            throw new Error(`Error deleting product ${pid} from cart ${cid}`);
-
-          const newStock = { stock: stock - qty };
-          productsRepository.updateProduct(pid, newStock);
+            const newStock = { stock: stock - qty };
+            productsRepository.updateProduct(pid, newStock);
+          }
+          ammount += price * qty;
         }
-        ammount += price * qty;
-      });
+      );
+      
+      if (products.length === 0) throw new Error("All products were out of stock.");
 
       const code = uuidv4();
-      const currentDate = new Date();
-      const purchase_datetime = currentDate.toLocaleString();
+      const purchase_datetime = new Date().toLocaleString();
       const { email: purchaser } = await usersRepository.getUserByCartId(cid);
 
       const ticket = {
