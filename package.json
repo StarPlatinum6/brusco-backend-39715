@@ -6,6 +6,8 @@
   "type": "module",
   "scripts": {
     "start:dev": "nodemon ./src/app.js",
+    "dev:mongo": "nodemon ./src/app.js -P MONGO",
+    "dev:files": "nodemon ./src/app.js -p FILESYSTEM",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:css": "postcss ./src/public/css/tailwind.css -o ./src/public/css/styles.css",
     "watch-css": "npx tailwindcss -i ./src/public/css/tailwind.css -o ./src/public/css/styles.css --watch"
