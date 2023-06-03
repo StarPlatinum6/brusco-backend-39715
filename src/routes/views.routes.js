@@ -12,6 +12,7 @@ import {
   realTimeProductsView,
   registerView,
   restorePasswordView,
+  ticketsView,
 } from "../controllers/views.controller.js";
 
 const viewsRouter = Router();
@@ -49,6 +50,14 @@ viewsRouter.get(
   (req, res, next) => verifyRole(req, res, next, "user"),
   passport.authenticate("jwt", { session: false }),
   cartView
+);
+
+viewsRouter.get(
+  "/tickets",
+  isProtected,
+  (req, res, next) => verifyRole(req, res, next, "user"),
+  passport.authenticate("jwt", { session: false }),
+  ticketsView
 );
 
 //////////////////////////////////////////////////////

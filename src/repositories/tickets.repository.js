@@ -23,6 +23,16 @@ export default class TicketsRepository {
     }
   };
 
+  getTicketsByEmail = async (email) => {
+    try {
+      const ticket = await this.dao.getTicketsByEmail(email);
+      return ticket;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+
   createTicket = async (ticket) => {
     try {
       const newTicket = await this.dao.createTicket(ticket);

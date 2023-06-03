@@ -1,6 +1,7 @@
 import { productsService } from "../services/products.service.js";
 import { cartsService } from "../services/carts.service.js";
 import { messagesService } from "../services/messages.service.js";
+import { ticketsService } from "../services/tickets.service.js";
 
 export const loginView = (req, res) => {
   res.render("login", {
@@ -116,6 +117,33 @@ export const cartView = async (req, res) => {
     res
       .status(500)
       .send({ status: "error", error: "Failed to render cart view" });
+  }
+};
+
+export const ticketsView = async (req, res) => {
+  try {
+    const { email } = req.user;
+    const userTickets = await ticketsService.getTicketsByEmail(email);
+    console.log(userTickets)
+    res.render("tickets", {
+      user: req.user,
+      userTickets,
+      style: "styles.css",
+      title: "Ephemer - My Orders",
+    });
+
+    if (!userTickets) {
+      return res.status(404).render("error", {
+        message: "Error 404: Tickets not found",
+        style: "styles.css",
+        title: "Ephemer - Error",
+      });
+    }
+  } catch (error) {
+    console.log(`Failed to render tickets view: ${error}`);
+    res
+      .status(500)
+      .send({ status: "error", error: "Failed to render tickets view" });
   }
 };
 

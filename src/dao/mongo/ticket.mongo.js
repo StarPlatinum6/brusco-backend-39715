@@ -21,6 +21,15 @@ class Ticket {
     }
   };
 
+  getTicketsByEmail = async (email) => {
+    try {
+      const tickets = await ticketModel.find({ purchaser: email }).lean();
+      return tickets;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   createTicket = async (ticket) => {
     try {
       const newTicket = await ticketModel.create(ticket);

@@ -3,6 +3,7 @@ import { verifyRole } from "../middlewares/auth.js";
 import {
   getTickets,
   getTicketById,
+  getTicketsByEmail,
 } from "../controllers/tickets.controller.js";
 
 const ticketsRouter = Router();
@@ -12,5 +13,10 @@ ticketsRouter.get(
   getTickets
 );
 ticketsRouter.get("/:tid", getTicketById);
+ticketsRouter.get(
+  "/orders/:email",
+  (req, res, next) => verifyRole(req, res, next, "user"),
+  getTicketsByEmail
+);
 
 export default ticketsRouter;

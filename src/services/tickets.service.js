@@ -34,6 +34,19 @@ class TicketService {
     }
   }
 
+  async getTicketsByEmail(email) {
+    try {
+      const filteredTickets = await ticketsRepository.getTicketsByEmail(email);
+      if (!filteredTickets)
+        throw new Error(`No tickets with email: ${email} exist`);
+
+      return filteredTickets;
+    } catch (error) {
+      console.log(`Failed to get tickets with error: ${error}`);
+      throw error;
+    }
+  }
+
   async createTicket(cid) {
     try {
       const cart = await cartsRepository.getCartById(cid);

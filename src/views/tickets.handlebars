@@ -1,0 +1,116 @@
+<div id="app" class="p-4 bg-slate-800/95 h-auto">
+  <nav class="mb-4 py-8 bg-gray-900/80 rounded-md">
+    <ul class="flex flex-row justify-evenly">
+      <li>
+        <a href="/realTimeProducts">
+          <button
+            class="text-slate-100 bg-blue-600 hover:bg-blue-700 active:bg-blue-900 focus:ring-2 focus:outline-none focus:ring-blue-700 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2"
+          >Real Time Products 🛩️</button>
+        </a>
+      </li>
+      <li>
+        <a href="/chat">
+          <button
+            class="text-slate-100 bg-blue-600 hover:bg-blue-700 active:bg-blue-900 focus:ring-2 focus:outline-none focus:ring-blue-700 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2"
+          >Chat 💬</button>
+        </a>
+      </li>
+      <li>
+        <a href="/profile">
+          <button
+            class="text-slate-100 bg-blue-600 hover:bg-blue-700 active:bg-blue-900 focus:ring-2 focus:outline-none focus:ring-blue-700 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2"
+          >Profile 👨‍💻</button>
+        </a>
+      </li>
+      <li>
+        <a href="/cart/{{user.cart}}">
+          <button
+            class="text-slate-100 bg-blue-600 hover:bg-blue-700 active:bg-blue-900 focus:ring-2 focus:outline-none focus:ring-blue-700 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2"
+          >My Cart 🛒</button>
+        </a>
+      </li>
+      <li>
+        <a href="/tickets">
+          <button
+            class="text-slate-100 bg-blue-600 hover:bg-blue-700 active:bg-blue-900 focus:ring-2 focus:outline-none focus:ring-blue-700 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2"
+          >My Orders 🎫</button>
+        </a>
+      </li>
+      <li>
+        <button
+          id="logoutButton"
+          class="text-slate-100 bg-blue-600 hover:bg-blue-700 active:bg-blue-900 focus:ring-2 focus:outline-none focus:ring-blue-700 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mr-2"
+        >Logout 🚪</button>
+      </li>
+    </ul>
+  </nav>
+
+  <h1 class="flex p-2 justify-center font-mono text-2xl text-slate-200">Your Orders</h1>
+  {{#if userTickets}}
+    <div id="cartDetail" class="flex flex-col justify-center m-6 items-center">
+      {{#each userTickets.products}}
+        <div
+          class="max-w-4xl border rounded-lg shadow bg-gray-700/50 border-gray-600 my-2"
+          id="{{this.productId._id}}"
+        >
+          <div class="flex flex-wrap w-full p-2 justify-evenly">
+            <img
+              src="http://localhost:8080/{{lookup this.productId.thumbnails 0}}"
+              alt="product image"
+              class="aspect-square max-h-32 m-2 ring-4 rounded-xl"
+            />
+            <div class="px-5 mt-2">
+              <h5
+                class="text-2xl font-semibold tracking-tight text-white text-center"
+              >{{this.productId.title}}</h5>
+              <p class="font-light tracking-tight text-white my-1">Selected
+                quantity:
+                {{this.quantity}}</p>
+              <p class="font-light tracking-tight text-white my-1">Unit price: ${{this.productId.price}}</p>
+              <div class="flex justify-between">
+                <p class="text-lg tracking-wider text-white my-1">Total price: ${{multiply
+                    this.productId.price
+                    this.quantity
+                  }}</p>
+                <form
+                  class="flex justify-end"
+                  id="removeFromCartForm-{{this.productId._id}}"
+                >
+                  <button
+                    type="submit"
+                    class="text-slate-100 bg-red-700 hover:bg-red-800 focus:ring-2 focus:outline-none focus:ring-red-500 font-medium rounded-lg text-xs w-full sm:w-auto px-3 py-1.5 text-center"
+                  ><span>Remove</span></button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+      <button
+        class="mt-4 text-slate-100 bg-green-600 hover:bg-green-700 active:bg-green-900 focus:ring-2 focus:outline-none focus:ring-green-700 rounded-lg w-full sm:w-auto px-5 py-2.5 text-center tracking-wider shadow-lg shadow-teal-500/60"
+        id="checkoutBtn"
+      >Confirm order! 💸</button>
+    </div>
+  {{else}}
+    <h3
+      class="flex p-3 justify-center font-mono text-xl text-slate-200 bg-sky-800 my-6 mx-24 rounded-md"
+    >Right now, you have no orders made. Go get some Hardware!</h3>
+  {{/if}}
+
+
+
+  </div>
+  <div class="w-auto mx-2">
+    <br /><hr /><br />
+  </div>
+  <div class="flex justify-around w-auto m-2 bg-gray-800 px-4 py-4">
+    <h3 class="flex p-2 justify-center font-mono text-lg text-slate-200">Views
+      done by Nicolas Brusco</h3>
+  </div>
+</div>
+<script
+  src="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js
+"
+></script>
+{{!-- <script src="/js/home.js"></script> --}}
