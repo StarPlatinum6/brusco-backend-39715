@@ -12,6 +12,11 @@ const config = {
   // Admin Account
   ADMIN_EMAIL: process.env.ADMIN_EMAIL,
   ADMIN_PASSWORD: process.env.ADMIN_PASSWORD,
+  // Email Credentials
+  EMAIL_SERVICE: process.env.EMAIL_SERVICE,
+  EMAIL_PORT: parseInt(process.env.EMAIL_PORT),
+  EMAIL_USER: process.env.EMAIL_USER,
+  EMAIL_PASS: process.env.EMAIL_PASS,
 };
 
 export default config;

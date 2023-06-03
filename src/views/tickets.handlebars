@@ -43,14 +43,14 @@
   {{#if userTickets}}
     <div
       id="ticketsDetail"
-      class="flex flex-col justify-center m-6 items-center"
+      class="flex flex-col flex-wrap justify-center m-6 content-center"
     >
       {{#each userTickets}}
         <div
-          class="max-w-4xl border rounded-lg shadow bg-gray-700/50 border-gray-600 my-2"
+          class="max-w-5xl border rounded-lg shadow bg-gray-700/50 border-gray-600 my-2"
           id="{{this._id}}"
         >
-          <div class="flex flex-wrap w-full p-2 justify-evenly">
+          <div class="flex flex-wrap p-2">
             <div class="px-5 mt-2">
               <h5
                 class="text-xl font-semibold tracking-tight text-white text-center"
@@ -91,4 +91,3 @@
 https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js
 "
 ></script>
-{{! <script src="/js/home.js"></script> }}

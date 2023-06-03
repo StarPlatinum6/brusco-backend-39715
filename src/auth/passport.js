@@ -16,7 +16,7 @@ const cookieExtractor = (req) => {
   return token;
 };
 
-const { clientID, clientSecret, callbackUrl, JWT_SECRET } = config;
+const { clientID, clientSecret, callbackUrl, JWT_SECRET, ADMIN_EMAIL } = config;
 const LocalStrategy = local.Strategy;
 const JwtStrategy = jwt.Strategy;
 const extractJwt = jwt.ExtractJwt;
@@ -55,7 +55,7 @@ const initializePassport = () => {
             age,
             password: createHash(password),
             role:
-              username === `${config.ADMIN_EMAIL}`
+              username === `${ADMIN_EMAIL}`
                 ? (role = "admin")
                 : (role = "user"),
             cart: cart._id,
@@ -106,7 +106,7 @@ const initializePassport = () => {
               email: profile._json.email,
               password: "",
               role:
-                profile._json.email === `${config.ADMIN_EMAIL}`
+                profile._json.email === `${ADMIN_EMAIL}`
                   ? (role = "admin")
                   : (role = "user"),
               cart: cart._id,

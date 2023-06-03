@@ -1,10 +1,14 @@
 import { v4 as uuidv4 } from "uuid";
+import { transport } from "../config/nodemailer.js";
+import config from "../config/config.js";
 import {
   ticketsRepository,
   cartsRepository,
   usersRepository,
   productsRepository,
 } from "../repositories/index.js";
+
+const { EMAIL_USER } = config;
 
 class TicketService {
   constructor() {}
@@ -104,6 +108,24 @@ class TicketService {
       return newTicket;
     } catch (error) {
       console.log(`Failed to create ticket with error: ${error}`);
+      throw error;
+    }
+  }
+
+  async sendTicketEmail(mail) {
+    try {
+      const sentEmail = await transport.sendMail({
+        from: `Ephemer Gaming ${EMAIL_USER}`,
+        to: mail.email,
+        subject: mail.subject,
+        html: mail.html,
+      });
+
+      if (!sentEmail) throw new Error(`Email send failure`);
+
+      return sentEmail;
+    } catch (error) {
+      console.log(`Failed to send email with error: ${error}`);
       throw error;
     }
   }

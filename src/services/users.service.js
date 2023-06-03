@@ -6,6 +6,8 @@ import { createHash, isValidPassword } from "../utils.js";
 import { usersRepository } from "../repositories/index.js";
 import UserDTO from "../dao/dtos/user.dto.js";
 
+const { JWT_SECRET } = config;
+
 class UserService {
   constructor() {}
 
@@ -29,7 +31,7 @@ class UserService {
       console.log(error);
       return null;
     }
-  };
+  }
 
   passwordValidate(user, password) {
     return isValidPassword(user, password);
@@ -42,7 +44,7 @@ class UserService {
 
       const expireTime = rememberMe ? "7d" : "3h";
 
-      const token = jwt.sign(jwtUser, config.JWT_SECRET, {
+      const token = jwt.sign(jwtUser, JWT_SECRET, {
         expiresIn: expireTime,
       });
       if (!token) throw new Error("Auth token signing failed");

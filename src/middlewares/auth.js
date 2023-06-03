@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
 import config from "../config/config.js";
 
+const { JWT_SECRET } = config;
+
 ////////////////////////////////
 // Authentication middlewares //
 ////////////////////////////////
@@ -22,7 +24,7 @@ const isProtected = (req, res, next) => {
   if (!token) {
     return res.redirect("/");
   } else {
-    const decodedToken = jwt.verify(token, config.JWT_SECRET, {
+    const decodedToken = jwt.verify(token, JWT_SECRET, {
       ignoreExpiration: true,
     });
 
@@ -50,7 +52,7 @@ const checkLogged = (req, res, next) => {
   console.log(tokenVer);
 
   if (token) {
-    const decodedToken = jwt.verify(token, config.JWT_SECRET, {
+    const decodedToken = jwt.verify(token, JWT_SECRET, {
       ignoreExpiration: true,
     });
 
@@ -71,7 +73,7 @@ const checkLogged = (req, res, next) => {
 
 const verifyRole = (req, res, next, roleToVerify) => {
   const token = req.cookies.jwtCookie;
-  const { role } = jwt.verify(token, config.JWT_SECRET);
+  const { role } = jwt.verify(token, JWT_SECRET);
 
   if (role !== roleToVerify)
     return res.status(403).send({ status: "error", error: "Unauthorized" });

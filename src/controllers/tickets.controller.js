@@ -89,3 +89,35 @@ export const getTicketsByEmail = async (req, res) => {
     });
   }
 };
+
+export const sendTicketEmail = async (req, res) => {
+  try {
+    const mail = req.body;
+    if (!mail) {
+      return res.status(400).send({
+        status: "error",
+        error: "Incomplete values",
+      });
+    }
+
+    const sentEmail = await ticketsService.sendTicketEmail(mail);
+
+    if (!sentEmail) {
+      return res.status(404).send({
+        status: "error",
+        error: "Email send failure",
+      });
+    }
+
+    return res.status(200).send({
+      status: "success",
+      payload: sentEmail,
+    });
+  } catch (error) {
+    console.log(`Cannot send email with nodemailer ${error}`);
+    return res.status(500).send({
+      status: "error",
+      error: "Failed to send email",
+    });
+  }
+};

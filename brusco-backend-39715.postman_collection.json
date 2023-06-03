@@ -760,7 +760,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{lh8080}}/api/v1/tickets/6479736b0855eb3d0c569184",
+							"raw": "{{lh8080}}/api/v1/tickets/647ab8e902c0173c94fe0f5f",
 							"host": [
 								"{{lh8080}}"
 							],
@@ -768,7 +768,28 @@
 								"api",
 								"v1",
 								"tickets",
-								"6479736b0855eb3d0c569184"
+								"647ab8e902c0173c94fe0f5f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-tickets-email",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/v1/tickets/orders/heylo@g.t",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"tickets",
+								"orders",
+								"heylo@g.t"
 							]
 						}
 					},
