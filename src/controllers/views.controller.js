@@ -124,7 +124,10 @@ export const ticketsView = async (req, res) => {
   try {
     const { email } = req.user;
     const userTickets = await ticketsService.getTicketsByEmail(email);
-    console.log(userTickets)
+    userTickets.forEach((ticket) => {
+      const date = new Date(ticket.purchase_datetime).toLocaleString();
+      ticket.purchase_datetime = date;
+    });
     res.render("tickets", {
       user: req.user,
       userTickets,

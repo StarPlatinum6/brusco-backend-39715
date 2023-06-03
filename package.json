@@ -14,15 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://https://github.com/StarPlatinum6/brusco-backend-39715.git"
+    "url": "git+https://https://github.com/nbrusco/brusco-backend-39715.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://https://github.com/StarPlatinum6/brusco-backend-39715/issues"
+    "url": "https://https://github.com/nbrusco/brusco-backend-39715/issues"
   },
-  "homepage": "https://https://github.com/StarPlatinum6/brusco-backend-39715#readme",
+  "homepage": "https://https://github.com/nbrusco/brusco-backend-39715#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
     "colors": "^1.4.0",

@@ -44,4 +44,8 @@ ticketSchema.pre("findOne", function () {
   this.populate("products.productId");
 });
 
+ticketSchema.pre("find", function () {
+  this.populate("products.productId");
+});
+
 export const ticketModel = mongoose.model(ticketsCollection, ticketSchema);
