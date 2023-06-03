@@ -51,7 +51,11 @@ class TicketService {
               throw new Error(`Error deleting product ${pid} from cart ${cid}`);
             console.warn(`Product ${title} is out of stock. Removed from cart`);
           } else {
-            products.push({ item: title, quantity: qty, total: price * qty });
+            products.push({
+              productId: pid,
+              quantity: qty,
+              total: price * qty,
+            });
 
             const deletedProductFromCart =
               cartsRepository.deleteProductFromCart(cid, pid);
@@ -60,12 +64,14 @@ class TicketService {
 
             const newStock = { stock: stock - qty };
             productsRepository.updateProduct(pid, newStock);
+            ammount += price * qty;
           }
-          ammount += price * qty;
         }
       );
-      
-      if (products.length === 0) throw new Error("All products were out of stock.");
+
+      if (products.length === 0)
+        throw new Error("All products were out of stock.");
+      console.log(products);
 
       const code = uuidv4();
       const purchase_datetime = new Date().toLocaleString();

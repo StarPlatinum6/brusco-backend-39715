@@ -5,8 +5,10 @@ const ticketsCollection = "tickets";
 const ticketSchema = new mongoose.Schema({
   products: [
     {
-      item: {
-        type: String,
+      _id: false,
+      productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "products",
         required: true,
       },
       quantity: {
@@ -36,6 +38,10 @@ const ticketSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+});
+
+ticketSchema.pre("findOne", function () {
+  this.populate("products.productId");
 });
 
 export const ticketModel = mongoose.model(ticketsCollection, ticketSchema);
