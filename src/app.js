@@ -1,6 +1,9 @@
 import express from "express";
 import morgan from "morgan";
 
+import cowsay from "cowsay";
+import colors from "colors";
+
 import handlebars from "express-handlebars";
 import { multiply, compare } from "./views/helpers.js";
 
@@ -11,9 +14,7 @@ import __dirname from "./utils.js";
 import socket from "./socket.js";
 
 import routerAPI from "./routes/routes.js";
-
-import cowsay from "cowsay";
-import colors from "colors";
+import errorHandler from "./middlewares/errors/index.js";
 
 const env = async () => {
   const app = express();
@@ -26,6 +27,8 @@ const env = async () => {
   initializePassport();
 
   routerAPI(app);
+  
+  app.use(errorHandler);
 
   app.engine(
     "handlebars",

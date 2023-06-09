@@ -1,5 +1,9 @@
 import { productsService } from "../services/products.service.js";
 
+import CustomError from "../services/errors/CustomError.js";
+import ErrorCodes from "../services/errors/enums.js";
+import { addProductErrorInfo } from "../services/errors/info.js";
+
 /////////////////////////
 ///////GET METHODS///////
 /////////////////////////
@@ -98,7 +102,7 @@ export const getProductById = async (req, res) => {
 ///////POST METHOD///////
 /////////////////////////
 
-export const addProduct = async (req, res) => {
+export const addProduct = async (req, res, next) => {
   try {
     const { title, description, code, price, stock, category } = req.body;
     let { thumbnails } = req.body;
@@ -110,6 +114,24 @@ export const addProduct = async (req, res) => {
         status: "error",
         error: `Failed to save thumbnails`,
       });
+    }
+
+    if (!title || !description || !code || !price || !stock || !category) {
+      const error = CustomError.createError({
+        name: "Add product error",
+        cause: addProductErrorInfo({
+          title,
+          description,
+          code,
+          price,
+          stock,
+          category,
+        }),
+        message: "Error trying to create new product",
+        code: ErrorCodes.MISSING_DATA_ERROR,
+        status: 400,
+      });
+      return next(error);
     }
 
     const addedProduct = await productsService.addProduct(

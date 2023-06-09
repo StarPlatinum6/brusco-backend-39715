@@ -1,5 +1,9 @@
 import { userService } from "../services/users.service.js";
 
+import CustomError from "../services/errors/CustomError.js";
+import ErrorCodes from "../services/errors/enums.js";
+import { loginErrorInfo } from "../services/errors/info.js";
+
 export const registerUser = async (req, res) => {
   try {
     return res
@@ -19,15 +23,19 @@ export const failRegister = async (req, res) => {
     .send({ status: "error", message: "User already exists" });
 };
 
-export const loginUser = async (req, res) => {
+export const loginUser = async (req, res, next) => {
   try {
     const { email, password, rememberMe } = req.body;
 
     if (!email || !password) {
-      return res.status(400).send({
-        status: "error",
-        error: "Incomplete values",
+      const error = CustomError.createError({
+        name: "User Login error",
+        cause: loginErrorInfo({ email, password }),
+        message: "Error trying to login User",
+        code: ErrorCodes.MISSING_DATA_ERROR,
+        status: 400,
       });
+      return next(error);
     }
 
     const user = await userService.getUser(email);

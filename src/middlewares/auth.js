@@ -1,6 +1,13 @@
 import jwt from "jsonwebtoken";
 import config from "../config/config.js";
 
+import CustomError from "../services/errors/CustomError.js";
+import ErrorCodes from "../services/errors/enums.js";
+import {
+  authenticationErrorInfo,
+  authorizationErrorInfo,
+} from "../services/errors/info.js";
+
 const { JWT_SECRET } = config;
 
 ////////////////////////////////
@@ -73,10 +80,30 @@ const checkLogged = (req, res, next) => {
 
 const verifyRole = (req, res, next, roleToVerify) => {
   const token = req.cookies.jwtCookie;
+
+  if (!token) {
+    const error = CustomError.createError({
+      name: "Authentication error",
+      cause: authenticationErrorInfo(),
+      message: "Error authenticating user",
+      code: ErrorCodes.AUTHENTICATION_ERROR,
+      status: 401,
+    });
+    return next(error);
+  }
+
   const { role } = jwt.verify(token, JWT_SECRET);
 
-  if (role !== roleToVerify)
-    return res.status(403).send({ status: "error", error: "Unauthorized" });
+  if (role !== roleToVerify) {
+    const error = CustomError.createError({
+      name: "Authorization error",
+      cause: authorizationErrorInfo({ role, roleToVerify }),
+      message: "Permission denied.",
+      code: ErrorCodes.AUTHORIZATION_ERROR,
+      status: 403,
+    });
+    return next(error);
+  }
 
   next();
 };

@@ -1,6 +1,10 @@
 import { cartsService } from "../services/carts.service.js";
 import { ticketsService } from "../services/tickets.service.js";
 
+import CustomError from "../services/errors/CustomError.js";
+import ErrorCodes from "../services/errors/enums.js";
+import { addToCartErrorInfo } from "../services/errors/info.js";
+
 /////////////////////////
 ///////GET METHODS///////
 /////////////////////////
@@ -96,10 +100,14 @@ export const addToCart = async (req, res) => {
     const { quantity } = req.body;
 
     if (!cid || !pid) {
-      return res.status(400).send({
-        status: "error",
-        error: "Incomplete values",
+      const error = CustomError.createError({
+        name: "Add product to cart error",
+        cause: addToCartErrorInfo({ cid, pid }),
+        message: "Error trying to add product to cart",
+        code: ErrorCodes.MISSING_DATA_ERROR,
+        status: 400,
       });
+      return next(error);
     }
 
     const productAddedToCart = await cartsService.addToCart(cid, pid, quantity);
