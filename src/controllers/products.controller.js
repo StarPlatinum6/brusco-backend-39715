@@ -98,6 +98,29 @@ export const getProductById = async (req, res) => {
   }
 };
 
+export const mockingProducts = async (req, res) => {
+  try {
+    const productsMock = await productsService.mockingProducts();
+
+    if (!productsMock)
+      return res.status(404).send({
+        status: "error",
+        error: "Failed to get products mock",
+      });
+
+    return res.status(200).send({
+      status: "success",
+      payload: productsMock,
+    });
+  } catch (error) {
+    console.log(`Cannot get products mock, error: ${error}`);
+    return res.status(500).send({
+      status: "error",
+      error: "Failed to get products mock",
+    });
+  }
+};
+
 /////////////////////////
 ///////POST METHOD///////
 /////////////////////////

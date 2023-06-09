@@ -7,10 +7,16 @@ import {
   getProductById,
   getProducts,
   updateProduct,
+  mockingProducts,
 } from "../controllers/products.controller.js";
 
 const productsRouter = Router();
 
+productsRouter.get(
+  "/mockingproducts",
+  (req, res, next) => verifyRole(req, res, next, "admin"),
+  mockingProducts
+);
 productsRouter.get("/", getProducts);
 productsRouter.get("/:pid", getProductById);
 productsRouter.post(
