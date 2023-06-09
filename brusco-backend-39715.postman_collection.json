@@ -449,6 +449,26 @@
 					"response": []
 				},
 				{
+					"name": "get-products-mock",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/v1/products/mockingproducts",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"products",
+								"mockingproducts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "add-product-raw",
 					"request": {
 						"method": "POST",
@@ -590,7 +610,7 @@
 			]
 		},
 		{
-			"name": "sessions-jwt",
+			"name": "users-jwt",
 			"item": [
 				{
 					"name": "current-user",
@@ -601,14 +621,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{lh8080}}/api/v1/sessions/current",
+							"raw": "{{lh8080}}/api/v1/users/current",
 							"host": [
 								"{{lh8080}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"sessions",
+								"users",
 								"current"
 							]
 						}
@@ -621,14 +641,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{lh8080}}/api/v1/sessions/logout",
+							"raw": "{{lh8080}}/api/v1/users/logout",
 							"host": [
 								"{{lh8080}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"sessions",
+								"users",
 								"logout"
 							]
 						}
@@ -642,7 +662,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"nicolasbrusco@hotmail.com\",\r\n    \"password\": \"159\"\r\n}",
+							"raw": "{\r\n    \"email\": \"nicolasbrusco@hotmail.com\",\r\n    \"password\": \"159\"\r\n}\r\n// {\r\n//     \"email\": \"adminCoder@coder.com\",\r\n//     \"password\": \"123\"\r\n// }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -650,14 +670,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{lh8080}}/api/v1/sessions/login",
+							"raw": "{{lh8080}}/api/v1/users/login",
 							"host": [
 								"{{lh8080}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"sessions",
+								"users",
 								"login"
 							]
 						}
@@ -679,14 +699,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{lh8080}}/api/v1/sessions/register",
+							"raw": "{{lh8080}}/api/v1/users/register",
 							"host": [
 								"{{lh8080}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"sessions",
+								"users",
 								"register"
 							]
 						}
@@ -708,14 +728,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{lh8080}}/api/v1/sessions/restore",
+							"raw": "{{lh8080}}/api/v1/users/restore",
 							"host": [
 								"{{lh8080}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"sessions",
+								"users",
 								"restore"
 							]
 						}
