@@ -16,7 +16,7 @@ export const getTickets = async (req, res) => {
       payload: tickets,
     });
   } catch (error) {
-    console.log(`Cannot get tickets with mongoose ${error}`);
+    req.logger.error(`Cannot get tickets with mongoose ${error}`);
     return res.status(500).send({
       status: "error",
       error: "Failed to get tickets",
@@ -49,7 +49,7 @@ export const getTicketById = async (req, res) => {
       payload: filteredTicket,
     });
   } catch (error) {
-    console.log(`Cannot get ticket with mongoose ${error}`);
+    req.logger.error(`Cannot get ticket with mongoose ${error}`);
     return res.status(500).send({
       status: "error",
       error: "Failed to get ticket",
@@ -82,7 +82,7 @@ export const getTicketsByEmail = async (req, res) => {
       payload: filteredTicket,
     });
   } catch (error) {
-    console.log(`Cannot get ticket with mongoose ${error}`);
+    req.logger.error(`Cannot get ticket with mongoose ${error}`);
     return res.status(500).send({
       status: "error",
       error: "Failed to get ticket",
@@ -114,7 +114,7 @@ export const sendTicketEmail = async (req, res) => {
       payload: sentEmail,
     });
   } catch (error) {
-    console.log(`Cannot send email with nodemailer ${error}`);
+    req.logger.error(`Cannot send email with nodemailer ${error}`);
     return res.status(500).send({
       status: "error",
       error: "Failed to send email",

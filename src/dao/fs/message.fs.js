@@ -1,4 +1,4 @@
-import __dirname from "../../utils.js";
+import __dirname from "../../utils/utils.js";
 import fs from "fs";
 
 class Message {

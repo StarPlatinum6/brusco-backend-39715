@@ -816,6 +816,28 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "logger",
+			"item": [
+				{
+					"name": "logger-test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/loggerTest",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"loggerTest"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

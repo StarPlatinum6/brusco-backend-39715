@@ -61,7 +61,7 @@ export const homeView = async (req, res) => {
       title: "Ephemer - Products",
     });
   } catch (error) {
-    console.log(`Failed to render home view: ${error}`);
+    req.logger.error(`Failed to render home view: ${error}`);
     res
       .status(500)
       .send({ status: "error", error: "Failed to render home view" });
@@ -88,7 +88,7 @@ export const productView = async (req, res) => {
       title: "Ephemer - Product Detail",
     });
   } catch (error) {
-    console.log(`Failed to render product view: ${error}`);
+    req.logger.error(`Failed to render product view: ${error}`);
     res
       .status(500)
       .send({ status: "error", error: "Failed to render product view" });
@@ -113,7 +113,7 @@ export const cartView = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(`Failed to render cart view: ${error}`);
+    req.logger.error(`Failed to render cart view: ${error}`);
     res
       .status(500)
       .send({ status: "error", error: "Failed to render cart view" });
@@ -143,7 +143,7 @@ export const ticketsView = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(`Failed to render tickets view: ${error}`);
+    req.logger.error(`Failed to render tickets view: ${error}`);
     res
       .status(500)
       .send({ status: "error", error: "Failed to render tickets view" });
@@ -180,7 +180,7 @@ export const realTimeProductsView = async (req, res) => {
       title: "Ephemer - Real Time Products",
     });
   } catch (error) {
-    console.log(`Failed to render real time view: ${error}`);
+    req.logger.error(`Failed to render real time view: ${error}`);
     res
       .status(500)
       .send({ status: "error", error: "Failed to render real time view" });
@@ -204,7 +204,7 @@ export const chatView = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(`Failed to render chat view: ${error}`);
+    req.logger.error(`Failed to render chat view: ${error}`);
     res
       .status(500)
       .send({ status: "error", error: "Failed to render chat view" });

@@ -1,5 +1,9 @@
 import dotenv from "dotenv";
-dotenv.config();
+import { environment } from "./commander.js";
+
+dotenv.config({
+  path: environment === "DEVELOPMENT" ? "./.env.dev" : "./.env.prod",
+}); // Copiate dale :)
 
 const config = {
   PORT: process.env.PORT || 8080,
@@ -17,6 +21,8 @@ const config = {
   EMAIL_PORT: parseInt(process.env.EMAIL_PORT),
   EMAIL_USER: process.env.EMAIL_USER,
   EMAIL_PASS: process.env.EMAIL_PASS,
+  // Logger
+  LOGGER: process.env.LOGGER,
 };
 
 export default config;

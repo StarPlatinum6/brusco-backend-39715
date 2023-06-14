@@ -8,7 +8,7 @@ import { cartsRepository } from "../repositories/index.js";
 
 import config from "../config/config.js";
 
-import { createHash } from "../utils.js";
+import { createHash } from "../utils/utils.js";
 
 const cookieExtractor = (req) => {
   let token = null;

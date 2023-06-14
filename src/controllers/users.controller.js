@@ -10,7 +10,7 @@ export const registerUser = async (req, res) => {
       .status(201)
       .send({ status: "success", message: "User registered" });
   } catch (error) {
-    console.log(`Failed to register user: ${error}`);
+    req.logger.error(`Failed to register user: ${error}`);
     return res
       .status(500)
       .send({ status: "error", error: "Failed to register user" });
@@ -64,7 +64,7 @@ export const loginUser = async (req, res, next) => {
       .cookie("jwtCookie", token, { httpOnly: true })
       .send({ status: "success", message: "Logged In" });
   } catch (error) {
-    console.log(`Failed to login with error: ${error}`);
+    req.logger.error(`Failed to login with error: ${error}`);
     return res.status(500).send({ status: "error", error: "Login failed" });
   }
 };
@@ -84,7 +84,7 @@ export const githubCallback = async (req, res) => {
 
     return res.cookie("jwtCookie", token, { httpOnly: true }).redirect("/home");
   } catch (error) {
-    console.log(`Failed to handle GitHub callback with error: ${error}`);
+    req.logger.error(`Failed to handle GitHub callback with error: ${error}`);
     return res
       .status(500)
       .send({ status: "error", error: "Failed to handle GitHub callback" });
@@ -133,7 +133,7 @@ export const restoreUserPassword = async (req, res) => {
       message: "Successfully updated password",
     });
   } catch (error) {
-    console.log(`Failed to restore user password: ${error}`);
+    req.logger.error(`Failed to restore user password: ${error}`);
     return res
       .status(500)
       .send({ status: "error", error: "Failed to restore user password" });

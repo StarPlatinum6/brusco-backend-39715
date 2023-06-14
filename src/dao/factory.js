@@ -1,5 +1,5 @@
 import database from "../db.js";
-import persistenceType from "../config/commander.js";
+import { persistenceType } from "../config/commander.js";
 
 export let productDAO, cartDAO, userDAO, messageDAO, ticketDAO;
 
@@ -30,5 +30,7 @@ switch (persistenceType) {
     ticketDAO = ticketFs;
     break;
   default:
-    throw new Error(`${persistenceType} is not a valid persistence type, you must select "MONGO" or "FILESYSTEM"`);
+    throw new Error(
+      `${persistenceType} is not a valid persistence type, you must select "MONGO" or "FILESYSTEM"`
+    );
 }

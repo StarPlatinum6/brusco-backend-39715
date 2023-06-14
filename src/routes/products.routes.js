@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { uploader } from "../utils.js";
+import { uploader } from "../utils/utils.js";
 import { verifyRole } from "../middlewares/auth.js";
 import {
   addProduct,

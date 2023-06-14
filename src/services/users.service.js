@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 
 import config from "../config/config.js";
-import { createHash, isValidPassword } from "../utils.js";
+import { createHash, isValidPassword } from "../utils/utils.js";
 
 import { usersRepository } from "../repositories/index.js";
 import UserDTO from "../dao/dtos/user.dto.js";

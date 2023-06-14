@@ -1,0 +1,23 @@
+{"level":"fatal","message":"GET in /api/v1/carts/6460770e9d94f3d716abd6a9 - 17:56:49"}
+{"level":"fatal","message":"GET in /api/v1/carts/6460770e9d94f3d716abd6a9 - 17:57:28"}
+{"level":"error","message":"Failed to get cart!"}
+{"level":"error","message":"Failed to get cart!"}
+{"level":"fatal","message":"Failed to get cart!"}
+{"level":"fatal","message":"Failed to get cart!"}
+{"level":"error","message":"Cannot get cart with mongoose Error: Cart with id: 6460770e9d94f3d716abd6a9A does not exist"}
+{"level":"error","message":"Cannot get cart with mongoose Error: Cart with id: 6460770e9d94f3d716abd6a9A does not exist"}
+{"level":"error","message":"Cannot get cart with mongoose Error: Cart with id: 6460770e9d94f3d716abd6a9A does not exist"}
+{"level":"error","message":"Cannot get cart with mongoose Error: Cart with id: 6460770e9d94f3d716abd6a9A does not exist"}
+{"level":"error","message":"Cannot get cart with mongoose Error: Cart with id: 6460770e9d94f3d716abd6a9A does not exist"}
+{"level":"error","message":"Cannot get cart with mongoose Error: Cart with id: 6460770e9d94f3d716abd6a9A does not exist"}
+{"level":"error","message":"Cannot get cart with mongoose Error: Cart with id: 6460770e9d94f3d716abd6a9a does not exist"}
+{"level":"error","message":"Cannot get cart with mongoose Error: Cart with id: 6460770e9d94f3d716abd6a9a does not exist"}
+{"level":"error","message":"Request in test endpoint at level error!"}
+{"level":"fatal","message":"Request in test endpoint at level fatal!"}
+{"level":"error","message":"Request in test endpoint at level error!"}
+{"level":"fatal","message":"Request in test endpoint at level fatal!"}
+{"level":"error","message":"Cannot get cart with mongoose Error: Cart with id: 6460770e9d94f3d716abd6a9a does not exist"}
+{"level":"error","message":"Request in test endpoint at error level!"}
+{"level":"fatal","message":"Request in test endpoint at fatal level!"}
+{"level":"error","message":"Request in test endpoint at error level!"}
+{"level":"fatal","message":"Request in test endpoint at fatal level!"}
