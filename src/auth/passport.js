@@ -9,7 +9,7 @@ import { cartsRepository } from "../repositories/index.js";
 import { config } from "../config/config.js";
 // import { admin, github, jwt as jwtConfig } from "../config/config.js";
 
-import { createHash } from "../utils/utils.js";
+import { createHash } from "../utils.js";
 
 const cookieExtractor = (req) => {
   let token = null;

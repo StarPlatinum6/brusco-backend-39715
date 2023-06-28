@@ -10,7 +10,7 @@ import cookieParser from "cookie-parser";
 import initializePassport from "./auth/passport.js";
 
 import { winstonLogger } from "./utils/logger.js";
-import __dirname from "./utils/utils.js";
+import __dirname from "./utils.js";
 import socket from "./socket.js";
 
 import routerAPI from "./routes/routes.js";
