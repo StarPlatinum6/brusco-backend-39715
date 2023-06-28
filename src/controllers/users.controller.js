@@ -1,6 +1,6 @@
 import { config } from "../config/config.js";
 
-import { userService } from "../services/users.service.js";
+import { userService } from "../services/index.js";
 
 import CustomError from "../services/errors/CustomError.js";
 import {

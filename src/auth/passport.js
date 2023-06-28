@@ -7,7 +7,6 @@ import { usersRepository } from "../repositories/index.js";
 import { cartsRepository } from "../repositories/index.js";
 
 import { config } from "../config/config.js";
-// import { admin, github, jwt as jwtConfig } from "../config/config.js";
 
 import { createHash } from "../utils.js";
 

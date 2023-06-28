@@ -1,6 +1,6 @@
 import { cartsRepository } from "../repositories/index.js";
 
-class CartService {
+export default class CartService {
   constructor() {}
 
   async getCartById(cid) {
@@ -96,5 +96,3 @@ class CartService {
     }
   }
 }
-
-export const cartsService = new CartService();

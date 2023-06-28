@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { productsRepository } from "../repositories/index.js";
 
-class ProductService {
+export default class ProductService {
   constructor() {}
 
   async getProducts(page, limit, category, available, sort) {
@@ -123,5 +123,3 @@ class ProductService {
     }
   }
 }
-
-export const productsService = new ProductService();

@@ -10,7 +10,7 @@ const {
   jwt: { JWT_SECRET },
 } = config;
 
-class UserService {
+export default class UserService {
   constructor() {}
 
   async getUser(email) {
@@ -77,5 +77,3 @@ class UserService {
     }
   }
 }
-
-export const userService = new UserService();

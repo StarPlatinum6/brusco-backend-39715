@@ -1,8 +1,8 @@
-import { messagesService } from "../services/messages.service.js";
+import { messageService } from "../services/index.js";
 
 export const getMessages = async (req, res) => {
   try {
-    const messages = await messagesService.getMessages();
+    const messages = await messageService.getMessages();
 
     if (!messages)
       return res

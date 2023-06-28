@@ -1,6 +1,6 @@
 import { messagesRepository } from "../repositories/index.js";
 
-class MessageService {
+export default class MessageService {
   constructor() {}
 
   async getMessages() {
@@ -15,5 +15,3 @@ class MessageService {
     }
   }
 }
-
-export const messagesService = new MessageService();

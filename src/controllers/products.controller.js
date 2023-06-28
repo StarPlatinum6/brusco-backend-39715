@@ -1,4 +1,4 @@
-import { productsService } from "../services/products.service.js";
+import { productService } from "../services/index.js";
 
 import CustomError from "../services/errors/CustomError.js";
 import {
@@ -43,7 +43,7 @@ export const getProducts = async (req, res) => {
       });
     }
 
-    const products = await productsService.getProducts(
+    const products = await productService.getProducts(
       page,
       limit,
       category,
@@ -81,7 +81,7 @@ export const getProductById = async (req, res) => {
       });
     }
 
-    const filteredProduct = await productsService.getProductById(pid);
+    const filteredProduct = await productService.getProductById(pid);
 
     if (!filteredProduct || filteredProduct == 0)
       return res.status(404).send({
@@ -104,7 +104,7 @@ export const getProductById = async (req, res) => {
 
 export const mockingProducts = async (req, res) => {
   try {
-    const productsMock = await productsService.mockingProducts();
+    const productsMock = await productService.mockingProducts();
 
     if (!productsMock)
       return res.status(404).send({
@@ -161,7 +161,7 @@ export const addProduct = async (req, res, next) => {
       return next(error);
     }
 
-    const addedProduct = await productsService.addProduct(
+    const addedProduct = await productService.addProduct(
       title,
       description,
       code,
@@ -204,7 +204,7 @@ export const updateProduct = async (req, res) => {
       });
     }
 
-    const updatedProduct = await productsService.updateProduct(
+    const updatedProduct = await productService.updateProduct(
       updateId,
       updateProd
     );
@@ -244,7 +244,7 @@ export const deleteProduct = async (req, res) => {
       });
     }
 
-    const deletedProduct = await productsService.deleteProduct(deleteId);
+    const deletedProduct = await productService.deleteProduct(deleteId);
 
     if (!deletedProduct || deletedProduct.deletedCount === 0) {
       return res.status(404).send({

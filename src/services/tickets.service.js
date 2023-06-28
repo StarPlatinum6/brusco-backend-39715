@@ -12,7 +12,7 @@ const {
   mailing: { EMAIL_USER },
 } = config;
 
-class TicketService {
+export default class TicketService {
   constructor() {}
 
   async getTickets() {
@@ -132,5 +132,3 @@ class TicketService {
     }
   }
 }
-
-export const ticketsService = new TicketService();

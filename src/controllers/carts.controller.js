@@ -1,5 +1,4 @@
-import { cartsService } from "../services/carts.service.js";
-import { ticketsService } from "../services/tickets.service.js";
+import { cartService, ticketService } from "../services/index.js";
 
 import CustomError from "../services/errors/CustomError.js";
 import {
@@ -24,7 +23,7 @@ export const getCartById = async (req, res) => {
       });
     }
 
-    const filteredCart = await cartsService.getCartById(cid);
+    const filteredCart = await cartService.getCartById(cid);
 
     if (!filteredCart) {
       return res.status(404).send({
@@ -61,7 +60,7 @@ export const createTicket = async (req, res) => {
       });
     }
 
-    const newTicket = await ticketsService.createTicket(cid);
+    const newTicket = await ticketService.createTicket(cid);
 
     if (!newTicket) {
       return res.status(404).send({
@@ -80,7 +79,7 @@ export const createTicket = async (req, res) => {
 };
 export const createCart = async (req, res) => {
   try {
-    const newCart = await cartsService.createCart();
+    const newCart = await cartService.createCart();
 
     if (!newCart) {
       return res.status(404).send({
@@ -114,7 +113,7 @@ export const addToCart = async (req, res) => {
       return next(error);
     }
 
-    const productAddedToCart = await cartsService.addToCart(cid, pid, quantity);
+    const productAddedToCart = await cartService.addToCart(cid, pid, quantity);
 
     if (!productAddedToCart) {
       return res.status(404).send({
@@ -150,7 +149,7 @@ export const updateCart = async (req, res) => {
       });
     }
 
-    const updatedCart = await cartsService.updateCart(cid, products);
+    const updatedCart = await cartService.updateCart(cid, products);
 
     if (!updatedCart) {
       return res.status(404).send({
@@ -183,7 +182,7 @@ export const updateProductFromCart = async (req, res) => {
       });
     }
 
-    const updatedProductFromCart = await cartsService.updateProductFromCart(
+    const updatedProductFromCart = await cartService.updateProductFromCart(
       cid,
       pid,
       quantity
@@ -223,7 +222,7 @@ export const deleteCart = async (req, res) => {
       });
     }
 
-    const deletedCart = await cartsService.deleteCart(cid);
+    const deletedCart = await cartService.deleteCart(cid);
 
     if (!deletedCart) {
       return res.status(404).send({
@@ -255,7 +254,7 @@ export const deleteProductFromCart = async (req, res) => {
       });
     }
 
-    const deletedProductFromCart = await cartsService.deleteProductFromCart(
+    const deletedProductFromCart = await cartService.deleteProductFromCart(
       cid,
       pid
     );
