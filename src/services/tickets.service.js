@@ -1,19 +1,16 @@
 import { v4 as uuidv4 } from "uuid";
-import { transport } from "../config/nodemailer.js";
-import { config } from "../config/config.js";
 import {
   ticketsRepository,
   cartsRepository,
   usersRepository,
   productsRepository,
 } from "../repositories/index.js";
-
-const {
-  mailing: { EMAIL_USER },
-} = config;
+import { emailTemplates } from "../mail/templates.js";
 
 export default class TicketService {
-  constructor() {}
+  constructor(mailService) {
+    this.mailService = mailService;
+  }
 
   async getTickets() {
     try {
@@ -90,10 +87,9 @@ export default class TicketService {
 
       if (products.length === 0)
         throw new Error("All products were out of stock.");
-      console.log(products);
 
       const code = uuidv4();
-      const purchase_datetime = new Date().toLocaleString();
+      const purchase_datetime = new Date();
       const { email: purchaser } = await usersRepository.getUserByCartId(cid);
 
       const ticket = {
@@ -107,27 +103,22 @@ export default class TicketService {
       const newTicket = await ticketsRepository.createTicket(ticket);
       if (!newTicket) throw new Error("Error creating new ticket");
 
+      const mail = {
+        to: purchaser,
+        subject: `Ephemer Gaming order ${code}`,
+        html: emailTemplates.newTicketEmail(
+          purchaser,
+          code,
+          purchase_datetime.toLocaleString(),
+          ammount
+        ),
+      };
+
+      await this.mailService.sendEmail(mail);
+
       return newTicket;
     } catch (error) {
       console.log(`Failed to create ticket with error: ${error}`);
-      throw error;
-    }
-  }
-
-  async sendTicketEmail(mail) {
-    try {
-      const sentEmail = await transport.sendMail({
-        from: `Ephemer Gaming ${EMAIL_USER}`,
-        to: mail.email,
-        subject: mail.subject,
-        html: mail.html,
-      });
-
-      if (!sentEmail) throw new Error(`Email send failure`);
-
-      return sentEmail;
-    } catch (error) {
-      console.log(`Failed to send email with error: ${error}`);
       throw error;
     }
   }

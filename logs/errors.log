@@ -21,3 +21,10 @@
 {"level":"fatal","message":"Request in test endpoint at fatal level!"}
 {"level":"error","message":"Request in test endpoint at error level!"}
 {"level":"fatal","message":"Request in test endpoint at fatal level!"}
+{"level":"error","message":"Failed to create ticket with mongoose Error: Error creating new ticket"}
+{"level":"error","message":"Failed to create ticket with mongoose Error: Error creating new ticket"}
+{"level":"error","message":"Failed to create ticket with mongoose TypeError: emailTemplates.newTicketEmail is not a function"}
+{"level":"error","message":"Failed to create ticket with mongoose TypeError: Cannot read properties of undefined (reading 'sendMail')"}
+{"level":"error","message":"Failed to create ticket with mongoose TypeError: Cannot read properties of undefined (reading 'sendMail')"}
+{"level":"error","message":"Failed to create ticket with mongoose TypeError: Cannot read properties of undefined (reading 'sendMail')"}
+{"level":"error","message":"Failed to create ticket with mongoose TypeError: this.mailService.sendMail is not a function"}
