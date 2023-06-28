@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import config from "../config/config.js";
+import { config } from "../config/config.js";
 
 import CustomError from "../services/errors/CustomError.js";
 import {
@@ -12,7 +12,9 @@ import {
   authorizationErrorInfo,
 } from "../services/errors/info.js";
 
-const { JWT_SECRET } = config;
+const {
+  jwt: { COOKIE_NAME, JWT_SECRET },
+} = config;
 
 ////////////////////////////////
 // Authentication middlewares //
@@ -40,7 +42,7 @@ const isProtected = (req, res, next) => {
     });
 
     if (Date.now() / 1000 > decodedToken.exp) {
-      res.clearCookie("jwtCookie");
+      res.clearCookie(COOKIE_NAME);
       return res.redirect("/");
     }
 
@@ -68,7 +70,7 @@ const checkLogged = (req, res, next) => {
     });
 
     if (Date.now() / 1000 > decodedToken.exp) {
-      res.clearCookie("jwtCookie");
+      res.clearCookie(COOKIE_NAME);
       return res.redirect("/home");
     }
 

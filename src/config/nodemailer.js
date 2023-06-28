@@ -1,7 +1,9 @@
 import nodemailer from "nodemailer";
-import config from "./config.js";
+import { config } from "./config.js";
 
-const { EMAIL_SERVICE, EMAIL_PORT, EMAIL_USER, EMAIL_PASS } = config;
+const {
+  mailing: { EMAIL_SERVICE, EMAIL_PORT, EMAIL_USER, EMAIL_PASS },
+} = config;
 
 export const transport = nodemailer.createTransport({
   service: EMAIL_SERVICE,

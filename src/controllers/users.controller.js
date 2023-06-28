@@ -1,3 +1,5 @@
+import { config } from "../config/config.js";
+
 import { userService } from "../services/users.service.js";
 
 import CustomError from "../services/errors/CustomError.js";
@@ -7,6 +9,10 @@ import {
   ErrorNames,
 } from "../services/errors/enums.js";
 import { loginErrorInfo } from "../services/errors/info.js";
+
+const {
+  jwt: { COOKIE_NAME },
+} = config;
 
 export const registerUser = async (req, res) => {
   try {
@@ -65,7 +71,7 @@ export const loginUser = async (req, res, next) => {
     }
 
     return res
-      .cookie("jwtCookie", token, { httpOnly: true })
+      .cookie(COOKIE_NAME, token, { httpOnly: true })
       .send({ status: "success", message: "Logged In" });
   } catch (error) {
     req.logger.error(`Failed to login with error: ${error}`);
@@ -86,7 +92,7 @@ export const githubCallback = async (req, res) => {
         .send({ status: "error", error: "Failed to generate JWT token" });
     }
 
-    return res.cookie("jwtCookie", token, { httpOnly: true }).redirect("/home");
+    return res.cookie(COOKIE_NAME, token, { httpOnly: true }).redirect("/home");
   } catch (error) {
     req.logger.error(`Failed to handle GitHub callback with error: ${error}`);
     return res
@@ -101,7 +107,7 @@ export const currentUser = (req, res) => {
 
 export const logoutUser = (req, res) => {
   return res
-    .clearCookie("jwtCookie")
+    .clearCookie(COOKIE_NAME)
     .send({ status: "success", message: "Logout successful!" });
 };
 

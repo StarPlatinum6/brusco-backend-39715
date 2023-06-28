@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { transport } from "../config/nodemailer.js";
-import config from "../config/config.js";
+import { config } from "../config/config.js";
 import {
   ticketsRepository,
   cartsRepository,
@@ -8,7 +8,9 @@ import {
   productsRepository,
 } from "../repositories/index.js";
 
-const { EMAIL_USER } = config;
+const {
+  mailing: { EMAIL_USER },
+} = config;
 
 class TicketService {
   constructor() {}

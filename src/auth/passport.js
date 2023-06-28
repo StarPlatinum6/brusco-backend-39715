@@ -6,17 +6,23 @@ import jwt from "passport-jwt";
 import { usersRepository } from "../repositories/index.js";
 import { cartsRepository } from "../repositories/index.js";
 
-import config from "../config/config.js";
+import { config } from "../config/config.js";
+// import { admin, github, jwt as jwtConfig } from "../config/config.js";
 
 import { createHash } from "../utils/utils.js";
 
 const cookieExtractor = (req) => {
   let token = null;
-  req && req.cookies ? (token = req.cookies["jwtCookie"]) : null;
+  req && req.cookies ? (token = req.cookies[COOKIE_NAME]) : null;
   return token;
 };
 
-const { clientID, clientSecret, callbackUrl, JWT_SECRET, ADMIN_EMAIL } = config;
+const {
+  admin: { ADMIN_EMAIL },
+  github: { clientID, clientSecret, callbackUrl },
+  jwt: { COOKIE_NAME, JWT_SECRET },
+} = config;
+
 const LocalStrategy = local.Strategy;
 const JwtStrategy = jwt.Strategy;
 const extractJwt = jwt.ExtractJwt;

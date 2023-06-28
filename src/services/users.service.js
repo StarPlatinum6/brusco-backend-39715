@@ -1,12 +1,14 @@
 import jwt from "jsonwebtoken";
 
-import config from "../config/config.js";
+import { config } from "../config/config.js";
 import { createHash, isValidPassword } from "../utils/utils.js";
 
 import { usersRepository } from "../repositories/index.js";
 import UserDTO from "../dao/dtos/user.dto.js";
 
-const { JWT_SECRET } = config;
+const {
+  jwt: { JWT_SECRET },
+} = config;
 
 class UserService {
   constructor() {}

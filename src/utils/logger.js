@@ -1,7 +1,9 @@
 import winston from "winston";
-import config from "../config/config.js";
+import { config } from "../config/config.js";
 
-const { LOGGER } = config;
+const {
+  logs: { LOGGER },
+} = config;
 
 const customLevelOptions = {
   levels: {
