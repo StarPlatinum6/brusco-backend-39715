@@ -2,7 +2,11 @@ import { cartsService } from "../services/carts.service.js";
 import { ticketsService } from "../services/tickets.service.js";
 
 import CustomError from "../services/errors/CustomError.js";
-import ErrorCodes from "../services/errors/enums.js";
+import {
+  ErrorCodes,
+  ErrorMessages,
+  ErrorNames,
+} from "../services/errors/enums.js";
 import { addToCartErrorInfo } from "../services/errors/info.js";
 
 /////////////////////////
@@ -34,7 +38,7 @@ export const getCartById = async (req, res) => {
       payload: filteredCart,
     });
   } catch (error) {
-    req.logger.error(`Cannot get cart with mongoose ${error}`)
+    req.logger.error(`Cannot get cart with mongoose ${error}`);
     return res.status(500).send({
       status: "error",
       error: "Failed to get cart",
@@ -101,9 +105,9 @@ export const addToCart = async (req, res) => {
 
     if (!cid || !pid) {
       const error = CustomError.createError({
-        name: "Add product to cart error",
+        name: ErrorNames.ADD_PRODUCT_TO_CART_ERROR,
         cause: addToCartErrorInfo({ cid, pid }),
-        message: "Error trying to add product to cart",
+        message: ErrorMessages.ADD_PRODUCT_TO_CART_ERROR_MESSAGE,
         code: ErrorCodes.MISSING_DATA_ERROR,
         status: 400,
       });

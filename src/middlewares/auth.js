@@ -2,7 +2,11 @@ import jwt from "jsonwebtoken";
 import config from "../config/config.js";
 
 import CustomError from "../services/errors/CustomError.js";
-import ErrorCodes from "../services/errors/enums.js";
+import {
+  ErrorCodes,
+  ErrorMessages,
+  ErrorNames,
+} from "../services/errors/enums.js";
 import {
   authenticationErrorInfo,
   authorizationErrorInfo,
@@ -75,7 +79,7 @@ const checkLogged = (req, res, next) => {
 };
 
 ///////////////////////////////
-// Authorization middleware //
+////// Auth middlewares ///////
 ///////////////////////////////
 
 const verifyRole = (req, res, next, roleToVerify) => {
@@ -83,9 +87,9 @@ const verifyRole = (req, res, next, roleToVerify) => {
 
   if (!token) {
     const error = CustomError.createError({
-      name: "Authentication error",
+      name: ErrorNames.NO_AUTHENTICATION_ERROR,
       cause: authenticationErrorInfo(),
-      message: "Error authenticating user",
+      message: ErrorMessages.NO_AUTHENTICATION_ERROR_MESSAGE,
       code: ErrorCodes.AUTHENTICATION_ERROR,
       status: 401,
     });
@@ -96,9 +100,9 @@ const verifyRole = (req, res, next, roleToVerify) => {
 
   if (role !== roleToVerify) {
     const error = CustomError.createError({
-      name: "Authorization error",
+      name: ErrorNames.NO_AUTHORIZATION_ERROR,
       cause: authorizationErrorInfo({ role, roleToVerify }),
-      message: "Permission denied.",
+      message: ErrorMessages.NO_AUTHORIZATION_ERROR_MESSAGE,
       code: ErrorCodes.AUTHORIZATION_ERROR,
       status: 403,
     });

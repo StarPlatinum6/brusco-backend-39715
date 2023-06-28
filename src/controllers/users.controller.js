@@ -1,7 +1,11 @@
 import { userService } from "../services/users.service.js";
 
 import CustomError from "../services/errors/CustomError.js";
-import ErrorCodes from "../services/errors/enums.js";
+import {
+  ErrorCodes,
+  ErrorMessages,
+  ErrorNames,
+} from "../services/errors/enums.js";
 import { loginErrorInfo } from "../services/errors/info.js";
 
 export const registerUser = async (req, res) => {
@@ -29,9 +33,9 @@ export const loginUser = async (req, res, next) => {
 
     if (!email || !password) {
       const error = CustomError.createError({
-        name: "User Login error",
+        name: ErrorNames.AUTHENTICATION_ERROR,
         cause: loginErrorInfo({ email, password }),
-        message: "Error trying to login User",
+        message: ErrorMessages.AUTHENTICATION_ERROR_MESSAGE,
         code: ErrorCodes.MISSING_DATA_ERROR,
         status: 400,
       });

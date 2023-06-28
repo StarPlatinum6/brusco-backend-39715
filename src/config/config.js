@@ -3,11 +3,14 @@ import { environment } from "./commander.js";
 
 dotenv.config({
   path: environment === "DEVELOPMENT" ? "./.env.dev" : "./.env.prod",
-}); // Copiate dale :)
+});
 
 const config = {
   PORT: process.env.PORT || 8080,
+  // DB
   DB_URL: process.env.DB_URL,
+  // JWT
+  // agregar cookie name
   JWT_SECRET: process.env.JWT_SECRET,
   // GitHub App
   clientID: process.env.CLIENT_ID,

@@ -1,7 +1,11 @@
 import { productsService } from "../services/products.service.js";
 
 import CustomError from "../services/errors/CustomError.js";
-import ErrorCodes from "../services/errors/enums.js";
+import {
+  ErrorCodes,
+  ErrorMessages,
+  ErrorNames,
+} from "../services/errors/enums.js";
 import { addProductErrorInfo } from "../services/errors/info.js";
 
 /////////////////////////
@@ -141,7 +145,7 @@ export const addProduct = async (req, res, next) => {
 
     if (!title || !description || !code || !price || !stock || !category) {
       const error = CustomError.createError({
-        name: "Add product error",
+        name: ErrorNames.ADD_PRODUCT_ERROR,
         cause: addProductErrorInfo({
           title,
           description,
@@ -150,7 +154,7 @@ export const addProduct = async (req, res, next) => {
           stock,
           category,
         }),
-        message: "Error trying to create new product",
+        message: ErrorMessages.ADD_PRODUCT_ERROR_MESSAGE,
         code: ErrorCodes.MISSING_DATA_ERROR,
         status: 400,
       });
