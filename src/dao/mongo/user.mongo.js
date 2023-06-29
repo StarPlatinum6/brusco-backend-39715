@@ -33,7 +33,6 @@ class User {
   updatePassword = async (query, update) => {
     try {
       const updatedUser = await userModel.updateOne(query, update);
-      console.log("Password updated successfully!");
       return updatedUser;
     } catch (error) {
       console.log(error);

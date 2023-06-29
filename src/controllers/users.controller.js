@@ -30,7 +30,7 @@ export const registerUser = async (req, res) => {
 export const failRegister = async (req, res) => {
   return res
     .status(409)
-    .send({ status: "error", message: "User already exists" });
+    .send({ status: "error", error: "User already exists" });
 };
 
 export const loginUser = async (req, res, next) => {
@@ -122,7 +122,7 @@ export const restoreUserPassword = async (req, res) => {
       });
     }
 
-    const user = await userService.getUser({ email });
+    const user = await userService.getUser(email);
 
     if (!user) {
       return res
@@ -138,14 +138,12 @@ export const restoreUserPassword = async (req, res) => {
         .send({ status: "error", error: "Failed to update password" });
     }
 
-    return res.status(204).send({
+    return res.status(200).send({
       status: "success",
       message: "Successfully updated password",
     });
   } catch (error) {
     req.logger.error(`Failed to restore user password: ${error}`);
-    return res
-      .status(500)
-      .send({ status: "error", error: "Failed to restore user password" });
+    return res.status(500).send({ status: "error", error: `${error}` });
   }
 };
