@@ -35,6 +35,16 @@ export default class UserService {
     }
   }
 
+  async checkExistingUser(email) {
+    try {
+      const user = await usersRepository.getUser({ email });
+      if (user) throw new Error(`User with email ${email} already exists`);
+      return user;
+    } catch (error) {
+      throw error;
+    }
+  }
+
   passwordValidate(user, password) {
     return isValidPassword(user, password);
   }
@@ -55,6 +65,17 @@ export default class UserService {
     } catch (error) {
       console.log(`Failed to generate token: ${error}`);
       throw error;
+    }
+  }
+
+  async registerUser(newUser) {
+    try {
+      const user = await usersRepository.registerUser(newUser);
+      if (!user) throw new Error("Error trying to create user");
+      return user;
+    } catch (error) {
+      console.log(error);
+      return null;
     }
   }
 

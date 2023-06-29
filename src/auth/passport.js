@@ -3,8 +3,10 @@ import local from "passport-local";
 import GitHubStrategy from "passport-github2";
 import jwt from "passport-jwt";
 
-import { usersRepository } from "../repositories/index.js";
-import { cartsRepository } from "../repositories/index.js";
+// import { usersRepository } from "../repositories/index.js";
+// import { cartsRepository } from "../repositories/index.js";
+import { cartService, userService } from "../services/index.js";
+
 
 import { config } from "../config/config.js";
 
@@ -44,14 +46,14 @@ const initializePassport = () => {
           const { first_name, last_name, age } = req.body;
           let { role } = req.body;
 
-          const userExists = await usersRepository.getUser({ email: username });
+          const userExists = await userService.checkExistingUser(username);
 
           if (userExists) {
             console.log("User already exists");
             return done(null, false);
           }
 
-          const cart = await cartsRepository.createCart();
+          const cart = await cartService.createCart();
 
           const newUser = {
             first_name,
@@ -66,11 +68,11 @@ const initializePassport = () => {
             cart: cart._id,
           };
 
-          const result = await usersRepository.registerUser(newUser);
+          const result = await userService.registerUser(newUser);
 
           return done(null, result);
         } catch (error) {
-          return done(`Error trying to create user: ${error}`);
+          return done(null, false);
         }
       }
     )
