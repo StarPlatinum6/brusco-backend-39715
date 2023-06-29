@@ -11,4 +11,4 @@ export const cartService = new CartService();
 export const messageService = new MessageService();
 export const productService = new ProductService();
 export const ticketService = new TicketService(mailService);
-export const userService = new UserService();
+export const userService = new UserService(mailService);

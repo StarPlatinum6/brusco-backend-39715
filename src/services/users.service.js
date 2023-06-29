@@ -6,12 +6,16 @@ import { createHash, isValidPassword } from "../utils.js";
 import { usersRepository } from "../repositories/index.js";
 import UserDTO from "../dao/dtos/user.dto.js";
 
+import { emailTemplates } from "../mail/templates.js";
+
 const {
   jwt: { JWT_SECRET },
 } = config;
 
 export default class UserService {
-  constructor() {}
+  constructor(mailService) {
+    this.mailService = mailService;
+  }
 
   async getUser(email) {
     try {
@@ -72,6 +76,18 @@ export default class UserService {
     try {
       const user = await usersRepository.registerUser(newUser);
       if (!user) throw new Error("Error trying to create user");
+
+      const userDTO = new UserDTO(user);
+      const { email, name, role } = userDTO;
+
+      const mail = {
+        to: email,
+        subject: `Welcome to Ephemer Gaming ${name}!`,
+        html: emailTemplates.newUserGreetingEmail(name, role),
+      };
+
+      await this.mailService.sendEmail(mail);
+
       return user;
     } catch (error) {
       console.log(error);
