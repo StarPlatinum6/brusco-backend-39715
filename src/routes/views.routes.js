@@ -1,7 +1,13 @@
 import { Router } from "express";
 import passport from "passport";
 
-import { checkLogged, isProtected, verifyRole } from "../middlewares/auth.js";
+import {
+  checkLogged,
+  isProtected,
+  verifyRole,
+  verifyPassRestoreJwt,
+} from "../middlewares/auth.js";
+
 import {
   cartView,
   chatView,
@@ -12,6 +18,7 @@ import {
   realTimeProductsView,
   registerView,
   restorePasswordView,
+  resetPasswordView,
   ticketsView,
 } from "../controllers/views.controller.js";
 
@@ -29,6 +36,8 @@ viewsRouter.get(
 );
 
 viewsRouter.get("/restore", restorePasswordView);
+
+viewsRouter.get("/resetPassword", verifyPassRestoreJwt, resetPasswordView);
 
 viewsRouter.get(
   "/home",

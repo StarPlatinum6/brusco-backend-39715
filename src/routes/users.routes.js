@@ -8,7 +8,8 @@ import {
   loginUser,
   logoutUser,
   registerUser,
-  restoreUserPassword,
+  restorePasswordProcess,
+  updatePassword,
 } from "../controllers/users.controller.js";
 
 const usersRouter = Router();
@@ -45,6 +46,7 @@ usersRouter.get(
 
 usersRouter.get("/logout", logoutUser);
 
-usersRouter.put("/restore", restoreUserPassword);
+usersRouter.post("/restore", restorePasswordProcess);
+usersRouter.put("/resetPassword", updatePassword);
 
 export default usersRouter;

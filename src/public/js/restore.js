@@ -10,7 +10,7 @@ form.addEventListener("submit", async (e) => {
 
   try {
     const response = await fetch("/api/v1/users/restore", {
-      method: "PUT",
+      method: "POST",
       body: JSON.stringify(obj),
       headers: {
         "Content-Type": "application/json",
@@ -23,7 +23,7 @@ form.addEventListener("submit", async (e) => {
     } else {
       throw data;
     }
-  } catch ({ error }) {
-    errorSwal(error);
+  } catch (error) {
+    errorSwal();
   }
 });

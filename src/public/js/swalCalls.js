@@ -202,12 +202,12 @@ export const registerSwal = (message) => {
 };
 
 //
-// restore.js
+// restore.js & resetPassword.js
 //
 
 export const passUpdateSwal = (message) => {
   Swal.fire({
-    title: "Password update successful!",
+    title: "Success!",
     text: `${message}. Redirecting you to login.`,
     icon: "success",
     customClass: {

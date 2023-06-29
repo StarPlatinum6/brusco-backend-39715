@@ -59,3 +59,28 @@
 {"level":"error","message":"Failed to restore user password: Error: User with email adminCasdsad@er.com does not exist"}
 {"level":"error","message":"Failed to restore user password: Error: User with email nicasdasrusco@hotmail.com does not exist"}
 {"level":"error","message":"Failed to restore user password: Error: User with email asdasdas@asdasd does not exist"}
+{"level":"error","message":"Failed to send password reset email: Error: User with email nicolasasdasdbrusco@hotmail.com does not exist"}
+{"level":"error","message":"Failed to send password reset email: Error: User with email asdasdasd@asdasdasd.com does not exist"}
+{"level":"error","message":"Failed to send password reset email: Error: User with email asdasdasd@asdasdasd.com does not exist"}
+{"level":"error","message":"Failed to send password reset email: Error: User with email nicolasbruassasa@otmail.com does not exist"}
+{"level":"error","message":"Failed to send password reset email: Error: User with email nicolasbruassasa@otmail.com does not exist"}
+{"level":"error","message":"Failed to send password reset email: ReferenceError: Cannot access 'email' before initialization"}
+{"level":"error","message":"Failed to send password reset email: ReferenceError: Cannot access 'email' before initialization"}
+{"level":"error","message":"Failed to send password reset email: ReferenceError: Cannot access 'email' before initialization"}
+{"level":"error","message":"Failed to send password reset email: Error: Something went wrong"}
+{"level":"error","message":"Failed to send password reset email: Error: Something went wrong"}
+{"level":"error","message":"Failed to send password reset email: Error: Something went wrong"}
+{"level":"error","message":"Failed to send password reset email: Error: invalid expiresIn option for string payload"}
+{"level":"error","message":"Failed to send password reset email: Error: invalid expiresIn option for string payload"}
+{"level":"error","message":"Failed to restore user password: ReferenceError: email is not defined"}
+{"level":"error","message":"Failed to restore user password: ReferenceError: email is not defined"}
+{"level":"error","message":"Failed to restore user password: ReferenceError: email is not defined"}
+{"level":"error","message":"Failed to restore user password: ReferenceError: email is not defined"}
+{"level":"error","message":"Failed to restore user password: ReferenceError: email is not defined"}
+{"level":"error","message":"Failed to restore user password: ReferenceError: email is not defined"}
+{"level":"error","message":"Failed to restore user password: ReferenceError: email is not defined"}
+{"level":"error","message":"Failed to restore user password: Error: Token has expired. Request another restore link."}
+{"level":"error","message":"Failed to restore user password: Error: Token has expired. Request another restore link."}
+{"level":"error","message":"Failed to restore user password: ReferenceError: passwordValidate is not defined"}
+{"level":"error","message":"Failed to restore user password: Error: data and hash arguments required"}
+{"level":"error","message":"Failed to restore user password: Error: Password must be different from the actual one."}

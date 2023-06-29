@@ -20,7 +20,7 @@ const {
 // Authentication middlewares //
 ////////////////////////////////
 
-const isProtected = (req, res, next) => {
+export const isProtected = (req, res, next) => {
   const token = req.cookies.jwtCookie;
 
   const jwtVerif = "169 32 66 114 117 115 99 111";
@@ -50,7 +50,7 @@ const isProtected = (req, res, next) => {
   }
 };
 
-const checkLogged = (req, res, next) => {
+export const checkLogged = (req, res, next) => {
   const token = req.cookies.jwtCookie;
 
   const jwtVerif = "169 32 66 114 117 115 99 111";
@@ -84,7 +84,7 @@ const checkLogged = (req, res, next) => {
 ////// Auth middlewares ///////
 ///////////////////////////////
 
-const verifyRole = (req, res, next, roleToVerify) => {
+export const verifyRole = (req, res, next, roleToVerify) => {
   const token = req.cookies.jwtCookie;
 
   if (!token) {
@@ -114,4 +114,21 @@ const verifyRole = (req, res, next, roleToVerify) => {
   next();
 };
 
-export { checkLogged, isProtected, verifyRole };
+///////////////////////////////
+////// JWT middlewares ////////
+///////////////////////////////
+
+export const verifyPassRestoreJwt = (req, res, next) => {
+  const { token } = req.query;
+  if (!token) {
+    return res.status(401).send({ message: "No JWT provided" });
+  }
+  const decodedToken = jwt.verify(token, JWT_SECRET, {
+    ignoreExpiration: true,
+  });
+
+  if (Date.now() / 1000 > decodedToken.exp) {
+    return res.redirect("/restore");
+  }
+  next();
+};

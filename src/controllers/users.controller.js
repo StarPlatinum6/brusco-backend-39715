@@ -111,26 +111,43 @@ export const logoutUser = (req, res) => {
     .send({ status: "success", message: "Logout successful!" });
 };
 
-export const restoreUserPassword = async (req, res) => {
+export const restorePasswordProcess = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email } = req.body;
 
-    if (!email || !password) {
+    if (!email) {
       return res.status(400).send({
         status: "error",
         error: "Incomplete values",
       });
     }
 
-    const user = await userService.getUser(email);
+    await userService.restorePasswordProcess(email);
 
-    if (!user) {
-      return res
-        .status(404)
-        .send({ status: "error", error: "User does not exist" });
+    return res.status(200).send({
+      status: "success",
+      message: "Password reset email sent",
+    });
+  } catch (error) {
+    req.logger.error(`Failed to send password reset email: ${error}`);
+    return res.status(500).send({ status: "error", error: `${error}` });
+  }
+};
+
+export const updatePassword = async (req, res) => {
+  try {
+    const { password, token } = req.body;
+    console.log(password);
+    console.log(token);
+
+    if (!password || !token) {
+      return res.status(400).send({
+        status: "error",
+        error: "Incomplete values",
+      });
     }
 
-    const passwordUpdate = await userService.updatePassword(email, password);
+    const passwordUpdate = await userService.updatePassword(token, password);
 
     if (!passwordUpdate) {
       return res

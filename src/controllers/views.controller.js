@@ -29,9 +29,15 @@ export const profileView = (req, res) => {
 
 export const restorePasswordView = (req, res) => {
   res.render("restore", {
-    user: req.user,
     style: "styles.css",
     title: "Ephemer - Password Restore",
+  });
+};
+
+export const resetPasswordView = (req, res) => {
+  res.render("resetPassword", {
+    style: "styles.css",
+    title: "Ephemer - Password Reset",
   });
 };
 
