@@ -56,7 +56,7 @@ viewsRouter.get(
 viewsRouter.get(
   "/cart/:cid",
   isProtected,
-  (req, res, next) => verifyRole(req, res, next, "user"),
+  (req, res, next) => verifyRole(req, res, next, ["user", "premium"]),
   passport.authenticate("jwt", { session: false }),
   cartView
 );
@@ -64,7 +64,7 @@ viewsRouter.get(
 viewsRouter.get(
   "/tickets",
   isProtected,
-  (req, res, next) => verifyRole(req, res, next, "user"),
+  (req, res, next) => verifyRole(req, res, next, ["user", "premium"]),
   passport.authenticate("jwt", { session: false }),
   ticketsView
 );
@@ -81,7 +81,7 @@ viewsRouter.get(
 viewsRouter.get(
   "/chat",
   isProtected,
-  (req, res, next) => verifyRole(req, res, next, "user"),
+  (req, res, next) => verifyRole(req, res, next, ["user", "premium"]),
   passport.authenticate("jwt", { session: false }),
   chatView
 );

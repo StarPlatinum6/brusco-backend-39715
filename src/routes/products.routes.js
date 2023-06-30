@@ -21,7 +21,7 @@ productsRouter.get("/", getProducts);
 productsRouter.get("/:pid", getProductById);
 productsRouter.post(
   "/",
-  (req, res, next) => verifyRole(req, res, next, "admin"),
+  (req, res, next) => verifyRole(req, res, next, ["admin", "premium"]),
   uploader.array("thumbnails"),
   addProduct
 );

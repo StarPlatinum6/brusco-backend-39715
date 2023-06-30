@@ -21,12 +21,12 @@ cartsRouter.post(
 );
 cartsRouter.post(
   "/:cid/product/:pid",
-  (req, res, next) => verifyRole(req, res, next, "user"),
+  (req, res, next) => verifyRole(req, res, next, ["user", "premium"]),
   addToCart
 );
 cartsRouter.post(
   "/:cid/purchase",
-  (req, res, next) => verifyRole(req, res, next, "user"),
+  (req, res, next) => verifyRole(req, res, next, ["user", "premium"]),
   createTicket
 );
 cartsRouter.put("/:cid", updateCart);

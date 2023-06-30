@@ -5,7 +5,7 @@ import { getMessages } from "../controllers/messages.controller.js";
 const messagesRouter = Router();
 messagesRouter.get(
   "/",
-  (req, res, next) => verifyRole(req, res, next, "user"),
+  (req, res, next) => verifyRole(req, res, next, ["user", "premium"]),
   getMessages
 );
 

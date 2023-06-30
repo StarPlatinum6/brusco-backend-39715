@@ -84,3 +84,5 @@
 {"level":"error","message":"Failed to restore user password: ReferenceError: passwordValidate is not defined"}
 {"level":"error","message":"Failed to restore user password: Error: data and hash arguments required"}
 {"level":"error","message":"Failed to restore user password: Error: Password must be different from the actual one."}
+{"level":"error","message":"Cannot add product with mongoose Error: Error adding new product"}
+{"level":"error","message":"Cannot add product with mongoose Error: Error adding new product"}

@@ -84,7 +84,7 @@ export const checkLogged = (req, res, next) => {
 ////// Auth middlewares ///////
 ///////////////////////////////
 
-export const verifyRole = (req, res, next, roleToVerify) => {
+export const verifyRole = (req, res, next, rolesToVerify) => {
   const token = req.cookies.jwtCookie;
 
   if (!token) {
@@ -100,10 +100,10 @@ export const verifyRole = (req, res, next, roleToVerify) => {
 
   const { role } = jwt.verify(token, JWT_SECRET);
 
-  if (role !== roleToVerify) {
+  if (!rolesToVerify.includes(role)) {
     const error = CustomError.createError({
       name: ErrorNames.NO_AUTHORIZATION_ERROR,
-      cause: authorizationErrorInfo({ role, roleToVerify }),
+      cause: authorizationErrorInfo({ role, rolesToVerify }),
       message: ErrorMessages.NO_AUTHORIZATION_ERROR_MESSAGE,
       code: ErrorCodes.AUTHORIZATION_ERROR,
       status: 403,

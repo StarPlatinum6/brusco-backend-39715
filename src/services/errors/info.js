@@ -25,5 +25,5 @@ export const authenticationErrorInfo = () => {
 };
 
 export const authorizationErrorInfo = (props) => {
-  return `Access forbidden for ${props.role} role. Your account does not have the necessary privileges to access this page. Login as an ${props.roleToVerify} to proceed`;
+  return `Access forbidden for ${props.role} role. Your account does not have the necessary privileges to access this page. Login as an ${props.rolesToVerify} to proceed`;
 };

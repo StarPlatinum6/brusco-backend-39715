@@ -15,7 +15,7 @@ ticketsRouter.get(
 ticketsRouter.get("/:tid", getTicketById);
 ticketsRouter.get(
   "/orders/:email",
-  (req, res, next) => verifyRole(req, res, next, "user"),
+  (req, res, next) => verifyRole(req, res, next, ["user", "premium"]),
   getTicketsByEmail
 );
 
