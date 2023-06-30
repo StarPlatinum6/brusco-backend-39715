@@ -32,7 +32,7 @@ productsRouter.put(
 );
 productsRouter.delete(
   "/:pid",
-  (req, res, next) => verifyRole(req, res, next, "admin"),
+  (req, res, next) => verifyRole(req, res, next, ["admin", "premium"]),
   deleteProduct
 );
 

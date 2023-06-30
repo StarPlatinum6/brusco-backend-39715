@@ -97,3 +97,4 @@
 {"level":"error","message":"Cannot add product with mongoose ReferenceError: owner is not defined"}
 {"level":"error","message":"Cannot add product with mongoose ReferenceError: owner is not defined"}
 {"level":"error","message":"Cannot add product with mongoose ReferenceError: owner is not defined"}
+{"level":"error","message":"Cannot delete product with mongoose Error: You can only delete products that you own."}

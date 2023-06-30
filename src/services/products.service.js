@@ -94,12 +94,20 @@ export default class ProductService {
     }
   }
 
-  async deleteProduct(deleteId) {
+  async deleteProduct(deleteId, token) {
     try {
+      const { role, email } = jwt.verify(token, JWT_SECRET, {
+        ignoreExpiration: true,
+      });
+      const { owner } = await productsRepository.getProductById(deleteId);
+      if (role === "premium" && email !== owner) {
+        throw new Error("You can only delete products that you own.");
+      }
+
       const deletedProduct = await productsRepository.deleteProduct(deleteId);
-      if (!deletedProduct)
+      if (!deletedProduct) {
         throw new Error(`Error deleting product with id: ${deleteId}`);
-      return deletedProduct;
+      }
     } catch (error) {
       console.log(`Failed to delete product with error: ${error}`);
       throw error;

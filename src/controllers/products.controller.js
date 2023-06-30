@@ -135,6 +135,13 @@ export const addProduct = async (req, res, next) => {
     let { thumbnails } = req.body;
     const { jwtCookie: token } = req.cookies;
 
+    if (!token) {
+      return res.status(400).send({
+        status: "error",
+        error: "Failed to get token",
+      });
+    }
+
     if (req.files) thumbnails = req.files;
 
     if (!req.files && !thumbnails) {
@@ -238,6 +245,14 @@ export const updateProduct = async (req, res) => {
 export const deleteProduct = async (req, res) => {
   try {
     const deleteId = req.params.pid;
+    const { jwtCookie: token } = req.cookies;
+
+    if (!token) {
+      return res.status(400).send({
+        status: "error",
+        error: "Failed to get token",
+      });
+    }
 
     if (!deleteId) {
       return res.status(400).send({
@@ -246,7 +261,7 @@ export const deleteProduct = async (req, res) => {
       });
     }
 
-    const deletedProduct = await productService.deleteProduct(deleteId);
+    const deletedProduct = await productService.deleteProduct(deleteId, token);
 
     if (!deletedProduct || deletedProduct.deletedCount === 0) {
       return res.status(404).send({
