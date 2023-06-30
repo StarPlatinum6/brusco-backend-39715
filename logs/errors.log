@@ -98,3 +98,7 @@
 {"level":"error","message":"Cannot add product with mongoose ReferenceError: owner is not defined"}
 {"level":"error","message":"Cannot add product with mongoose ReferenceError: owner is not defined"}
 {"level":"error","message":"Cannot delete product with mongoose Error: You can only delete products that you own."}
+{"level":"error","message":"Cannot add to cart with mongoose ReferenceError: jwt is not defined"}
+{"level":"error","message":"Cannot add to cart with mongoose TypeError: Assignment to constant variable."}
+{"level":"error","message":"Cannot add to cart with mongoose Error: You can't add products you own"}
+{"level":"error","message":"Cannot add to cart with mongoose Error: You can't add products you own"}

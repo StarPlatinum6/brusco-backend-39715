@@ -1,4 +1,10 @@
-import { cartsRepository } from "../repositories/index.js";
+import jwt from "jsonwebtoken";
+import { config } from "../config/config.js";
+import { cartsRepository, productsRepository } from "../repositories/index.js";
+
+const {
+  jwt: { JWT_SECRET },
+} = config;
 
 export default class CartService {
   constructor() {}
@@ -27,8 +33,16 @@ export default class CartService {
     }
   }
 
-  async addToCart(cid, pid, quantity) {
+  async addToCart(cid, pid, quantity, token) {
     try {
+      const { email } = jwt.verify(token, JWT_SECRET, {
+        ignoreExpiration: true,
+      });
+      const { owner } = await productsRepository.getProductById(pid);
+      if (email === owner) {
+        throw new Error("You can't add products you own");
+      }
+      
       const productAddedToCart = await cartsRepository.addToCart(
         cid,
         pid,

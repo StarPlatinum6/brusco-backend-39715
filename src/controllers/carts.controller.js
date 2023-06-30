@@ -101,6 +101,14 @@ export const addToCart = async (req, res) => {
   try {
     const { cid, pid } = req.params;
     const { quantity } = req.body;
+    const { jwtCookie: token } = req.cookies;
+
+    if (!token) {
+      return res.status(400).send({
+        status: "error",
+        error: "Failed to get token",
+      });
+    }
 
     if (!cid || !pid) {
       const error = CustomError.createError({
@@ -113,7 +121,7 @@ export const addToCart = async (req, res) => {
       return next(error);
     }
 
-    const productAddedToCart = await cartService.addToCart(cid, pid, quantity);
+    const productAddedToCart = await cartService.addToCart(cid, pid, quantity, token);
 
     if (!productAddedToCart) {
       return res.status(404).send({

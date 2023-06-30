@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
+import { config } from "../config/config.js";
 import { faker } from "@faker-js/faker";
 import { productsRepository } from "../repositories/index.js";
-import { config } from "../config/config.js";
 
 const {
   jwt: { JWT_SECRET },
@@ -101,7 +101,7 @@ export default class ProductService {
       });
       const { owner } = await productsRepository.getProductById(deleteId);
       if (role === "premium" && email !== owner) {
-        throw new Error("You can only delete products that you own.");
+        throw new Error("You can only delete products you own");
       }
 
       const deletedProduct = await productsRepository.deleteProduct(deleteId);
