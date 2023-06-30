@@ -1,5 +1,11 @@
+import jwt from "jsonwebtoken";
 import { faker } from "@faker-js/faker";
 import { productsRepository } from "../repositories/index.js";
+import { config } from "../config/config.js";
+
+const {
+  jwt: { JWT_SECRET },
+} = config;
 
 export default class ProductService {
   constructor() {}
@@ -42,7 +48,8 @@ export default class ProductService {
     price,
     stock,
     category,
-    thumbnails
+    thumbnails,
+    token
   ) {
     try {
       const productObj = {
@@ -53,7 +60,13 @@ export default class ProductService {
         stock,
         category,
         thumbnails,
+        owner: "admin",
       };
+
+      const { role, email } = jwt.verify(token, JWT_SECRET, {
+        ignoreExpiration: true,
+      });
+      role === "premium" ? (productObj.owner = email) : null;
 
       const addedProduct = await productsRepository.addProduct(productObj);
       if (!addedProduct) throw new Error("Error adding new product");

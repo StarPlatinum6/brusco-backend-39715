@@ -133,6 +133,7 @@ export const addProduct = async (req, res, next) => {
   try {
     const { title, description, code, price, stock, category } = req.body;
     let { thumbnails } = req.body;
+    const { jwtCookie: token } = req.cookies;
 
     if (req.files) thumbnails = req.files;
 
@@ -168,7 +169,8 @@ export const addProduct = async (req, res, next) => {
       price,
       stock,
       category,
-      thumbnails
+      thumbnails,
+      token
     );
 
     if (!addedProduct) {
