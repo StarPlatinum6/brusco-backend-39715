@@ -156,7 +156,7 @@ export default class UserService {
   async changeRole(uid) {
     try {
       let { role } = await usersRepository.getUser({ _id: uid });
-      role === "user" ? (role = "premium") : (role = "user");
+      role === "user" ? role = "premium" : "user";
 
       const roleChanged = await usersRepository.updateUser(
         { _id: uid },
