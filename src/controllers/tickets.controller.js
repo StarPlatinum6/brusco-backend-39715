@@ -85,7 +85,7 @@ export const getTicketsByEmail = async (req, res) => {
     req.logger.error(`Cannot get ticket with mongoose ${error}`);
     return res.status(500).send({
       status: "error",
-      error: "Failed to get ticket",
+      error: "Failed to get tickets",
     });
   }
 };

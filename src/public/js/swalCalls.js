@@ -56,7 +56,7 @@ export const addProductSwal = (title, id) => {
   Swal.fire({
     title: "Product successfully created!",
     html: `You created ${title}.<br>
-        New product ID is: ${id}.`,
+        New product ID is: ${id}`,
     toast: true,
     position: "top-right",
     icon: "success",

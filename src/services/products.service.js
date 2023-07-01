@@ -108,6 +108,8 @@ export default class ProductService {
       if (!deletedProduct) {
         throw new Error(`Error deleting product with id: ${deleteId}`);
       }
+
+      return deletedProduct;
     } catch (error) {
       console.log(`Failed to delete product with error: ${error}`);
       throw error;

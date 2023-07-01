@@ -97,7 +97,7 @@ export const getProductById = async (req, res) => {
     req.logger.error(`Cannot get product with mongoose ${error}`);
     return res.status(500).send({
       status: "error",
-      error: `Failed to get product with id ${pid}`,
+      error: "Failed to get product",
     });
   }
 };
