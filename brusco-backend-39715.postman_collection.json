@@ -714,13 +714,34 @@
 					"response": []
 				},
 				{
-					"name": "restore-password",
+					"name": "user-change-role",
 					"request": {
-						"method": "PUT",
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/v1/users/premium/6460771b9d94f3d716abd6b0",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"premium",
+								"6460771b9d94f3d716abd6b0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "restore-password-email",
+					"request": {
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"nicolasbrusco@hotmail.com\",\r\n    \"password\": \"456\"\r\n}",
+							"raw": "{\r\n    \"email\": \"nicolasbrusco@hotmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -737,6 +758,55 @@
 								"v1",
 								"users",
 								"restore"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"123\",\r\n    \"token\": \"PASTE FROM RECOVERY EMAIL\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{lh8080}}/api/v1/users/resetPassword",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"resetPassword"
 							]
 						}
 					},

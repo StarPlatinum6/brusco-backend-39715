@@ -1,5 +1,6 @@
 import { Router } from "express";
 import passport from "passport";
+import { verifyRole } from "../middlewares/auth.js";
 import {
   currentUser,
   failRegister,
@@ -10,6 +11,7 @@ import {
   registerUser,
   restorePasswordProcess,
   updatePassword,
+  changeRole,
 } from "../controllers/users.controller.js";
 
 const usersRouter = Router();
@@ -44,9 +46,16 @@ usersRouter.get(
   currentUser
 );
 
-usersRouter.get("/logout", logoutUser);
+usersRouter.post(
+  "/premium/:uid",
+  passport.authenticate("jwt", { session: false }),
+  (req, res, next) => verifyRole(req, res, next, "admin"),
+  changeRole
+);
 
 usersRouter.post("/restore", restorePasswordProcess);
 usersRouter.put("/resetPassword", updatePassword);
+
+usersRouter.get("/logout", logoutUser);
 
 export default usersRouter;

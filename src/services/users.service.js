@@ -140,7 +140,7 @@ export default class UserService {
       const hashedPassword = createHash(password);
       if (!hashedPassword) throw new Error("Password hashing failed");
 
-      const passwordUpdate = await usersRepository.updatePassword(
+      const passwordUpdate = await usersRepository.updateUser(
         { email },
         { password: hashedPassword }
       );
@@ -149,6 +149,24 @@ export default class UserService {
       return passwordUpdate;
     } catch (error) {
       console.log(`Failed to update password: ${error}`);
+      throw error;
+    }
+  }
+
+  async changeRole(uid) {
+    try {
+      let { role } = await usersRepository.getUser({ _id: uid });
+      role === "user" ? (role = "premium") : (role = "user");
+
+      const roleChanged = await usersRepository.updateUser(
+        { _id: uid },
+        { role }
+      );
+      if (!roleChanged)
+        throw new Error(`Failed to change role for user ${uid}`);
+      return roleChanged;
+    } catch (error) {
+      console.log(`Failed to change role: ${error}`);
       throw error;
     }
   }

@@ -30,7 +30,7 @@ class User {
     }
   };
 
-  updatePassword = async (query, update) => {
+  updateUser = async (query, update) => {
     try {
       const updatedUser = await userModel.updateOne(query, update);
       return updatedUser;

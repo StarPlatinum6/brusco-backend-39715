@@ -137,8 +137,6 @@ export const restorePasswordProcess = async (req, res) => {
 export const updatePassword = async (req, res) => {
   try {
     const { password, token } = req.body;
-    console.log(password);
-    console.log(token);
 
     if (!password || !token) {
       return res.status(400).send({
@@ -161,6 +159,35 @@ export const updatePassword = async (req, res) => {
     });
   } catch (error) {
     req.logger.error(`Failed to restore user password: ${error}`);
+    return res.status(500).send({ status: "error", error: `${error}` });
+  }
+};
+
+export const changeRole = async (req, res) => {
+  try {
+    const { uid } = req.params;
+
+    if (!uid) {
+      return res.status(400).send({
+        status: "error",
+        error: "Incomplete values",
+      });
+    }
+
+    const roleChanged = await userService.changeRole(uid);
+
+    if (!roleChanged) {
+      return res
+        .status(500)
+        .send({ status: "error", error: "Failed to change role" });
+    }
+
+    return res.status(200).send({
+      status: "success",
+      message: `Successfully changed role for user ${uid}`,
+    });
+  } catch (error) {
+    req.logger.error(`Failed to change role: ${error}`);
     return res.status(500).send({ status: "error", error: `${error}` });
   }
 };
