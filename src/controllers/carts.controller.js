@@ -77,6 +77,7 @@ export const createTicket = async (req, res) => {
       .send({ status: "error", error: "Failed to create ticket" });
   }
 };
+
 export const createCart = async (req, res) => {
   try {
     const newCart = await cartService.createCart();

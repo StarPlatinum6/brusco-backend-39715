@@ -1,0 +1,746 @@
+paths:
+  /api/v1/carts/:
+    post:
+      summary: Create a new, empty cart in the database, only "admin" role can access this endpoint.
+      tags:
+        - Carts
+      responses:
+        "201":
+          description: Cart successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    $ref: "#components/schemas/EmptyCart"
+        "401":
+          description: Authentication error, usually because the user is not logged in.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 401
+                  error:
+                    type: string
+                    example: Unauthorized
+        "403":
+          description: Authorization error, usually because the user doesn't have the required permissions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 403
+                  error:
+                    type: string
+                    example: Forbidden
+        "404":
+          description: There was a problem creating the cart, usually caused by a database or token validation error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 404
+                  error:
+                    type: string
+                    example: Failed to create cart
+        "500":
+          description: Internal server error, usually caused by a defective query or a database error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 500
+                  error:
+                    type: string
+                    example: Failed to create cart
+  /api/v1/carts/{cid}:
+    get:
+      summary: Get a cart from its ID, this endpoint can be accessed publicly.
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          description: The ID of the cart to get
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Cart was successfully obtained.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    $ref: "#components/schemas/Cart"
+        "400":
+          description: One or more parameters in the request are missing or invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 400
+                  error:
+                    type: string
+                    example: Incomplete values
+        "404":
+          description: No cart found for established query.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 404
+                  error:
+                    type: string
+                    example: Cart not found
+        "500":
+          description: Internal server error, usually caused by a defective query or a database error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 500
+                  error:
+                    type: string
+                    example: Failed to get cart
+    put:
+      summary: Update all the products from a cart, this endpoint can be accessed publicly.
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          description: The ID of the cart to update
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/updateCart"
+      responses:
+        "200":
+          description: Cart was successfully updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: object
+                    properties:
+                      acknowledged:
+                        type: boolean
+                        example: true
+                      modifiedCount:
+                        type: number
+                        example: 1
+                      upsertedId:
+                        type: null
+                        example: null
+                      upsertedCount:
+                        type: number
+                        example: 0
+                      matchedCount:
+                        type: number
+                        example: 1
+        "400":
+          description: One or more parameters in the request are missing or invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 400
+                  error:
+                    type: string
+                    example: Incomplete values
+        "404":
+          description: There was a problem updating the cart, usually caused by a database error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 404
+                  error:
+                    type: string
+                    example: Failed to update cart
+        "500":
+          description: Internal server error, usually caused by a defective query or a database error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 500
+                  error:
+                    type: string
+                    example: Failed to update cart
+    delete:
+      summary: Delete a cart from its ID, this endpoint can be accessed publicly.
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          description: The ID of the cart to delete
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Cart was successfully deleted.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: object
+                    properties:
+                      acknowledged:
+                        type: boolean
+                        example: true
+                      deletedCount:
+                        type: number
+                        example: 1
+        "400":
+          description: One or more parameters in the request are missing or invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 400
+                  error:
+                    type: string
+                    example: Incomplete values
+        "404":
+          description: No cart found for established query.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 404
+                  error:
+                    type: string
+                    example: Cart not found
+        "500":
+          description: Internal server error, usually caused by a defective query or a database error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 500
+                  error:
+                    type: string
+                    example: Failed to delete cart
+  /api/v1/carts/{cid}/purchase:
+    post:
+      summary: Last step of the purchase procedure. Will check stock, erase the cart products and then create a ticket and send it by email to the logged user, only "user" and "premium" roles can access this endpoint.
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          description: The ID of the cart to get the products from and create the ticket.
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Ticket successfully created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    $ref: "#components/schemas/Ticket"
+        "400":
+          description: One or more parameters in the request are missing or invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 400
+                  error:
+                    type: string
+                    example: Incomplete values
+        "401":
+          description: Authentication error, usually because the user is not logged in.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 401
+                  error:
+                    type: string
+                    example: Unauthorized
+        "403":
+          description: Authorization error, usually because the user doesn't have the required permissions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 403
+                  error:
+                    type: string
+                    example: Forbidden
+        "404":
+          description: There was a problem creating the ticket, usually caused by a database error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 404
+                  error:
+                    type: string
+                    example: Failed to create ticket
+        "500":
+          description: Internal server error, usually caused by a defective query or a database error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 500
+                  error:
+                    type: string
+                    example: Failed to create ticket
+  /api/v1/carts/{cid}/product/{pid}:
+    post:
+      summary: Add a product to a cart, default quantity is 1, body is optional, only "user" and "premium" roles can access this endpoint.
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          description: The ID of the cart to add the product to.
+          schema:
+            type: string
+        - name: pid
+          in: path
+          description: The ID of the product to add to the cart.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/addToCart"
+      responses:
+        "201":
+          description: Product successfully added to cart.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    $ref: "#components/schemas/Cart"
+        "400":
+          description: One or more parameters in the request are missing or invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 400
+                  error:
+                    type: string
+                    example: Incomplete values
+        "401":
+          description: Authentication error, usually because the user is not logged in.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 401
+                  error:
+                    type: string
+                    example: Unauthorized
+        "403":
+          description: Authorization error, usually because the user doesn't have the required permissions.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 403
+                  error:
+                    type: string
+                    example: Forbidden
+        "404":
+          description: There was a problem adding the product to the cart, usually caused by a database error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 404
+                  error:
+                    type: string
+                    example: Failed to add product to cart
+        "500":
+          description: Internal server error, usually caused by a defective query or a database error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 500
+                  error:
+                    type: string
+                    example: Failed to add product to cart
+    put:
+      summary: Update the quantity of a specific product of a cart, default quantity is 1, body is optional, this endpoint can be accessed publicly.
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          description: The ID of the cart to update the product quantity.
+          schema:
+            type: string
+        - name: pid
+          in: path
+          description: The ID of the product to update the quantity.
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/addToCart"
+      responses:
+        "200":
+          description: Product quantity successfully updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: object
+                    properties:
+                      acknowledged:
+                        type: boolean
+                        example: true
+                      modifiedCount:
+                        type: number
+                        example: 1
+                      upsertedId:
+                        type: null
+                        example: null
+                      upsertedCount:
+                        type: number
+                        example: 0
+                      matchedCount:
+                        type: number
+                        example: 1
+        "400":
+          description: One or more parameters in the request are missing or invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 400
+                  error:
+                    type: string
+                    example: Incomplete values
+        "404":
+          description: There was a problem adding the product to the cart, usually caused by a database error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 404
+                  error:
+                    type: string
+                    example: Product was not found in that cart
+        "500":
+          description: Internal server error, usually caused by a defective query or a database error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 500
+                  error:
+                    type: string
+                    example: Failed to update cart
+    delete:
+      summary: Delete a specific product from a cart, this endpoint can be accessed publicly.
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          description: The ID of the cart to delete the product from.
+          schema:
+            type: string
+        - name: pid
+          in: path
+          description: The ID of the product to delete from the cart.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Product quantity successfully updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: object
+                    properties:
+                      acknowledged:
+                        type: boolean
+                        example: true
+                      deletedCount:
+                        type: number
+                        example: 1
+        "400":
+          description: One or more parameters in the request are missing or invalid.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 400
+                  error:
+                    type: string
+                    example: Incomplete values
+        "404":
+          description: There was a problem deleting the product from the cart, usually caused by a database error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 404
+                  error:
+                    type: string
+                    example: Product was not found in that cart
+        "500":
+          description: Internal server error, usually caused by a defective query or a database error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 500
+                  error:
+                    type: string
+                    example: Failed to delete product from cart
+
+components:
+  schemas:
+    EmptyCart:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: Mongo auto-generated ID for the cart
+        products:
+          type: array
+          description: All the products that were added to the cart, referenced and populated by mongoose
+      example:
+        id: 64a4c1363f549047067f9481
+        products: []
+    Cart:
+      allOf:
+        - $ref: "#/components/schemas/EmptyCart"
+      properties:
+        products:
+          $ref: "#/components/schemas/CartItem"
+      example:
+        _id: 64a4c1363f549047067f9481
+        products:
+          - productId:
+              _id: 642c8adb6dbaaa8e907e0140
+              status: true
+              title: Nvidia Geforce GTX 1660 6GB
+              description: Low-end Gaming GPU
+              code: GTX1660-ASUS
+              price: 125000
+              stock: 24
+              category: GPU
+              thumbnails:
+                - "images/1680640731988-1660-1.jpg"
+                - "images/1680640731989-1660-2.jpg"
+            quantity: 7
+    CartItem:
+      type: object
+      properties:
+        productId:
+          $ref: "#/components/schemas/Product"
+        quantity:
+          type: number
+          description: Units of a product present in a cart
+    Ticket:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              productId:
+                type: string
+                description: ID of the product
+              quantity:
+                type: number
+                description: Quantity of the product
+              total:
+                type: number
+                description: Total cost of the product
+        code:
+          type: string
+          description: Code associated with the purchase
+        purchase_datetime:
+          type: string
+          format: date-time
+          description: Datetime when the purchasewas made
+        ammount:
+          type: number
+          description: Total amount of the purchase
+        purchaser:
+          type: string
+          description: Email of the purchaser
+        _id:
+          type: string
+          description: Mongo auto-generated ID for the purchase
+      example:
+        products:
+          - productId: 6436254068bc7b308a74cdbb
+            quantity: 1
+            total: 45000
+        code: 9f4f57f2-9db5-4064-9a6e-7aa7bc469f07
+        purchase_datetime: "2023-07-05T02:43:27.883Z"
+        ammount: 45000
+        purchaser: nicolasbrusco@hotmail.com
+        _id: 64a4d8d0dae74a863c7f44e5
+  requestBodies:
+    updateCart:
+      type: object
+      properties:
+        productId:
+          type: string
+          description: ID of the product
+        quantity:
+          type: number
+          description: Quantity of the product
+      example:
+        productId: "6436254068bc7b308a74cdbb"
+        quantity: 2
+    addToCart:
+      type: object
+      properties:
+        quantity:
+          type: number
+          description: Quantity of the product
+      example:
+        quantity: 2

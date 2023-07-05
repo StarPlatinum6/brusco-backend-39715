@@ -7,6 +7,8 @@ import usersRouter from "./users.routes.js";
 import viewsRouter from "./views.routes.js";
 import ticketsRouter from "./tickets.routes.js";
 
+import { swaggerUi } from "../config/swagger.js";
+
 const routerAPI = (app) => {
   const router = Router();
   app.use("/api/v1", router);
@@ -26,6 +28,8 @@ const routerAPI = (app) => {
   router.use("/messages", messagesRouter);
   router.use("/users", usersRouter);
   router.use("/tickets", ticketsRouter);
+
+  router.use("/docs", swaggerUi());
 };
 
 export default routerAPI;

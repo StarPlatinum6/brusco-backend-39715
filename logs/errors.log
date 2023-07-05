@@ -140,3 +140,17 @@
 {"level":"error","message":"Cannot delete product with mongoose Error: You can only delete products you own"}
 {"level":"error","message":"Cannot delete product with mongoose Error: You can only delete products you own"}
 {"level":"error","message":"Cannot delete product with mongoose Error: You can only delete products you own"}
+{"level":"error","message":"Cannot add product with mongoose Error: Error adding new product"}
+{"level":"error","message":"Cannot add product with mongoose Error: Error adding new product"}
+{"level":"error","message":"Cannot add product with mongoose Error: Error adding new product"}
+{"level":"error","message":"Cannot add product with mongoose Error: Error adding new product"}
+{"level":"error","message":"Cannot add product with mongoose Error: Error adding new product"}
+{"level":"error","message":"Cannot add product with mongoose Error: Error adding new product"}
+{"level":"error","message":"Failed to login with error: Error: User with email d@b.c does not exist"}
+{"level":"error","message":"Failed to login with error: Error: User with email testintegradora@hotmail.com does not exist"}
+{"level":"error","message":"Cannot get product with mongoose Error: Product with id: mockingproducts does not exist"}
+{"level":"error","message":"Cannot get product with mongoose Error: Product with id: mockingproducts does not exist"}
+{"level":"error","message":"Cannot get product with mongoose Error: Product with id: mockingpro does not exist"}
+{"level":"error","message":"Cannot get product with mongoose Error: Product with id: 642c8adb6dbaaa8e907e0140a does not exist"}
+{"level":"error","message":"Failed to create ticket with mongoose TypeError: Cannot destructure property 'email' of '(intermediate value)' as it is null."}
+{"level":"error","message":"Failed to create ticket with mongoose Error: All products were out of stock."}
