@@ -59,9 +59,12 @@
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
     "autoprefixer": "^10.4.14",
-    "nodemon": "^1.14.9",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "nodemon": "^3.0.1",
     "postcss": "^8.4.21",
     "postcss-cli": "^10.1.0",
+    "supertest": "^6.3.3",
     "tailwindcss": "^3.3.1"
   }
 }
