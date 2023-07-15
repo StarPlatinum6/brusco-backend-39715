@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
-const cartsCollection = "carts";
+const cartsCollection = 'carts'
 
 const cartSchema = new mongoose.Schema({
   products: [
@@ -8,19 +8,19 @@ const cartSchema = new mongoose.Schema({
       _id: false,
       productId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "products",
-        required: true,
+        ref: 'products',
+        required: true
       },
       quantity: {
         type: Number,
-        required: true,
-      },
-    },
-  ],
-});
+        required: true
+      }
+    }
+  ]
+})
 
-cartSchema.pre("findOne", function () {
-  this.populate("products.productId");
-});
+cartSchema.pre('findOne', function () {
+  this.populate('products.productId')
+})
 
-export const cartModel = mongoose.model(cartsCollection, cartSchema);
+export const cartModel = mongoose.model(cartsCollection, cartSchema)

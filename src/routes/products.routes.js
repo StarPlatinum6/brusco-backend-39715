@@ -1,39 +1,39 @@
-import { Router } from "express";
-import { uploader } from "../utils.js";
-import { verifyRole } from "../middlewares/auth.js";
+import { Router } from 'express'
+import { uploader } from '../utils.js'
+import { verifyRole } from '../middlewares/auth.js'
 import {
   addProduct,
   deleteProduct,
   getProductById,
   getProducts,
   updateProduct,
-  mockingProducts,
-} from "../controllers/products.controller.js";
+  mockingProducts
+} from '../controllers/products.controller.js'
 
-const productsRouter = Router();
+const productsRouter = Router()
 
 productsRouter.get(
-  "/mockingproducts",
-  (req, res, next) => verifyRole(req, res, next, "admin"),
+  '/mockingproducts',
+  (req, res, next) => verifyRole(req, res, next, 'admin'),
   mockingProducts
-);
-productsRouter.get("/", getProducts);
-productsRouter.get("/:pid", getProductById);
+)
+productsRouter.get('/', getProducts)
+productsRouter.get('/:pid', getProductById)
 productsRouter.post(
-  "/",
-  (req, res, next) => verifyRole(req, res, next, ["admin", "premium"]),
-  uploader.array("thumbnails"),
+  '/',
+  (req, res, next) => verifyRole(req, res, next, ['admin', 'premium']),
+  uploader.array('thumbnails'),
   addProduct
-);
+)
 productsRouter.put(
-  "/:pid",
-  (req, res, next) => verifyRole(req, res, next, "admin"),
+  '/:pid',
+  (req, res, next) => verifyRole(req, res, next, 'admin'),
   updateProduct
-);
+)
 productsRouter.delete(
-  "/:pid",
-  (req, res, next) => verifyRole(req, res, next, ["admin", "premium"]),
+  '/:pid',
+  (req, res, next) => verifyRole(req, res, next, ['admin', 'premium']),
   deleteProduct
-);
+)
 
-export default productsRouter;
+export default productsRouter

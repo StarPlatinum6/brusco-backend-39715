@@ -1,112 +1,109 @@
-import jwt from "jsonwebtoken";
-import { config } from "../config/config.js";
-import { cartsRepository, productsRepository } from "../repositories/index.js";
+import jwt from 'jsonwebtoken'
+import { config } from '../config/config.js'
+import { cartsRepository, productsRepository } from '../repositories/index.js'
 
 const {
-  jwt: { JWT_SECRET },
-} = config;
+  jwt: { JWT_SECRET }
+} = config
 
 export default class CartService {
-  constructor() {}
+  constructor () {}
 
-  async getCartById(cid) {
+  async getCartById (cid) {
     try {
-      const filteredCart = await cartsRepository.getCartById(cid);
-      if (!filteredCart) throw new Error(`Cart with id: ${cid} does not exist`);
+      const filteredCart = await cartsRepository.getCartById(cid)
+      if (!filteredCart) throw new Error(`Cart with id: ${cid} does not exist`)
 
-      return filteredCart;
+      return filteredCart
     } catch (error) {
-      console.log(`Failed to get cart with error: ${error}`);
-      throw error;
+      console.log(`Failed to get cart with error: ${error}`)
+      throw error
     }
   }
 
-  async createCart() {
+  async createCart () {
     try {
-      const newCart = await cartsRepository.createCart();
-      if (!newCart) throw new Error("Error creating new cart");
+      const newCart = await cartsRepository.createCart()
+      if (!newCart) throw new Error('Error creating new cart')
 
-      return newCart;
+      return newCart
     } catch (error) {
-      console.log(`Failed to create cart with error: ${error}`);
-      throw error;
+      console.log(`Failed to create cart with error: ${error}`)
+      throw error
     }
   }
 
-  async addToCart(cid, pid, quantity, token) {
+  async addToCart (cid, pid, quantity, token) {
     try {
       const { email } = jwt.verify(token, JWT_SECRET, {
-        ignoreExpiration: true,
-      });
-      const { owner } = await productsRepository.getProductById(pid);
+        ignoreExpiration: true
+      })
+      const { owner } = await productsRepository.getProductById(pid)
       if (email === owner) {
-        throw new Error("You can't add products you own");
+        throw new Error("You can't add products you own")
       }
-      
+
       const productAddedToCart = await cartsRepository.addToCart(
         cid,
         pid,
         quantity
-      );
-      if (!productAddedToCart)
-        throw new Error(`Error adding product ${pid} to cart ${cid}`);
+      )
+      if (!productAddedToCart) { throw new Error(`Error adding product ${pid} to cart ${cid}`) }
 
-      return productAddedToCart;
+      return productAddedToCart
     } catch (error) {
-      console.log(`Failed to add to cart with error: ${error}`);
-      throw error;
+      console.log(`Failed to add to cart with error: ${error}`)
+      throw error
     }
   }
 
-  async updateCart(cid, products) {
+  async updateCart (cid, products) {
     try {
-      const updatedCart = await cartsRepository.updateCart(cid, products);
-      if (!updatedCart) throw new Error(`Error updating cart ${cid}`);
+      const updatedCart = await cartsRepository.updateCart(cid, products)
+      if (!updatedCart) throw new Error(`Error updating cart ${cid}`)
 
-      return updatedCart;
+      return updatedCart
     } catch (error) {
-      console.log(`Failed to update cart with error: ${error}`);
-      throw error;
+      console.log(`Failed to update cart with error: ${error}`)
+      throw error
     }
   }
 
-  async updateProductFromCart(cid, pid, quantity) {
+  async updateProductFromCart (cid, pid, quantity) {
     try {
       const updatedProductFromCart =
-        await cartsRepository.updateProductFromCart(cid, pid, quantity);
-      if (!updatedProductFromCart)
-        throw new Error(`Error updating product ${pid} from cart ${cid}`);
+        await cartsRepository.updateProductFromCart(cid, pid, quantity)
+      if (!updatedProductFromCart) { throw new Error(`Error updating product ${pid} from cart ${cid}`) }
 
-      return updatedProductFromCart;
+      return updatedProductFromCart
     } catch (error) {
-      console.log(`Failed to update product from cart with error: ${error}`);
-      throw error;
+      console.log(`Failed to update product from cart with error: ${error}`)
+      throw error
     }
   }
 
-  async deleteCart(cid) {
+  async deleteCart (cid) {
     try {
-      const deletedCart = await cartsRepository.deleteCart(cid);
-      if (!deletedCart) throw new Error(`Error deleting cart ${cid}`);
+      const deletedCart = await cartsRepository.deleteCart(cid)
+      if (!deletedCart) throw new Error(`Error deleting cart ${cid}`)
 
-      return deletedCart;
+      return deletedCart
     } catch (error) {
-      console.log(`Failed to delete cart with error: ${error}`);
-      throw error;
+      console.log(`Failed to delete cart with error: ${error}`)
+      throw error
     }
   }
 
-  async deleteProductFromCart(cid, pid) {
+  async deleteProductFromCart (cid, pid) {
     try {
       const deletedProductFromCart =
-        await cartsRepository.deleteProductFromCart(cid, pid);
-      if (!deletedProductFromCart)
-        throw new Error(`Error deleting product ${pid} from cart ${cid}`);
+        await cartsRepository.deleteProductFromCart(cid, pid)
+      if (!deletedProductFromCart) { throw new Error(`Error deleting product ${pid} from cart ${cid}`) }
 
-      return deletedProductFromCart;
+      return deletedProductFromCart
     } catch (error) {
-      console.log(`Failed to delete product from cart with error: ${error}`);
-      throw error;
+      console.log(`Failed to delete product from cart with error: ${error}`)
+      throw error
     }
   }
 }

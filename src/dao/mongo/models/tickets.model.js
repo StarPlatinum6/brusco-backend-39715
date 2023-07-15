@@ -1,6 +1,6 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
-const ticketsCollection = "tickets";
+const ticketsCollection = 'tickets'
 
 const ticketSchema = new mongoose.Schema({
   products: [
@@ -8,44 +8,44 @@ const ticketSchema = new mongoose.Schema({
       _id: false,
       productId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "products",
-        required: true,
+        ref: 'products',
+        required: true
       },
       quantity: {
         type: Number,
-        required: true,
+        required: true
       },
       total: {
         type: Number,
-        required: true,
-      },
-    },
+        required: true
+      }
+    }
   ],
   code: {
     type: String,
     unique: true,
-    required: true,
+    required: true
   },
   purchase_datetime: {
     type: Date,
-    required: true,
+    required: true
   },
   ammount: {
     type: Number,
-    required: true,
+    required: true
   },
   purchaser: {
     type: String,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
-ticketSchema.pre("findOne", function () {
-  this.populate("products.productId");
-});
+ticketSchema.pre('findOne', function () {
+  this.populate('products.productId')
+})
 
-ticketSchema.pre("find", function () {
-  this.populate("products.productId");
-});
+ticketSchema.pre('find', function () {
+  this.populate('products.productId')
+})
 
-export const ticketModel = mongoose.model(ticketsCollection, ticketSchema);
+export const ticketModel = mongoose.model(ticketsCollection, ticketSchema)

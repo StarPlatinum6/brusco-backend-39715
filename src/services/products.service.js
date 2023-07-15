@@ -1,16 +1,16 @@
-import jwt from "jsonwebtoken";
-import { config } from "../config/config.js";
-import { faker } from "@faker-js/faker";
-import { productsRepository } from "../repositories/index.js";
+import jwt from 'jsonwebtoken'
+import { config } from '../config/config.js'
+import { faker } from '@faker-js/faker'
+import { productsRepository } from '../repositories/index.js'
 
 const {
-  jwt: { JWT_SECRET },
-} = config;
+  jwt: { JWT_SECRET }
+} = config
 
 export default class ProductService {
-  constructor() {}
+  constructor () {}
 
-  async getProducts(page, limit, category, available, sort) {
+  async getProducts (page, limit, category, available, sort) {
     try {
       const products = await productsRepository.getProducts(
         page,
@@ -18,30 +18,29 @@ export default class ProductService {
         category,
         available,
         sort
-      );
-      if (!products) throw new Error("Couldn't find products");
+      )
+      if (!products) throw new Error("Couldn't find products")
 
-      return products;
+      return products
     } catch (error) {
-      console.log(`Failed to get products with error: ${error}`);
-      throw error;
+      console.log(`Failed to get products with error: ${error}`)
+      throw error
     }
   }
 
-  async getProductById(pid) {
+  async getProductById (pid) {
     try {
-      const filteredProduct = await productsRepository.getProductById(pid);
-      if (!filteredProduct)
-        throw new Error(`Product with id: ${pid} does not exist`);
+      const filteredProduct = await productsRepository.getProductById(pid)
+      if (!filteredProduct) { throw new Error(`Product with id: ${pid} does not exist`) }
 
-      return filteredProduct;
+      return filteredProduct
     } catch (error) {
-      console.log(`Failed to get product id ${pid} with error: ${error}`);
-      throw error;
+      console.log(`Failed to get product id ${pid} with error: ${error}`)
+      throw error
     }
   }
 
-  async addProduct(
+  async addProduct (
     title,
     description,
     code,
@@ -60,65 +59,64 @@ export default class ProductService {
         stock,
         category,
         thumbnails,
-        owner: "admin",
-      };
+        owner: 'admin'
+      }
 
       const { role, email } = jwt.verify(token, JWT_SECRET, {
-        ignoreExpiration: true,
-      });
-      role === "premium" ? (productObj.owner = email) : null;
+        ignoreExpiration: true
+      })
+      role === 'premium' ? (productObj.owner = email) : null
 
-      const addedProduct = await productsRepository.addProduct(productObj);
-      if (!addedProduct) throw new Error("Error adding new product");
+      const addedProduct = await productsRepository.addProduct(productObj)
+      if (!addedProduct) throw new Error('Error adding new product')
 
-      return addedProduct;
+      return addedProduct
     } catch (error) {
-      console.log(`Failed to add product with error: ${error}`);
-      throw error;
+      console.log(`Failed to add product with error: ${error}`)
+      throw error
     }
   }
 
-  async updateProduct(updateId, updateProd) {
+  async updateProduct (updateId, updateProd) {
     try {
       const updatedProduct = await productsRepository.updateProduct(
         updateId,
         updateProd
-      );
-      if (!updatedProduct)
-        throw new Error(`Error updating product with id: ${updateId}`);
+      )
+      if (!updatedProduct) { throw new Error(`Error updating product with id: ${updateId}`) }
 
-      return updatedProduct;
+      return updatedProduct
     } catch (error) {
-      console.log(`Failed to update product with error: ${error}`);
-      throw error;
+      console.log(`Failed to update product with error: ${error}`)
+      throw error
     }
   }
 
-  async deleteProduct(deleteId, token) {
+  async deleteProduct (deleteId, token) {
     try {
       const { role, email } = jwt.verify(token, JWT_SECRET, {
-        ignoreExpiration: true,
-      });
-      const { owner } = await productsRepository.getProductById(deleteId);
-      if (role === "premium" && email !== owner) {
-        throw new Error("You can only delete products you own");
+        ignoreExpiration: true
+      })
+      const { owner } = await productsRepository.getProductById(deleteId)
+      if (role === 'premium' && email !== owner) {
+        throw new Error('You can only delete products you own')
       }
 
-      const deletedProduct = await productsRepository.deleteProduct(deleteId);
+      const deletedProduct = await productsRepository.deleteProduct(deleteId)
       if (!deletedProduct) {
-        throw new Error(`Error deleting product with id: ${deleteId}`);
+        throw new Error(`Error deleting product with id: ${deleteId}`)
       }
 
-      return deletedProduct;
+      return deletedProduct
     } catch (error) {
-      console.log(`Failed to delete product with error: ${error}`);
-      throw error;
+      console.log(`Failed to delete product with error: ${error}`)
+      throw error
     }
   }
 
-  async mockingProducts() {
+  async mockingProducts () {
     try {
-      const products = [];
+      const products = []
 
       const fakeProduct = () => {
         return {
@@ -126,23 +124,23 @@ export default class ProductService {
           status: faker.datatype.boolean(1),
           title: faker.commerce.productName(),
           description: faker.commerce.productDescription(),
-          code: faker.string.alphanumeric(16, { casing: "upper" }),
+          code: faker.string.alphanumeric(16, { casing: 'upper' }),
           price: faker.commerce.price({ min: 5000, max: 2000000, dec: 0 }),
           stock: faker.number.int({ min: 5, max: 100 }),
           category: faker.commerce.department(),
-          thumbnails: [faker.image.url(), faker.image.url()],
-        };
-      };
-
-      for (let i = 0; i < 50; i++) {
-        products.push(fakeProduct());
+          thumbnails: [faker.image.url(), faker.image.url()]
+        }
       }
 
-      if (!products) throw new Error("Error creating products mock");
-      return products;
+      for (let i = 0; i < 50; i++) {
+        products.push(fakeProduct())
+      }
+
+      if (!products) throw new Error('Error creating products mock')
+      return products
     } catch (error) {
-      console.log(`Failed to create products mock with error: ${error}`);
-      throw error;
+      console.log(`Failed to create products mock with error: ${error}`)
+      throw error
     }
   }
 }

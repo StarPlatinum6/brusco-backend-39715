@@ -9,7 +9,9 @@
     "dev:mongo": "nodemon ./src/app.js -p MONGO -env DEVELOPMENT",
     "dev:files": "nodemon ./src/app.js -p FILESYSTEM -env DEVELOPMENT",
     "start": "node ./src/app.js -env PRODUCTION",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha test/**/*.test.js",
+    "test:unit": "mocha test/unit/*.test.js",
+    "test:integration": "mocha test/integration/*.test.js",
     "build:css": "postcss ./src/public/css/tailwind.css -o ./src/public/css/styles.css",
     "watch-css": "npx tailwindcss -i ./src/public/css/tailwind.css -o ./src/public/css/styles.css --watch"
   },

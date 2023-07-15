@@ -1,18 +1,18 @@
-import mongoose from "mongoose";
-import { config } from "./config/config.js";
+import mongoose from 'mongoose'
+import { config } from './config/config.js'
 
 const {
-  db: { DB_URL },
-} = config;
+  db: { DB_URL }
+} = config
 
 const database = {
   connect: async () => {
     try {
-      await mongoose.connect(DB_URL);
+      await mongoose.connect(DB_URL)
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  },
-};
+  }
+}
 
-export default database;
+export default database

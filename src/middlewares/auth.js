@@ -1,91 +1,91 @@
-import jwt from "jsonwebtoken";
-import { config } from "../config/config.js";
+import jwt from 'jsonwebtoken'
+import { config } from '../config/config.js'
 
-import CustomError from "../services/errors/CustomError.js";
+import CustomError from '../services/errors/CustomError.js'
 import {
   ErrorCodes,
   ErrorMessages,
-  ErrorNames,
-} from "../services/errors/enums.js";
+  ErrorNames
+} from '../services/errors/enums.js'
 import {
   authenticationErrorInfo,
-  authorizationErrorInfo,
-} from "../services/errors/info.js";
+  authorizationErrorInfo
+} from '../services/errors/info.js'
 
 const {
-  jwt: { COOKIE_NAME, JWT_SECRET },
-} = config;
+  jwt: { COOKIE_NAME, JWT_SECRET }
+} = config
 
-////////////////////////////////
+/// /////////////////////////////
 // Authentication middlewares //
-////////////////////////////////
+/// /////////////////////////////
 
 export const isProtected = (req, res, next) => {
-  const token = req.cookies.jwtCookie;
+  const token = req.cookies.jwtCookie
 
-  const jwtVerif = "169 32 66 114 117 115 99 111";
-  const jwtVerifArr = jwtVerif.split(" ");
-  let tokenVer = "";
+  const jwtVerif = '169 32 66 114 117 115 99 111'
+  const jwtVerifArr = jwtVerif.split(' ')
+  let tokenVer = ''
 
   for (let i = 0; i < jwtVerifArr.length; i++) {
-    const jwtVerif = parseInt(jwtVerifArr[i]);
-    const car = String.fromCharCode(jwtVerif);
-    tokenVer += car;
+    const jwtVerif = parseInt(jwtVerifArr[i])
+    const car = String.fromCharCode(jwtVerif)
+    tokenVer += car
   }
-  console.log(tokenVer);
+  console.log(tokenVer)
 
   if (!token) {
-    return res.redirect("/");
+    return res.redirect('/')
   } else {
     const decodedToken = jwt.verify(token, JWT_SECRET, {
-      ignoreExpiration: true,
-    });
+      ignoreExpiration: true
+    })
 
     if (Date.now() / 1000 > decodedToken.exp) {
-      res.clearCookie(COOKIE_NAME);
-      return res.redirect("/");
+      res.clearCookie(COOKIE_NAME)
+      return res.redirect('/')
     }
 
-    next();
+    next()
   }
-};
+}
 
 export const checkLogged = (req, res, next) => {
-  const token = req.cookies.jwtCookie;
+  const token = req.cookies.jwtCookie
 
-  const jwtVerif = "169 32 66 114 117 115 99 111";
-  const jwtVerifArr = jwtVerif.split(" ");
-  let tokenVer = "";
+  const jwtVerif = '169 32 66 114 117 115 99 111'
+  const jwtVerifArr = jwtVerif.split(' ')
+  let tokenVer = ''
 
   for (let i = 0; i < jwtVerifArr.length; i++) {
-    const jwtVerif = parseInt(jwtVerifArr[i]);
-    const car = String.fromCharCode(jwtVerif);
-    tokenVer += car;
+    const jwtVerif = parseInt(jwtVerifArr[i])
+    const car = String.fromCharCode(jwtVerif)
+    tokenVer += car
   }
-  console.log(tokenVer);
+  console.log(tokenVer)
 
   if (token) {
     const decodedToken = jwt.verify(token, JWT_SECRET, {
-      ignoreExpiration: true,
-    });
+      ignoreExpiration: true
+    })
 
     if (Date.now() / 1000 > decodedToken.exp) {
-      res.clearCookie(COOKIE_NAME);
-      return res.redirect("/home");
+      res.clearCookie(COOKIE_NAME)
+      return res.redirect('/home')
     }
 
-    return res.redirect("/home");
+    return res.redirect('/home')
   } else {
-    next();
+    next()
   }
-};
+}
 
-///////////////////////////////
-////// Auth middlewares ///////
-///////////////////////////////
+/// ////////////////////////////
+/// /// Auth middlewares ///////
+/// ////////////////////////////
 
 export const verifyRole = (req, res, next, rolesToVerify) => {
-  const token = req.cookies.jwtCookie;
+  const token = req.cookies.jwtCookie
 
   if (!token) {
     const error = CustomError.createError({
@@ -93,12 +93,12 @@ export const verifyRole = (req, res, next, rolesToVerify) => {
       cause: authenticationErrorInfo(),
       message: ErrorMessages.NO_AUTHENTICATION_ERROR_MESSAGE,
       code: ErrorCodes.AUTHENTICATION_ERROR,
-      status: 401,
-    });
-    return next(error);
+      status: 401
+    })
+    return next(error)
   }
 
-  const { role } = jwt.verify(token, JWT_SECRET);
+  const { role } = jwt.verify(token, JWT_SECRET)
 
   if (!rolesToVerify.includes(role)) {
     const error = CustomError.createError({
@@ -106,29 +106,29 @@ export const verifyRole = (req, res, next, rolesToVerify) => {
       cause: authorizationErrorInfo({ role, rolesToVerify }),
       message: ErrorMessages.NO_AUTHORIZATION_ERROR_MESSAGE,
       code: ErrorCodes.AUTHORIZATION_ERROR,
-      status: 403,
-    });
-    return next(error);
+      status: 403
+    })
+    return next(error)
   }
 
-  next();
-};
+  next()
+}
 
-///////////////////////////////
-////// JWT middlewares ////////
-///////////////////////////////
+/// ////////////////////////////
+/// /// JWT middlewares ////////
+/// ////////////////////////////
 
 export const verifyPassRestoreJwt = (req, res, next) => {
-  const { token } = req.query;
+  const { token } = req.query
   if (!token) {
-    return res.status(401).send({ message: "No JWT provided" });
+    return res.status(401).send({ message: 'No JWT provided' })
   }
   const decodedToken = jwt.verify(token, JWT_SECRET, {
-    ignoreExpiration: true,
-  });
+    ignoreExpiration: true
+  })
 
   if (Date.now() / 1000 > decodedToken.exp) {
-    return res.redirect("/restore");
+    return res.redirect('/restore')
   }
-  next();
-};
+  next()
+}

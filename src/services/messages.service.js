@@ -1,17 +1,17 @@
-import { messagesRepository } from "../repositories/index.js";
+import { messagesRepository } from '../repositories/index.js'
 
 export default class MessageService {
-  constructor() {}
+  constructor () {}
 
-  async getMessages() {
+  async getMessages () {
     try {
-      const messages = await messagesRepository.getMessages();
-      if (!messages) throw new Error("Error: No messages found");
+      const messages = await messagesRepository.getMessages()
+      if (!messages) throw new Error('Error: No messages found')
 
-      return messages || [];
+      return messages || []
     } catch (error) {
-      console.log(`Failed to get messages with error: ${error}`);
-      throw error;
+      console.log(`Failed to get messages with error: ${error}`)
+      throw error
     }
   }
 }

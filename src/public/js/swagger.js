@@ -1,6 +1,6 @@
-console.log("hi!");
+console.log('hi!')
 
-const d = document;
+const d = document
 
-console.log(d.querySelector(".topbar-wrapper"));
-console.log(d.getElementById("swagger-ui").innerHTML)
+console.log(d.querySelector('.topbar-wrapper'))
+console.log(d.getElementById('swagger-ui').innerHTML)

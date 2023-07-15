@@ -1,29 +1,29 @@
-import { registerSwal, errorSwal } from "./swalCalls.js";
+import { registerSwal, errorSwal } from './swalCalls.js'
 
-const form = document.getElementById("registerForm");
+const form = document.getElementById('registerForm')
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const data = new FormData(form);
-  const obj = {};
-  data.forEach((value, key) => (obj[key] = value));
+form.addEventListener('submit', async (e) => {
+  e.preventDefault()
+  const data = new FormData(form)
+  const obj = {}
+  data.forEach((value, key) => (obj[key] = value))
 
   try {
-    const response = await fetch("/api/v1/users/register", {
-      method: "POST",
+    const response = await fetch('/api/v1/users/register', {
+      method: 'POST',
       body: JSON.stringify(obj),
       headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    const data = await response.json();
+        'Content-Type': 'application/json'
+      }
+    })
+    const data = await response.json()
 
     if (response.ok) {
-      registerSwal(data.message);
+      registerSwal(data.message)
     } else {
-      throw data;
+      throw data
     }
   } catch ({ error }) {
-    errorSwal(error);
+    errorSwal(error)
   }
-});
+})

@@ -176,5 +176,5 @@ export const emailTemplates = {
     </table>
     </body>
     </html>
-    `,
-};
+    `
+}
