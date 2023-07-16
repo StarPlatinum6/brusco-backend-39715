@@ -154,3 +154,24 @@
 {"level":"error","message":"Cannot get product with mongoose Error: Product with id: 642c8adb6dbaaa8e907e0140a does not exist"}
 {"level":"error","message":"Failed to create ticket with mongoose TypeError: Cannot destructure property 'email' of '(intermediate value)' as it is null."}
 {"level":"error","message":"Failed to create ticket with mongoose Error: All products were out of stock."}
+{"level":"error","message":"Cannot get product with mongoose Error: Product with id: undefined does not exist"}
+{"level":"error","message":"Cannot get product with mongoose Error: Product with id: 64b32ef69b3ff323e5bde428 does not exist"}
+{"level":"error","message":"Failed to restore user password: JsonWebTokenError: invalid token"}
+{"level":"error","message":"Failed to restore user password: JsonWebTokenError: invalid token"}
+{"level":"error","message":"Failed to restore user password: JsonWebTokenError: invalid token"}
+{"level":"error","message":"Failed to restore user password: JsonWebTokenError: invalid token"}
+{"level":"error","message":"Failed to restore user password: JsonWebTokenError: invalid token"}
+{"level":"error","message":"Failed to restore user password: Error: data must be a string or Buffer and hash must be a string"}
+{"level":"error","message":"Failed to restore user password: JsonWebTokenError: invalid token"}
+{"level":"error","message":"Failed to restore user password: JsonWebTokenError: invalid token"}
+{"level":"error","message":"Failed to restore user password: Error: data must be a string or Buffer and hash must be a string"}
+{"level":"error","message":"Failed to restore user password: Error: data must be a string or Buffer and hash must be a string"}
+{"level":"error","message":"Failed to restore user password: Error: data must be a string or Buffer and hash must be a string"}
+{"level":"error","message":"Failed to restore user password: Error: data must be a string or Buffer and hash must be a string"}
+{"level":"error","message":"Failed to restore user password: Error: data must be a string or Buffer and hash must be a string"}
+{"level":"error","message":"Failed to restore user password: Error: data must be a string or Buffer and hash must be a string"}
+{"level":"error","message":"Failed to restore user password: Error: data must be a string or Buffer and hash must be a string"}
+{"level":"error","message":"Failed to restore user password: Error: data must be a string or Buffer and hash must be a string"}
+{"level":"error","message":"Failed to restore user password: Error: data must be a string or Buffer and hash must be a string"}
+{"level":"error","message":"Failed to restore user password: Error: data must be a string or Buffer and hash must be a string"}
+{"level":"error","message":"Failed to restore user password: Error: data must be a string or Buffer and hash must be a string"}

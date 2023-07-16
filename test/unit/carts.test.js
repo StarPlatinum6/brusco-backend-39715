@@ -91,7 +91,7 @@ describe('Unit test suite for Cart DAO', function () {
     expect(cartAfter.products[0].quantity).to.eq(0)
   })
 
-  it('deleteProductFromCart deletes a product from the cart when given a valid cart ID and product ID', async function () {
+  it('deleteProductFromCart deletes a product from the cart when given a valid cart ID and product ID input', async function () {
     const result = await this.cartsDao.deleteProductFromCart(
       this.cartId,
       this.productId
