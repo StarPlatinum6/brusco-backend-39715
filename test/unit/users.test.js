@@ -12,8 +12,9 @@ describe('Unit test suite for User DAO', function () {
   this.userId = ''
   this.userCartId = ''
 
-  before(function () {
-    mongoose.connect(config.db.DB_URL_TEST)
+  before(async function () {
+    await mongoose.disconnect()
+    await mongoose.connect(config.db.DB_URL_TEST)
     this.usersDao = userMongo
   })
 
