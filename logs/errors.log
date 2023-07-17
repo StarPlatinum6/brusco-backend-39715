@@ -175,3 +175,8 @@
 {"level":"error","message":"Failed to restore user password: Error: data must be a string or Buffer and hash must be a string"}
 {"level":"error","message":"Failed to restore user password: Error: data must be a string or Buffer and hash must be a string"}
 {"level":"error","message":"Failed to restore user password: Error: data must be a string or Buffer and hash must be a string"}
+{"level":"error","message":"Cannot get cart with mongoose Error: Cart with id: undefined does not exist"}
+{"level":"error","message":"Cannot get cart with mongoose Error: Cart with id: undefined does not exist"}
+{"level":"error","message":"Failed to create ticket with mongoose TypeError: Cannot destructure property 'email' of '(intermediate value)' as it is null."}
+{"level":"error","message":"Failed to create ticket with mongoose TypeError: Cannot destructure property 'email' of '(intermediate value)' as it is null."}
+{"level":"error","message":"Failed to login with error: Error: User with email milanesas@gmail.com does not exist"}

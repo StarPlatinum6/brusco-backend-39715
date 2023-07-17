@@ -593,7 +593,16 @@ paths:
                       acknowledged:
                         type: boolean
                         example: true
-                      deletedCount:
+                      modifiedCount:
+                        type: number
+                        example: 1
+                      upsertedId:
+                        type: null
+                        example: null
+                      upsertedCount:
+                        type: number
+                        example: 0
+                      matchedCount:
                         type: number
                         example: 1
         "400":

@@ -77,7 +77,7 @@ describe('Integration Test suite for Products router', function () {
     expect(ok).to.be.ok
   })
 
-  it('Endpoint /api/v1/products/:pid (UPDATE) updates a product successfully with valid product ID input', async function () {
+  it('Endpoint /api/v1/products/:pid (PUT) updates a product successfully with valid product ID input', async function () {
     const productUpdate = {
       category: 'TEST'
     }

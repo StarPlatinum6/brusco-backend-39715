@@ -166,4 +166,16 @@ export default class UserService {
       throw error
     }
   }
+
+  async deleteUser (uid) {
+    try {
+      const deletedUser = await usersRepository.deleteUser(uid)
+      if (!deletedUser) throw new Error(`Error deleting user ${uid}`)
+
+      return deletedUser
+    } catch (error) {
+      console.log(`Failed to delete user with error: ${error}`)
+      throw error
+    }
+  }
 }

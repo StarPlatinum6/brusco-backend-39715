@@ -38,6 +38,15 @@ class User {
       console.log(error)
     }
   }
+
+  deleteUser = async (userId) => {
+    try {
+      const deletedUser = await userModel.deleteOne({ _id: userId })
+      return deletedUser
+    } catch (error) {
+      console.log(error)
+    }
+  }
 }
 
 export const userMongo = new User()

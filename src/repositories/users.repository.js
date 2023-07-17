@@ -42,4 +42,14 @@ export default class UsersRepository {
       return null
     }
   }
+
+  deleteUser = async (userId) => {
+    try {
+      const deletedUser = await this.dao.deleteUser(userId)
+      return deletedUser
+    } catch (error) {
+      console.log(error)
+      return null
+    }
+  }
 }

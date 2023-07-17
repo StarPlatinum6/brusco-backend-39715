@@ -23,7 +23,7 @@ describe('Unit test suite for Cart DAO', function () {
     this.productsDao.deleteProduct(this.productId)
   })
 
-  it('createCart creates new cart ID', async function () {
+  it('createCart creates new cart with ID', async function () {
     const result = await this.cartsDao.createCart()
     this.cartId = result._id.toString()
     expect(result).to.have.property('_id')
@@ -34,7 +34,7 @@ describe('Unit test suite for Cart DAO', function () {
     expect(result).to.have.property('_id')
   })
 
-  it('addToCart adds a new product to the cart when given a valid cart ID, product ID and quantity', async function () {
+  it('addToCart adds a new product to the cart when given a valid cart ID and product ID, quantity optional', async function () {
     const quantity = 5
     const productMock = {
       title: 'Test Product',
