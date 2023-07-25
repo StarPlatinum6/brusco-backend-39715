@@ -49,11 +49,22 @@ export default class UserService {
     }
   }
 
+  async decodeUser (token) {
+    try {
+      const decodedToken = jwt.verify(token, JWT_SECRET, {
+        ignoreExpiration: true
+      })
+      return decodedToken
+    } catch (error) {
+      throw error
+    }
+  }
+
   passwordValidate (user, password) {
     return isValidPassword(user, password)
   }
 
-  generateJwtToken (user, rememberMe) {
+  loginUser (user, rememberMe) {
     try {
       const userDTO = new UserDTO(user)
       const jwtUser = JSON.parse(JSON.stringify(userDTO))
@@ -175,6 +186,21 @@ export default class UserService {
       return deletedUser
     } catch (error) {
       console.log(`Failed to delete user with error: ${error}`)
+      throw error
+    }
+  }
+
+  updateConnection (email) {
+    try {
+      const connection_updated = usersRepository.updateUser(
+        { email },
+        { last_connection: new Date() }
+      )
+      if (!connection_updated) throw new Error('Error updating user\'s last connection')
+
+      return connection_updated
+    } catch (error) {
+      console.log(`Failed to update last connection error: ${error}`)
       throw error
     }
   }

@@ -62,12 +62,20 @@ export const loginUser = async (req, res, next) => {
         .send({ status: 'error', error: 'Invalid credentials.' })
     }
 
-    const token = userService.generateJwtToken(user, rememberMe)
+    const token = userService.loginUser(user, rememberMe)
 
     if (!token) {
       return res
         .status(500)
         .send({ status: 'error', error: 'Failed to generate JWT token' })
+    }
+
+    const last_connection = userService.updateConnection(email)
+
+    if (!last_connection) {
+      return res
+        .status(500)
+        .send({ status: 'error', error: 'Failed to update last connection' })
     }
 
     return res
@@ -84,7 +92,7 @@ export const githubLogin = async (req, res) => {}
 export const githubCallback = async (req, res) => {
   try {
     const { user } = req
-    const token = userService.generateJwtToken(user)
+    const token = userService.loginUser(user)
 
     if (!token) {
       return res
@@ -105,7 +113,16 @@ export const currentUser = (req, res) => {
   return res.status(200).send({ status: 'success', payload: req.user })
 }
 
-export const logoutUser = (req, res) => {
+export const logoutUser = async (req, res) => {
+  const { jwtCookie: token } = req.cookies
+  const { email } = await userService.decodeUser(token)
+  const last_connection = userService.updateConnection(email)
+
+  if (!last_connection) {
+    return res
+      .status(500)
+      .send({ status: 'error', error: 'Failed to update last connection' })
+  }
   return res
     .clearCookie(COOKIE_NAME)
     .send({ status: 'success', message: 'Logout successful!' })
