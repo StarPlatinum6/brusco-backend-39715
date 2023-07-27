@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { uploader } from '../utils.js'
 import passport from 'passport'
 import { verifyRole } from '../middlewares/auth.js'
 import {
@@ -11,7 +12,10 @@ import {
   registerUser,
   restorePasswordProcess,
   updatePassword,
-  changeRole
+  changeRole,
+  updateUserDocumentsAndStatus,
+  updateProfilePicture,
+  currentUserStatus
 } from '../controllers/users.controller.js'
 
 const usersRouter = Router()
@@ -47,10 +51,34 @@ usersRouter.get(
 )
 
 usersRouter.post(
+  '/:uid/status',
+  passport.authenticate('jwt', { session: false }),
+  currentUserStatus
+)
+
+usersRouter.post(
   '/premium/:uid',
   passport.authenticate('jwt', { session: false }),
-  (req, res, next) => verifyRole(req, res, next, 'admin'),
+  (req, res, next) => verifyRole(req, res, next, ['user', 'premium', 'admin']),
   changeRole
+)
+
+usersRouter.post(
+  '/:uid/documents',
+  (req, res, next) => verifyRole(req, res, next, ['user', 'premium']),
+  uploader.fields([
+    { name: 'identification' },
+    { name: 'address' },
+    { name: 'statement' }
+  ]),
+  updateUserDocumentsAndStatus
+)
+
+usersRouter.post(
+  '/:uid/profilepicture',
+  (req, res, next) => verifyRole(req, res, next, ['user', 'premium', 'admin']),
+  uploader.single('profile'),
+  updateProfilePicture
 )
 
 usersRouter.post('/restore', restorePasswordProcess)

@@ -180,3 +180,67 @@
 {"level":"error","message":"Failed to create ticket with mongoose TypeError: Cannot destructure property 'email' of '(intermediate value)' as it is null."}
 {"level":"error","message":"Failed to create ticket with mongoose TypeError: Cannot destructure property 'email' of '(intermediate value)' as it is null."}
 {"level":"error","message":"Failed to login with error: Error: User with email milanesas@gmail.com does not exist"}
+{"level":"error","message":"Cannot add product with mongoose ReferenceError: addedProduct is not defined"}
+{"level":"error","message":"Cannot update user status with error: ReferenceError: email is not defined"}
+{"level":"error","message":"Cannot update user documents with error: TypeError: userService.updateUserDocuments is not a function"}
+{"level":"error","message":"Failed to change role: TypeError: Cannot destructure property 'role' of '(intermediate value)' as it is null."}
+{"level":"error","message":"Failed to change role: TypeError: Cannot destructure property 'role' of '(intermediate value)' as it is null."}
+{"level":"error","message":"Failed to change role: TypeError: Cannot destructure property 'role' of '(intermediate value)' as it is undefined."}
+{"level":"error","message":"Failed to change role: TypeError: Cannot destructure property 'role' of '(intermediate value)' as it is null."}
+{"level":"error","message":"Failed to change role: TypeError: Cannot destructure property 'role' of '(intermediate value)' as it is null."}
+{"level":"error","message":"Failed to change role: TypeError: Cannot destructure property 'role' of '(intermediate value)' as it is null."}
+{"level":"error","message":"Failed to change role: ReferenceError: role is not defined"}
+{"level":"error","message":"Failed to change role: ReferenceError: role is not defined"}
+{"level":"error","message":"Failed to change role: ReferenceError: role is not defined"}
+{"level":"error","message":"Failed to change role: ReferenceError: role is not defined"}
+{"level":"error","message":"Failed to change role: TypeError: Cannot destructure property 'role' of '(intermediate value)' as it is null."}
+{"level":"error","message":"Failed to change role: ReferenceError: newRole is not defined"}
+{"level":"error","message":"Failed to change role: TypeError: Cannot destructure property 'role' of '(intermediate value)' as it is null."}
+{"level":"error","message":"Failed to change role: ReferenceError: role is not defined"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your user role: item1 item2"}
+{"level":"error","message":"Failed to change role: ReferenceError: ej is not defined"}
+{"level":"error","message":"Failed to change role: TypeError: Assignment to constant variable."}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your user role: item1 item2"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your user role: item1 item2"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: address,statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: address,statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: address,statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: address,statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: address,statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: address& statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: address & statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: statement"}
+{"level":"error","message":"Failed to change role: ReferenceError: Cannot access 'role' before initialization"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: identification & address & statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: identification, address, statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: identification, address, statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: identification, address, statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: identification, address, statement"}
+{"level":"error","message":"Cannot update user profile picture with error: ReferenceError: userDocuments is not defined"}
+{"level":"error","message":"Cannot update user profile picture with error: TypeError: els.forEach is not a function"}
+{"level":"error","message":"Failed to render profile view: ReferenceError: profilePicture is not defined"}
+{"level":"error","message":"Failed to render profile view: ReferenceError: documents is not defined"}
+{"level":"error","message":"Failed to render profile view: TypeError: Cannot destructure property 'reference' of 'documents[0]' as it is undefined."}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: identification, address, statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: identification, address, statement"}
+{"level":"error","message":"Cannot get user status with error: ReferenceError: token is not defined"}
+{"level":"error","message":"Cannot get user status with error: TypeError: el.name.toLocalUpperCase is not a function"}
+{"level":"error","message":"Cannot get user status with error: ReferenceError: proffindex is not defined"}
+{"level":"error","message":"Cannot get user status with error: TypeError: userDocuments.pop(...).join is not a function"}
+{"level":"error","message":"Cannot get user status with error: TypeError: Assignment to constant variable."}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: address, statement"}
+{"level":"error","message":"Cannot update user documents with error: ReferenceError: updatedUserDocumentsAndStatus is not defined"}
+{"level":"error","message":"Cannot update user documents with error: ReferenceError: updatedUserDocumentsAndStatus is not defined"}
+{"level":"error","message":"Cannot update user documents with error: ReferenceError: updatedUserDocumentsAndStatus is not defined"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: address, statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: address, statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: address, statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: address, statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: address, statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: address, statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: address, statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: address, statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: identification, address, statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: identification, address, statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: statement"}
+{"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: statement"}

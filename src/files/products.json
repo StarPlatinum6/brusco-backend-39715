@@ -9,8 +9,8 @@
 		"stock": 27,
 		"category": "GPU",
 		"thumbnails": [
-			"http://localhost:8080/images/image3.jpg",
-			"http://localhost:8080/images/image4.jpg"
+			"http://localhost:8080/thumbnails/image3.jpg",
+			"http://localhost:8080/thumbnails/image4.jpg"
 		]
 	},
 	{
@@ -23,8 +23,8 @@
 		"stock": 50,
 		"category": "GPU",
 		"thumbnails": [
-			"http://localhost:8080/images/image3.jpg",
-			"http://localhost:8080/images/image4.jpg"
+			"http://localhost:8080/thumbnails/image3.jpg",
+			"http://localhost:8080/thumbnails/image4.jpg"
 		]
 	},
 	{
@@ -37,8 +37,8 @@
 		"stock": 450,
 		"category": "GPU",
 		"thumbnails": [
-			"http://localhost:8080/images/image3.jpg",
-			"http://localhost:8080/images/image4.jpg"
+			"http://localhost:8080/thumbnails/image3.jpg",
+			"http://localhost:8080/thumbnails/image4.jpg"
 		]
 	},
 	{
@@ -51,8 +51,8 @@
 		"stock": 450,
 		"category": "GPU",
 		"thumbnails": [
-			"http://localhost:8080/images/image3.jpg",
-			"http://localhost:8080/images/image4.jpg"
+			"http://localhost:8080/thumbnails/image3.jpg",
+			"http://localhost:8080/thumbnails/image4.jpg"
 		]
 	},
 	{
@@ -65,8 +65,8 @@
 		"stock": 450,
 		"category": "GPU",
 		"thumbnails": [
-			"http://localhost:8080/images/image3.jpg",
-			"http://localhost:8080/images/image4.jpg"
+			"http://localhost:8080/thumbnails/image3.jpg",
+			"http://localhost:8080/thumbnails/image4.jpg"
 		]
 	}
 ]

@@ -163,14 +163,47 @@ export default class UserService {
 
   async changeRole (uid) {
     try {
-      let { role } = await usersRepository.getUser({ _id: uid })
-      role === 'user' ? role = 'premium' : 'user'
+      const requiredStatus = ['identification', 'address', 'statement']
+      const user = await usersRepository.getUser({ _id: uid })
 
-      const roleChanged = await usersRepository.updateUser(
-        { _id: uid },
-        { role }
-      )
+      let missingStatus = []
+      let roleChanged = false
+
+      if (!user) {
+        const user = await usersRepository.getUserByCartId(uid)
+        const userStatus = user.status
+
+        missingStatus = requiredStatus.filter((el) => !userStatus.includes(el))
+
+        if (requiredStatus.every((el) => userStatus.includes(el)) || user.role === 'premium') {
+          const role = user.role === 'user' ? 'premium' : 'user'
+
+          roleChanged = await usersRepository.updateUser(
+            { cart: uid },
+            { role }
+          )
+        } else {
+          throw new Error(`You're missing documentantion to upgrade your role: ${missingStatus.join(', ')}`)
+        }
+      } else {
+        const userStatus = user.status
+
+        missingStatus = requiredStatus.filter((el) => !userStatus.includes(el))
+
+        if (requiredStatus.every((el) => userStatus.includes(el)) || user.role === 'premium') {
+          const role = user.role === 'user' ? 'premium' : 'user'
+
+          roleChanged = await usersRepository.updateUser(
+            { _id: uid },
+            { role }
+          )
+        } else {
+          throw new Error(`You're missing the following documentantion to upgrade your role: ${missingStatus.join(', ')}`)
+        }
+      }
+
       if (!roleChanged) { throw new Error(`Failed to change role for user ${uid}`) }
+
       return roleChanged
     } catch (error) {
       console.log(`Failed to change role: ${error}`)
@@ -200,7 +233,103 @@ export default class UserService {
 
       return connection_updated
     } catch (error) {
-      console.log(`Failed to update last connection error: ${error}`)
+      console.log(`Failed to update last connection with error: ${error}`)
+      throw error
+    }
+  }
+
+  async updateUserDocumentsAndStatus (email, userDocuments) {
+    try {
+      const newUserStatus = []
+      const newUserDocuments = []
+      const { documents } = await usersRepository.getUser({ email })
+
+      Object.values(userDocuments).forEach((els) => {
+        els.forEach((el) => {
+          const document = {
+            name: el.fieldname,
+            reference: `${el.fieldname}/${el.filename}`
+          }
+          newUserDocuments.push(document)
+        })
+      })
+
+      newUserDocuments.forEach((newUserDoc) => {
+        const existingDocIndex = documents.findIndex(
+          (doc) => doc.name === newUserDoc.name
+        )
+        if (existingDocIndex !== -1) {
+          documents[existingDocIndex] = newUserDoc
+        } else {
+          documents.push(newUserDoc)
+        }
+      })
+
+      documents.forEach((el) => {
+        newUserStatus.push(el.name)
+      })
+
+      const updates = {
+        documents,
+        status: newUserStatus
+      }
+
+      const updatedUserDocumentsAndStatus = await usersRepository.updateUser({ email }, updates)
+
+      return updatedUserDocumentsAndStatus
+    } catch (error) {
+      console.log(`Failed to update user documents and status with error: ${error}`)
+      throw error
+    }
+  }
+
+  async updateProfilePicture (email, profilePicture) {
+    try {
+      const newUserDocuments = []
+      const { documents } = await usersRepository.getUser({ email })
+
+      const document = {
+        name: profilePicture.fieldname,
+        reference: `${profilePicture.fieldname}/${profilePicture.filename}`
+      }
+      newUserDocuments.push(document)
+
+      newUserDocuments.forEach((newUserDoc) => {
+        const existingDocIndex = documents.findIndex(
+          (doc) => doc.name === newUserDoc.name
+        )
+        if (existingDocIndex !== -1) {
+          documents[existingDocIndex] = newUserDoc
+        } else {
+          documents.push(newUserDoc)
+        }
+      })
+
+      const updatedUserDocumentsAndStatus = await usersRepository.updateUser({ email }, { documents })
+
+      return updatedUserDocumentsAndStatus
+    } catch (error) {
+      console.log(`Failed to update user documents and status with error: ${error}`)
+      throw error
+    }
+  }
+
+  filterUserDocs (documents) {
+    try {
+      let userStatus = []
+
+      documents.forEach((el) => {
+        userStatus.push(el.name)
+      })
+
+      const profileIndex = userStatus.findIndex((doc) => doc === 'profile')
+      userStatus.splice(profileIndex, 1)
+
+      userStatus = userStatus.length === 0 ? undefined : userStatus
+
+      return userStatus
+    } catch (error) {
+      console.log(`Failed to get user status with error: ${error}`)
       throw error
     }
   }

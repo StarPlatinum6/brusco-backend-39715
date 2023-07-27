@@ -208,3 +208,127 @@ export const changeRole = async (req, res) => {
     return res.status(500).send({ status: 'error', error: `${error}` })
   }
 }
+
+export const updateUserDocumentsAndStatus = async (req, res) => {
+  try {
+    const userDocuments = req.files
+    const { jwtCookie: token } = req.cookies
+    const { email } = await userService.decodeUser(token)
+
+    if (Object.keys(userDocuments).length === 0) {
+      return res.status(400).send({
+        status: 'error',
+        error: 'You need to upload at least one file'
+      })
+    }
+
+    if (!token) {
+      return res.status(400).send({
+        status: 'error',
+        error: 'Failed to get token'
+      })
+    }
+
+    if (!email) {
+      return res.status(400).send({
+        status: 'error',
+        error: 'Failed to get user'
+      })
+    }
+
+    const updatedUserDocumentsAndStatus = await userService.updateUserDocumentsAndStatus(email, userDocuments)
+
+    if (!updatedUserDocumentsAndStatus) {
+      return res.status(404).send({
+        status: 'error',
+        error: 'Failed to update user documents and status'
+      })
+    }
+
+    res.status(201).send({ status: 'success', payload: updatedUserDocumentsAndStatus })
+  } catch (error) {
+    req.logger.error(`Cannot update user documents with error: ${error}`)
+    return res.status(500).send({
+      status: 'error',
+      error: 'Failed to update user documents and status'
+    })
+  }
+}
+
+export const updateProfilePicture = async (req, res) => {
+  try {
+    const profilePicture = req.file
+    const { jwtCookie: token } = req.cookies
+    const { email } = await userService.decodeUser(token)
+
+    if (!token) {
+      return res.status(400).send({
+        status: 'error',
+        error: 'Failed to get token'
+      })
+    }
+
+    if (!email) {
+      return res.status(400).send({
+        status: 'error',
+        error: 'Failed to get user'
+      })
+    }
+
+    if (!req.file) {
+      return res.status(400).send({
+        status: 'error',
+        error: 'Failed to save profile picture'
+      })
+    }
+
+    const updatedProfilePicture = await userService.updateProfilePicture(email, profilePicture)
+
+    if (!updatedProfilePicture) {
+      return res.status(404).send({
+        status: 'error',
+        error: 'Failed to update profile picture'
+      })
+    }
+
+    res.status(201).send({ status: 'success', payload: updatedProfilePicture })
+  } catch (error) {
+    req.logger.error(`Cannot update profile picture with error: ${error}`)
+    return res.status(500).send({
+      status: 'error',
+      error: 'Failed to update user profile picture'
+    })
+  }
+}
+
+export const currentUserStatus = async (req, res) => {
+  try {
+    const { uid: cid } = req.params
+
+    if (!cid) {
+      return res.status(400).send({
+        status: 'error',
+        error: 'Failed to get cart ID'
+      })
+    }
+
+    const { documents } = await userService.getUserByCartId(cid)
+
+    if (!documents) {
+      return res.status(404).send({
+        status: 'error',
+        error: 'Failed to get user status'
+      })
+    }
+
+    const userStatus = userService.filterUserDocs(documents)
+
+    res.status(200).send({ status: 'success', payload: userStatus })
+  } catch (error) {
+    req.logger.error(`Cannot get user status with error: ${error}`)
+    return res.status(500).send({
+      status: 'error',
+      error: 'Failed to get user status'
+    })
+  }
+}

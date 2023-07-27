@@ -1,5 +1,3 @@
-// export const Swal = () => {};
-
 //
 // cart.js
 //
@@ -219,6 +217,82 @@ export const passUpdateSwal = (message) => {
     timerProgressBar: true,
     willClose: () => {
       window.location.href = '/'
+    }
+  })
+}
+
+//
+// profile.js
+//
+
+export const uploadDocumentsSwal = () => {
+  Swal.fire({
+    title: 'Documents successfully uploaded!',
+    html: `When all 3 docs are uploaded<br>
+        You can change your role to premium`,
+    icon: 'success',
+    timer: 3000,
+    timerProgressBar: true,
+    customClass: {
+      popup: '!text-slate-200 !bg-slate-800/90 !rounded-3xl',
+      confirmButton: '!bg-blue-600 !px-5',
+      timerProgressBar: '!m-auto !h-1 !my-2 !bg-blue-600/90 !rounded-3xl'
+    }
+  })
+}
+
+export const changeRoleSwal = () => {
+  Swal.fire({
+    title: 'Role successfully updated!',
+    html: `To complete the update, we need to log you out,<br>
+          Please, login again to finish the process`,
+    icon: 'success',
+    timer: 3000,
+    timerProgressBar: true,
+    customClass: {
+      popup: '!text-slate-200 !bg-slate-800/90 !rounded-3xl',
+      confirmButton: '!bg-blue-600 !px-5',
+      timerProgressBar: '!m-auto !h-1 !my-2 !bg-blue-600/90 !rounded-3xl'
+    },
+    willClose: () => {
+      window.location.href = '/'
+    }
+  })
+}
+
+export const profilePictureSwal = () => {
+  Swal.fire({
+    title: 'Profile picture updated!',
+    html: 'Nice picture!',
+    toast: true,
+    position: 'top-right',
+    icon: 'success',
+    timer: 3000,
+    footer: 'Reloading page on close',
+    timerProgressBar: true,
+    customClass: {
+      popup: '!text-slate-200 !bg-slate-800/90 !rounded-3xl',
+      confirmButton: '!bg-blue-600 !px-5',
+      timerProgressBar: '!m-auto !h-1 !my-2 !bg-blue-600/90 !rounded-3xl'
+    },
+    willClose: () => {
+      location.reload()
+    }
+  })
+}
+
+export const checkDocumentationSwal = (docs = 'No documents') => {
+  Swal.fire({
+    title: 'Your uploaded files',
+    html: `You have these documents uploaded:<br>
+          ${docs.join(', ')}`,
+    icon: 'info',
+    timer: 5000,
+    timerProgressBar: true,
+    customClass: {
+      popup: '!text-slate-200 !bg-slate-800/90 !rounded-3xl',
+      confirmButton: '!bg-blue-600 !px-5',
+      timerProgressBar: '!m-auto !h-1 !my-2 !bg-blue-600/90 !rounded-3xl'
     }
   })
 }

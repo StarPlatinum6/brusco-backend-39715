@@ -475,7 +475,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "\t{\r\n\t\t\"title\": \"Postman Test\",\r\n\t\t\"description\": \"This is a Postman Test Product\",\r\n\t\t\"code\": \"POSTMAN-TEST\",\r\n\t\t\"price\": 500,\r\n\t\t\"stock\": 50,\r\n\t\t\"category\": \"TEST\",\r\n\t\t\"thumbnails\": [\r\n\t\t\t\"http://localhost:8080/images/TEST1.jpg\",\r\n\t\t\t\"http://localhost:8080/images/TEST2.jpg\"\r\n\t\t]\r\n\t}",
+							"raw": "\t{\r\n\t\t\"title\": \"Postman Test\",\r\n\t\t\"description\": \"This is a Postman Test Product\",\r\n\t\t\"code\": \"POSTMAN-TEST\",\r\n\t\t\"price\": 500,\r\n\t\t\"stock\": 50,\r\n\t\t\"category\": \"TEST\",\r\n\t\t\"thumbnails\": [\r\n\t\t\t\"http://localhost:8080/thumbnails/TEST1.jpg\",\r\n\t\t\t\"http://localhost:8080/thumbnails/TEST2.jpg\"\r\n\t\t]\r\n\t}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -565,7 +565,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "\t{\r\n\t\t\"status\": true,\r\n\t\t\"title\": \"This is a Test Product Updated\",\r\n\t\t\"description\": \"Test Product Updated\",\r\n\t\t\"code\": \"TEST-PRODOO\",\r\n\t\t\"price\": 454560,\r\n\t\t\"stock\": 12,\r\n\t\t\"category\": \"TEST\",\r\n\t\t\"thumbnails\": [\r\n\t\t\t\"http://localhost:8080/images/image3.jpg\",\r\n\t\t\t\"http://localhost:8080/images/image4.jpg\"\r\n\t\t]\r\n\t}",
+							"raw": "\t{\r\n\t\t\"status\": true,\r\n\t\t\"title\": \"This is a Test Product Updated\",\r\n\t\t\"description\": \"Test Product Updated\",\r\n\t\t\"code\": \"TEST-PRODOO\",\r\n\t\t\"price\": 454560,\r\n\t\t\"stock\": 12,\r\n\t\t\"category\": \"TEST\",\r\n\t\t\"thumbnails\": [\r\n\t\t\t\"http://localhost:8080/thumbnails/image3.jpg\",\r\n\t\t\t\"http://localhost:8080/thumbnails/image4.jpg\"\r\n\t\t]\r\n\t}",
 							"options": {
 								"raw": {
 									"language": "json"

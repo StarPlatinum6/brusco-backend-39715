@@ -39,8 +39,6 @@ describe('Integration Test suite for Carts router', function () {
       .send(premiumUser)
     const cookieResultPremium = resultPremium.headers['set-cookie'][0]
 
-    // console.log(resultPremium._body)
-
     this.premiumCookie = {
       name: cookieResultPremium.split('=')[0],
       value: cookieResultPremium.split('=')[1]
@@ -53,7 +51,6 @@ describe('Integration Test suite for Carts router', function () {
       .set('Cookie', [`${this.adminCookie.name}=${this.adminCookie.value}`])
 
     this.cartId = _body.payload._id.toString()
-    // console.log("Test 1", statusCode, ok, _body)
 
     expect(statusCode).to.be.ok.and.eq(201)
     expect(_body.payload).to.have.property('_id')
@@ -64,8 +61,6 @@ describe('Integration Test suite for Carts router', function () {
     const { statusCode, ok, _body } = await requester.get(
       `/api/v1/carts/${this.cartId}`
     )
-
-    // console.log("Test 2", statusCode, ok, _body)
 
     expect(statusCode).to.be.ok.and.eq(200)
     expect(_body.payload._id).to.be.eq(this.cartId)
@@ -134,5 +129,3 @@ describe('Integration Test suite for Carts router', function () {
     expect(ok).to.be.ok
   })
 })
-
-// console.log(statusCode, ok, _body);

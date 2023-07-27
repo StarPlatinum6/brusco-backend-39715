@@ -53,7 +53,7 @@ class Product {
 
       if (product?.thumbnails[0]?.hasOwnProperty('fieldname')) {
         const imgPaths = product.thumbnails.map(
-          (prod) => `images/${prod.filename}`
+          (prod) => `thumbnails/${prod.filename}`
         )
         product.thumbnails = imgPaths
       }

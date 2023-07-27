@@ -27,7 +27,8 @@ const userSchema = new mongoose.Schema({
       reference: { type: String }
     }
   ],
-  last_connection: Date
+  last_connection: Date,
+  status: Array
 })
 
 export const userModel = mongoose.model(userCollection, userSchema)

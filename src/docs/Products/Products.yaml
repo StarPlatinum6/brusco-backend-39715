@@ -539,7 +539,7 @@ components:
         category: GPU
         owner: mypremiumuser@mymail.com
         thumbnails:
-          ["images/1680640731988-1660-1.jpg", "images/1680640731989-1660-2.jpg"]
+          ["thumbnails/1680640731988-1660-1.jpg", "thumbnails/1680640731989-1660-2.jpg"]
     FakeProduct:
       allOf:
         - $ref: "#/components/schemas/Product"
@@ -595,4 +595,4 @@ components:
         category: GPU
         owner: mypremiumuser@mymail.com
         thumbnails:
-          ["images/1680640731988-1660-1.jpg", "images/1680640731989-1660-2.jpg"]
+          ["thumbnails/1680640731988-1660-1.jpg", "thumbnails/1680640731989-1660-2.jpg"]

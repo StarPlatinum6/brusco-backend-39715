@@ -678,8 +678,8 @@ components:
               stock: 24
               category: GPU
               thumbnails:
-                - "images/1680640731988-1660-1.jpg"
-                - "images/1680640731989-1660-2.jpg"
+                - "thumbnails/1680640731988-1660-1.jpg"
+                - "thumbnails/1680640731989-1660-2.jpg"
             quantity: 7
     CartItem:
       type: object

@@ -2,7 +2,8 @@ import {
   productService,
   cartService,
   messageService,
-  ticketService
+  ticketService,
+  userService
 } from '../services/index.js'
 
 export const loginView = (req, res) => {
@@ -19,12 +20,24 @@ export const registerView = (req, res) => {
   })
 }
 
-export const profileView = (req, res) => {
-  res.render('profile', {
-    user: req.user,
-    style: 'styles.css',
-    title: 'Ephemer - Your Profile'
-  })
+export const profileView = async (req, res) => {
+  try {
+    const { email } = req.user
+    const user = await userService.getUser(email)
+    const profilePicture = user?.documents?.[0]?.reference
+
+    res.render('profile', {
+      user: req.user,
+      profilePicture,
+      style: 'styles.css',
+      title: 'Ephemer - Your Profile'
+    })
+  } catch (error) {
+    req.logger.error(`Failed to render profile view: ${error}`)
+    res
+      .status(500)
+      .send({ status: 'error', error: 'Failed to render profile view' })
+  }
 }
 
 export const restorePasswordView = (req, res) => {
