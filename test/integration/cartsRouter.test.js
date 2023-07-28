@@ -1,6 +1,5 @@
 import chai from 'chai'
 import supertest from 'supertest'
-// import { v4 as uuidv4 } from 'uuid'
 import { config } from '../../src/config/config.js'
 
 const expect = chai.expect
