@@ -176,5 +176,120 @@ export const emailTemplates = {
     </table>
     </body>
     </html>
+    `,
+  accountDeletionEmail: (user, email) => `
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="UTF-8">
+    <title>Account Deletion Notification</title>
+    </head>
+    <body>
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+    <td align="center" bgcolor="#f7f7f7">
+    <table cellpadding="0" cellspacing="0" border="0" width="600" style="border-collapse: collapse;">
+    <tr>
+    <td align="center" bgcolor="#ffffff" style="padding: 40px 0 30px 0;">
+      <img src="https://i.imgur.com/8BQPQDC.png" alt="Logo" width="150">
+    </td>
+    </tr>
+    <tr>
+    <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+        <tr>
+          <td style="color: #333333; font-family: Arial, sans-serif; font-size: 24px;">
+            Account Deletion Notification
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 20px 0 30px 0; color: #333333; font-family: Arial, sans-serif; font-size: 16px; line-height: 24px;">
+            Dear ${user},
+            <br><br>
+            We hope this email finds you well. We regret to inform you that your account registered under ${email} has been deleted due to having more than 2 days of inactivity.
+            <br><br>
+            If you wish to continue using our services, please feel free to create a new account.
+            <br><br>
+            Thank you for being a part of our community in the past, and we hope to see you again soon!
+            <br><br>
+            Sincerely,
+            <br>
+            Ephemer Gaming
+          </td>
+        </tr>
+      </table>
+    </td>
+    </tr>
+    <tr>
+    <td bgcolor="#f7f7f7" align="center" style="padding: 20px 0 20px 0; color: #888888; font-family: Arial, sans-serif; font-size: 12px;">
+      This is an automated email. Please do not reply to this message.
+    </td>
+    </tr>
+    </table>
+    </td>
+    </tr>
+    </table>
+    </body>
+    </html>
+    `,
+  productDeletionEmail: (user, title, prodId) => `
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="UTF-8">
+    <title>Product Deletion Notification</title>
+    </head>
+    <body>
+    <table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+    <td align="center" bgcolor="#f7f7f7">
+    <table cellpadding="0" cellspacing="0" border="0" width="600" style="border-collapse: collapse;">
+    <tr>
+    <td align="center" bgcolor="#ffffff" style="padding: 40px 0 30px 0;">
+      <img src="https://i.imgur.com/8BQPQDC.png" alt="Logo" width="150">
+    </td>
+    </tr>
+    <tr>
+    <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+      <table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse: collapse;">
+        <tr>
+          <td style="color: #333333; font-family: Arial, sans-serif; font-size: 24px;">
+            Product Deletion Notification
+          </td>
+        </tr>
+        <tr>
+          <td style="padding: 20px 0 30px 0; color: #333333; font-family: Arial, sans-serif; font-size: 16px; line-height: 24px;">
+            Dear ${user},
+            <br><br>
+            We hope this email finds you well. We inform you that the following product has been deleted from our database:
+            <br><br>
+            Product Details:
+            <ul>
+              <li>Product Name: ${title}</li>
+              <li>Product ID: ${prodId}</li>
+            </ul>
+            If you have any questions or concerns, please feel free to reach out to our customer support team.
+            <br><br>
+            Thank you for using Ephemer Gaming!
+            <br><br>
+            Sincerely,
+            <br>
+            Ephemer Gaming
+          </td>
+        </tr>
+      </table>
+    </td>
+    </tr>
+    <tr>
+    <td bgcolor="#f7f7f7" align="center" style="padding: 20px 0 20px 0; color: #888888; font-family: Arial, sans-serif; font-size: 12px;">
+      This is an automated email. Please do not reply to this message.
+    </td>
+    </tr>
+    </table>
+    </td>
+    </tr>
+    </table>
+    </body>
+    </html>
     `
 }

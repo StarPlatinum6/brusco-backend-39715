@@ -10,7 +10,6 @@ export default class MessageService {
 
       return messages || []
     } catch (error) {
-      console.log(`Failed to get messages with error: ${error}`)
       throw error
     }
   }

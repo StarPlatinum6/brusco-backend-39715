@@ -244,3 +244,22 @@
 {"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: identification, address, statement"}
 {"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: statement"}
 {"level":"error","message":"Failed to change role: Error: You're missing documentantion to upgrade your role: statement"}
+{"level":"error","message":"Failed to login with error: Error: User with email adminCoder@coder.com does not exist"}
+{"level":"error","message":"Cannot delete user with error: Error: Error deleting user asdasd"}
+{"level":"error","message":"Cannot delete user with error: Error: Error deleting user inactive"}
+{"level":"error","message":"Cannot delete user with error: Error: Error deleting user inactive"}
+{"level":"error","message":"Cannot delete user with error: Error: Error deleting user inactive"}
+{"level":"error","message":"Cannot delete user with error: Error: Error deleting user inactivee"}
+{"level":"error","message":"Cannot delete user with error: Error: Error deleting user inactive649d1eca442ecd3e81dad953"}
+{"level":"error","message":"Cannot delete user with error: Error: Error deleting user 649d1eca442ecd3e81dad953aa"}
+{"level":"error","message":"Cannot delete inactive users with error: Error: No inactive users were found"}
+{"level":"error","message":"Cannot delete inactive users with error: Error: No inactive users were found"}
+{"level":"error","message":"Cannot delete inactive users with error: Error: No inactive users were found"}
+{"level":"error","message":"Cannot delete inactive users with error: Error: No inactive users were found"}
+{"level":"error","message":"Cannot delete inactive users with error: Error: No inactive users were found"}
+{"level":"error","message":"Cannot delete inactive users with error: Error: No inactive users were found"}
+{"level":"error","message":"Cannot delete inactive users with error: Error: No inactive users were found"}
+{"level":"error","message":"Cannot delete inactive users with error: Error: No inactive users were found"}
+{"level":"error","message":"Cannot add to cart with mongoose Error: You can't add products you own"}
+{"level":"error","message":"Cannot delete product with mongoose ReferenceError: role is not defined"}
+{"level":"error","message":"Cannot get user status with error: TypeError: Cannot destructure property 'documents' of '(intermediate value)' as it is null."}

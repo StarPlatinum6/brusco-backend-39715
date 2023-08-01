@@ -17,13 +17,28 @@ export default class UserService {
     this.mailService = mailService
   }
 
+  async getUsers () {
+    try {
+      const users = await usersRepository.getUsers()
+      if (!users) throw new Error('No users found')
+
+      const usersDTO = users.map((user) => {
+        const userDTO = new UserDTO(user)
+        return JSON.parse(JSON.stringify(userDTO))
+      })
+
+      return usersDTO
+    } catch (error) {
+      throw error
+    }
+  }
+
   async getUser (email) {
     try {
       const user = await usersRepository.getUser({ email })
       if (!user) throw new Error(`User with email ${email} does not exist`)
       return user
     } catch (error) {
-      console.log(`Failed to get user with error: ${error}`)
       throw error
     }
   }
@@ -78,7 +93,6 @@ export default class UserService {
 
       return token
     } catch (error) {
-      console.log(`Failed to generate token: ${error}`)
       throw error
     }
   }
@@ -127,7 +141,6 @@ export default class UserService {
 
       await this.mailService.sendEmail(mail)
     } catch (error) {
-      console.log(`Failed to send email: ${error}`)
       throw error
     }
   }
@@ -156,7 +169,6 @@ export default class UserService {
       if (!passwordUpdate) { throw new Error(`Password update failed for ${email}`) }
       return passwordUpdate
     } catch (error) {
-      console.log(`Failed to update password: ${error}`)
       throw error
     }
   }
@@ -206,7 +218,6 @@ export default class UserService {
 
       return roleChanged
     } catch (error) {
-      console.log(`Failed to change role: ${error}`)
       throw error
     }
   }
@@ -218,7 +229,52 @@ export default class UserService {
 
       return deletedUser
     } catch (error) {
-      console.log(`Failed to delete user with error: ${error}`)
+      throw error
+    }
+  }
+
+  async deleteUserByCartId (cid) {
+    try {
+      const deletedUser = await usersRepository.deleteUserByCartId(cid)
+      if (!deletedUser) throw new Error(`Error deleting user ${cid}`)
+
+      return deletedUser
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async deleteInactiveUsers (users) {
+    try {
+      const twoDays = 2 * 24 * 60 * 60 * 1000
+      const currentTime = new Date()
+
+      // Evaluar los usuarios inactivos
+      const inactiveUsers = users.filter((user) => {
+        const lastConnection = new Date(user.last_connection)
+        const timeDiff = currentTime - lastConnection
+        return timeDiff > twoDays
+      })
+
+      if (inactiveUsers.length === 0) throw new Error('No inactive users were found')
+
+      const inactiveUserIds = inactiveUsers.map((user) => user.cart)
+
+      const deletedUsers = await usersRepository.deleteInactiveUsers(inactiveUserIds)
+
+      inactiveUsers.forEach(async (user) => {
+        const mail = {
+          to: user.email,
+          subject: 'Ephemer Gaming - Account Deletion Notification',
+          html: emailTemplates.accountDeletionEmail(user.name, user.email)
+        }
+        await this.mailService.sendEmail(mail)
+      })
+
+      if (!deletedUsers) throw new Error(`Error deleting user ${uid}`)
+
+      return deletedUsers
+    } catch (error) {
       throw error
     }
   }
@@ -233,7 +289,6 @@ export default class UserService {
 
       return connection_updated
     } catch (error) {
-      console.log(`Failed to update last connection with error: ${error}`)
       throw error
     }
   }
@@ -278,7 +333,6 @@ export default class UserService {
 
       return updatedUserDocumentsAndStatus
     } catch (error) {
-      console.log(`Failed to update user documents and status with error: ${error}`)
       throw error
     }
   }
@@ -309,7 +363,6 @@ export default class UserService {
 
       return updatedUserDocumentsAndStatus
     } catch (error) {
-      console.log(`Failed to update user documents and status with error: ${error}`)
       throw error
     }
   }
@@ -329,7 +382,6 @@ export default class UserService {
 
       return userStatus
     } catch (error) {
-      console.log(`Failed to get user status with error: ${error}`)
       throw error
     }
   }

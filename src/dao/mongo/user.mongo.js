@@ -3,6 +3,15 @@ import { userModel } from './models/user.model.js'
 class User {
   constructor () {}
 
+  getUsers = async () => {
+    try {
+      const users = await userModel.find().lean()
+      return users
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   getUser = async (query) => {
     try {
       const user = await userModel.findOne(query)
@@ -42,6 +51,24 @@ class User {
   deleteUser = async (userId) => {
     try {
       const deletedUser = await userModel.deleteOne({ _id: userId })
+      return deletedUser
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  deleteUserByCartId = async (cartId) => {
+    try {
+      const deletedUser = await userModel.deleteOne({ cart: cartId })
+      return deletedUser
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  deleteInactiveUsers = async (users) => {
+    try {
+      const deletedUser = await userModel.deleteMany({ cart: { $in: users } })
       return deletedUser
     } catch (error) {
       console.log(error)

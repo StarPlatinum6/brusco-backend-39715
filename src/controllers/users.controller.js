@@ -119,6 +119,7 @@ export const logoutUser = async (req, res) => {
   const last_connection = userService.updateConnection(email)
 
   if (!last_connection) {
+    req.logger.error('Failed to update last connection')
     return res
       .status(500)
       .send({ status: 'error', error: 'Failed to update last connection' })
@@ -303,12 +304,12 @@ export const updateProfilePicture = async (req, res) => {
 
 export const currentUserStatus = async (req, res) => {
   try {
-    const { uid: cid } = req.params
+    const { cid } = req.params
 
     if (!cid) {
       return res.status(400).send({
         status: 'error',
-        error: 'Failed to get cart ID'
+        error: 'Incomplete Values'
       })
     }
 
@@ -329,6 +330,93 @@ export const currentUserStatus = async (req, res) => {
     return res.status(500).send({
       status: 'error',
       error: 'Failed to get user status'
+    })
+  }
+}
+
+export const getUsers = async (req, res) => {
+  try {
+    const users = await userService.getUsers()
+
+    if (!users) {
+      return res.status(404).send({
+        status: 'error',
+        error: 'Failed to get users'
+      })
+    }
+
+    res.status(200).send({ status: 'success', payload: users })
+  } catch (error) {
+    req.logger.error(`Cannot get users with error: ${error}`)
+    return res.status(500).send({
+      status: 'error',
+      error: 'Failed to get users'
+    })
+  }
+}
+
+export const deleteUserByCartId = async (req, res) => {
+  try {
+    const { cid } = req.params
+
+    if (!cid) {
+      return res.status(400).send({
+        status: 'error',
+        error: 'Incomplete values'
+      })
+    }
+
+    const deletedUser = await userService.deleteUserByCartId(cid)
+
+    if (!deletedUser || deletedUser.deletedCount === 0) {
+      return res.status(404).send({
+        status: 'error',
+        error: `Failed to delete user with cart ID ${cid}`
+      })
+    }
+
+    return res.status(200).send({
+      status: 'success',
+      payload: deletedUser
+    })
+  } catch (error) {
+    req.logger.error(`Cannot delete user with error: ${error}`)
+    return res.status(500).send({
+      status: 'error',
+      error: 'Failed to delete user'
+    })
+  }
+}
+
+export const deleteInactiveUsers = async (req, res) => {
+  try {
+    const users = await userService.getUsers()
+
+    if (!users) {
+      return res.status(404).send({
+        status: 'error',
+        error: 'Failed to get users'
+      })
+    }
+
+    const deletedUsers = await userService.deleteInactiveUsers(users)
+
+    if (!deletedUsers || deletedUsers.deletedCount === 0) {
+      return res.status(404).send({
+        status: 'error',
+        error: 'No inactive users were found'
+      })
+    }
+
+    return res.status(200).send({
+      status: 'success',
+      payload: deletedUsers
+    })
+  } catch (error) {
+    req.logger.error(`Cannot delete inactive users with error: ${error}`)
+    return res.status(500).send({
+      status: 'error',
+      error: 'Failed to delete inactive users'
     })
   }
 }

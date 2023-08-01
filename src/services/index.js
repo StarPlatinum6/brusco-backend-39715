@@ -9,6 +9,6 @@ const mailService = new NodemailerService()
 
 export const cartService = new CartService()
 export const messageService = new MessageService()
-export const productService = new ProductService()
+export const productService = new ProductService(mailService)
 export const ticketService = new TicketService(mailService)
 export const userService = new UserService(mailService)

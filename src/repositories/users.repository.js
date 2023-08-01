@@ -3,6 +3,16 @@ export default class UsersRepository {
     this.dao = dao
   }
 
+  getUsers = async () => {
+    try {
+      const users = await this.dao.getUsers()
+      return users
+    } catch (error) {
+      console.log(error)
+      return null
+    }
+  }
+
   getUser = async (query) => {
     try {
       const user = await this.dao.getUser(query)
@@ -47,6 +57,26 @@ export default class UsersRepository {
     try {
       const deletedUser = await this.dao.deleteUser(userId)
       return deletedUser
+    } catch (error) {
+      console.log(error)
+      return null
+    }
+  }
+
+  deleteUserByCartId = async (cartId) => {
+    try {
+      const deletedUser = await this.dao.deleteUserByCartId(cartId)
+      return deletedUser
+    } catch (error) {
+      console.log(error)
+      return null
+    }
+  }
+
+  deleteInactiveUsers = async (users) => {
+    try {
+      const deletedUsers = await this.dao.deleteInactiveUsers(users)
+      return deletedUsers
     } catch (error) {
       console.log(error)
       return null

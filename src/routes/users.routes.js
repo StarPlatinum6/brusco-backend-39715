@@ -15,7 +15,10 @@ import {
   changeRole,
   updateUserDocumentsAndStatus,
   updateProfilePicture,
-  currentUserStatus
+  currentUserStatus,
+  getUsers,
+  deleteInactiveUsers,
+  deleteUserByCartId
 } from '../controllers/users.controller.js'
 
 const usersRouter = Router()
@@ -45,14 +48,23 @@ usersRouter.get(
 )
 
 usersRouter.get(
+  '/',
+  passport.authenticate('jwt', { session: false }),
+  (req, res, next) => verifyRole(req, res, next, ['admin']),
+  getUsers
+)
+
+usersRouter.get(
   '/current',
   passport.authenticate('jwt', { session: false }),
+  (req, res, next) => verifyRole(req, res, next, ['user', 'premium', 'admin']),
   currentUser
 )
 
 usersRouter.post(
-  '/:uid/status',
+  '/:cid/status',
   passport.authenticate('jwt', { session: false }),
+  (req, res, next) => verifyRole(req, res, next, ['user', 'premium', 'admin']),
   currentUserStatus
 )
 
@@ -85,5 +97,19 @@ usersRouter.post('/restore', restorePasswordProcess)
 usersRouter.put('/resetPassword', updatePassword)
 
 usersRouter.get('/logout', logoutUser)
+
+usersRouter.delete(
+  '/inactive',
+  passport.authenticate('jwt', { session: false }),
+  (req, res, next) => verifyRole(req, res, next, ['admin']),
+  deleteInactiveUsers
+)
+
+usersRouter.delete(
+  '/:cid',
+  passport.authenticate('jwt', { session: false }),
+  (req, res, next) => verifyRole(req, res, next, ['admin']),
+  deleteUserByCartId
+)
 
 export default usersRouter

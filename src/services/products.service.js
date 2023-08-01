@@ -3,12 +3,16 @@ import { config } from '../config/config.js'
 import { faker } from '@faker-js/faker'
 import { productsRepository } from '../repositories/index.js'
 
+import { emailTemplates } from '../mail/templates.js'
+
 const {
   jwt: { JWT_SECRET }
 } = config
 
 export default class ProductService {
-  constructor () {}
+  constructor (mailService) {
+    this.mailService = mailService
+  }
 
   async getProducts (page, limit, category, available, sort) {
     try {
@@ -23,7 +27,6 @@ export default class ProductService {
 
       return products
     } catch (error) {
-      console.log(`Failed to get products with error: ${error}`)
       throw error
     }
   }
@@ -35,7 +38,6 @@ export default class ProductService {
 
       return filteredProduct
     } catch (error) {
-      console.log(`Failed to get product id ${pid} with error: ${error}`)
       throw error
     }
   }
@@ -72,7 +74,6 @@ export default class ProductService {
 
       return addedProduct
     } catch (error) {
-      console.log(`Failed to add product with error: ${error}`)
       throw error
     }
   }
@@ -87,17 +88,18 @@ export default class ProductService {
 
       return updatedProduct
     } catch (error) {
-      console.log(`Failed to update product with error: ${error}`)
       throw error
     }
   }
 
   async deleteProduct (deleteId, token) {
     try {
-      const { role, email } = jwt.verify(token, JWT_SECRET, {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      const { role, email, name } = jwt.verify(token, JWT_SECRET, {
         ignoreExpiration: true
       })
-      const { owner } = await productsRepository.getProductById(deleteId)
+
+      const { owner, title, _id } = await productsRepository.getProductById(deleteId)
       if (role === 'premium' && email !== owner) {
         throw new Error('You can only delete products you own')
       }
@@ -107,9 +109,17 @@ export default class ProductService {
         throw new Error(`Error deleting product with id: ${deleteId}`)
       }
 
+      if (emailRegex.test(owner)) {
+        const mail = {
+          to: owner,
+          subject: 'Ephemer Gaming - Product Deletion Notification',
+          html: emailTemplates.productDeletionEmail(owner, title, _id.toString())
+        }
+        await this.mailService.sendEmail(mail)
+      }
+
       return deletedProduct
     } catch (error) {
-      console.log(`Failed to delete product with error: ${error}`)
       throw error
     }
   }
@@ -139,7 +149,6 @@ export default class ProductService {
       if (!products) throw new Error('Error creating products mock')
       return products
     } catch (error) {
-      console.log(`Failed to create products mock with error: ${error}`)
       throw error
     }
   }

@@ -19,7 +19,6 @@ export default class TicketService {
 
       return tickets
     } catch (error) {
-      console.log(`Failed to get ticket with error: ${error}`)
       throw error
     }
   }
@@ -31,7 +30,6 @@ export default class TicketService {
 
       return filteredTicket
     } catch (error) {
-      console.log(`Failed to get ticket with error: ${error}`)
       throw error
     }
   }
@@ -43,7 +41,6 @@ export default class TicketService {
 
       return filteredTickets
     } catch (error) {
-      console.log(`Failed to get tickets with error: ${error}`)
       throw error
     }
   }
@@ -113,7 +110,6 @@ export default class TicketService {
 
       return newTicket
     } catch (error) {
-      console.log(`Failed to create ticket with error: ${error}`)
       throw error
     }
   }

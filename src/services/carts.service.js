@@ -16,7 +16,6 @@ export default class CartService {
 
       return filteredCart
     } catch (error) {
-      console.log(`Failed to get cart with error: ${error}`)
       throw error
     }
   }
@@ -28,7 +27,6 @@ export default class CartService {
 
       return newCart
     } catch (error) {
-      console.log(`Failed to create cart with error: ${error}`)
       throw error
     }
   }
@@ -52,7 +50,6 @@ export default class CartService {
 
       return productAddedToCart
     } catch (error) {
-      console.log(`Failed to add to cart with error: ${error}`)
       throw error
     }
   }
@@ -64,7 +61,6 @@ export default class CartService {
 
       return updatedCart
     } catch (error) {
-      console.log(`Failed to update cart with error: ${error}`)
       throw error
     }
   }
@@ -77,7 +73,6 @@ export default class CartService {
 
       return updatedProductFromCart
     } catch (error) {
-      console.log(`Failed to update product from cart with error: ${error}`)
       throw error
     }
   }
@@ -89,7 +84,6 @@ export default class CartService {
 
       return deletedCart
     } catch (error) {
-      console.log(`Failed to delete cart with error: ${error}`)
       throw error
     }
   }
@@ -102,7 +96,6 @@ export default class CartService {
 
       return deletedProductFromCart
     } catch (error) {
-      console.log(`Failed to delete product from cart with error: ${error}`)
       throw error
     }
   }
