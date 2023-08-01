@@ -325,7 +325,7 @@ export const deleteUserSwal = (userName) => {
 export const deleteInactiveUsersSwal = () => {
   Swal.fire({
     title: 'Inactive users deleted!',
-    html: `Removed users with 2 or more days of inactivity`,
+    html: 'Removed users with 2 or more days of inactivity',
     toast: true,
     position: 'top-right',
     icon: 'success',
@@ -342,7 +342,6 @@ export const deleteInactiveUsersSwal = () => {
     }
   })
 }
-
 
 //
 // error

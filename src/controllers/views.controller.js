@@ -25,7 +25,7 @@ export const profileView = async (req, res) => {
   try {
     const { email } = req.user
     const user = await userService.getUser(email)
-    const profilePicture = user.documents?.find((doc) => doc.name === 'profile')?.reference;
+    const profilePicture = user.documents?.find((doc) => doc.name === 'profile')?.reference
 
     res.render('profile', {
       user: req.user,
