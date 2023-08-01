@@ -1,4 +1,4 @@
-import database from '../db.js'
+import database from '../database/db.js'
 import { persistenceType } from '../config/commander.js'
 
 export let productDAO, cartDAO, userDAO, messageDAO, ticketDAO
