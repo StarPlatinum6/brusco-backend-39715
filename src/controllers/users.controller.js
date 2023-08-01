@@ -416,7 +416,7 @@ export const deleteInactiveUsers = async (req, res) => {
     req.logger.error(`Cannot delete inactive users with error: ${error}`)
     return res.status(500).send({
       status: 'error',
-      error: 'Failed to delete inactive users'
+      error: `${error}`
     })
   }
 }

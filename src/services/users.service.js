@@ -23,6 +23,7 @@ export default class UserService {
       if (!users) throw new Error('No users found')
 
       const usersDTO = users.map((user) => {
+        user.profile_picture = user.documents?.find((doc) => doc.name === 'profile')?.reference
         const userDTO = new UserDTO(user)
         return JSON.parse(JSON.stringify(userDTO))
       })

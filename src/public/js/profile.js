@@ -115,10 +115,7 @@ changeRoleForm.addEventListener('submit', async (e) => {
 checkDocumentation.addEventListener('click', async (e) => {
   e.preventDefault()
   try {
-    const response = await fetch(`/api/v1/users/${uid}/status`, {
-      method: 'POST',
-      body: uid
-    })
+    const response = await fetch(`/api/v1/users/${uid}/status`)
     const docs = await response.json()
 
     if (response.ok) {

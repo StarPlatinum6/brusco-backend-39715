@@ -263,3 +263,22 @@
 {"level":"error","message":"Cannot add to cart with mongoose Error: You can't add products you own"}
 {"level":"error","message":"Cannot delete product with mongoose ReferenceError: role is not defined"}
 {"level":"error","message":"Cannot get user status with error: TypeError: Cannot destructure property 'documents' of '(intermediate value)' as it is null."}
+{"level":"error","message":"Failed to render profile view: TypeError: user.find is not a function"}
+{"level":"error","message":"Failed to render admin view: TypeError: Cannot read properties of undefined (reading 'find')"}
+{"level":"error","message":"Failed to render admin view: ReferenceError: last_connection is not defined"}
+{"level":"error","message":"Cannot delete inactive users with error: Error: No inactive users were found"}
+{"level":"error","message":"Cannot delete inactive users with error: Error: No inactive users were found"}
+{"level":"error","message":"Cannot delete inactive users with error: Error: No inactive users were found"}
+{"level":"error","message":"Cannot delete inactive users with error: Error: No inactive users were found"}
+{"level":"error","message":"Failed to render admin view: TypeError: Cannot read properties of undefined (reading 'reference')"}
+{"level":"error","message":"Failed to render admin view: TypeError: Cannot read properties of undefined (reading 'reference')"}
+{"level":"error","message":"Failed to render admin view: TypeError: Cannot read properties of undefined (reading 'reference')"}
+{"level":"error","message":"Failed to render admin view: TypeError: Cannot read properties of undefined (reading 'reference')"}
+{"level":"error","message":"Failed to render profile view: TypeError: Cannot read properties of undefined (reading 'reference')"}
+{"level":"error","message":"Failed to render admin view: TypeError: Cannot read properties of undefined (reading 'reference')"}
+{"level":"error","message":"Failed to render admin view: TypeError: Cannot read properties of undefined (reading 'reference')"}
+{"level":"error","message":"Failed to render admin view: TypeError: Cannot read properties of undefined (reading 'reference')"}
+{"level":"error","message":"Failed to render admin view: TypeError: Cannot read properties of undefined (reading 'reference')"}
+{"level":"error","message":"Failed to render admin view: TypeError: Cannot read properties of undefined (reading 'reference')"}
+{"level":"error","message":"Failed to render admin view: TypeError: Cannot read properties of undefined (reading 'reference')"}
+{"level":"error","message":"Cannot delete inactive users with error: Error: No inactive users were found"}

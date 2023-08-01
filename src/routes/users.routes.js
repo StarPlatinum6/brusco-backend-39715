@@ -61,7 +61,7 @@ usersRouter.get(
   currentUser
 )
 
-usersRouter.post(
+usersRouter.get(
   '/:cid/status',
   passport.authenticate('jwt', { session: false }),
   (req, res, next) => verifyRole(req, res, next, ['user', 'premium', 'admin']),

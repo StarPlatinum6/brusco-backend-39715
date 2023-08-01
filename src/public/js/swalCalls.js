@@ -298,6 +298,53 @@ export const checkDocumentationSwal = (docs = 'No documents') => {
 }
 
 //
+// admin
+//
+
+export const deleteUserSwal = (userName) => {
+  Swal.fire({
+    title: 'User successfully deleted!',
+    text: `User name: ${userName}`,
+    toast: true,
+    position: 'top-right',
+    icon: 'success',
+    timer: 3000,
+    footer: 'Reloading page on close',
+    timerProgressBar: true,
+    customClass: {
+      popup: '!text-slate-200 !bg-slate-800/90 !rounded-3xl',
+      confirmButton: '!bg-blue-600 !px-5',
+      timerProgressBar: '!m-auto !h-1 !my-2 !bg-blue-600/90 !rounded-3xl'
+    },
+    willClose: () => {
+      location.reload()
+    }
+  })
+}
+
+export const deleteInactiveUsersSwal = () => {
+  Swal.fire({
+    title: 'Inactive users deleted!',
+    html: `Removed users with 2 or more days of inactivity`,
+    toast: true,
+    position: 'top-right',
+    icon: 'success',
+    timer: 3000,
+    footer: 'Reloading page on close',
+    timerProgressBar: true,
+    customClass: {
+      popup: '!text-slate-200 !bg-slate-800/90 !rounded-3xl',
+      confirmButton: '!bg-blue-600 !px-5',
+      timerProgressBar: '!m-auto !h-1 !my-2 !bg-blue-600/90 !rounded-3xl'
+    },
+    willClose: () => {
+      location.reload()
+    }
+  })
+}
+
+
+//
 // error
 //
 

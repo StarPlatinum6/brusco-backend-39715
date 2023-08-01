@@ -19,7 +19,8 @@ import {
   registerView,
   restorePasswordView,
   resetPasswordView,
-  ticketsView
+  ticketsView,
+  adminView
 } from '../controllers/views.controller.js'
 
 const viewsRouter = Router()
@@ -67,6 +68,14 @@ viewsRouter.get(
   (req, res, next) => verifyRole(req, res, next, ['user', 'premium']),
   passport.authenticate('jwt', { session: false }),
   ticketsView
+)
+
+viewsRouter.get(
+  '/admin',
+  isProtected,
+  (req, res, next) => verifyRole(req, res, next, ['admin']),
+  passport.authenticate('jwt', { session: false }),
+  adminView
 )
 
 /// ///////////////////////////////////////////////////

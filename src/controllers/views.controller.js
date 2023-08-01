@@ -1,3 +1,4 @@
+import { parse } from 'dotenv'
 import {
   productService,
   cartService,
@@ -24,7 +25,7 @@ export const profileView = async (req, res) => {
   try {
     const { email } = req.user
     const user = await userService.getUser(email)
-    const profilePicture = user?.documents?.[0]?.reference
+    const profilePicture = user.documents?.find((doc) => doc.name === 'profile')?.reference;
 
     res.render('profile', {
       user: req.user,
@@ -168,6 +169,30 @@ export const ticketsView = async (req, res) => {
     res
       .status(500)
       .send({ status: 'error', error: 'Failed to render tickets view' })
+  }
+}
+
+export const adminView = async (req, res) => {
+  try {
+    const users = await userService.getUsers()
+
+    const parsedUsers = users.map((user) => {
+      const parsedDate = new Date(user.last_connection)
+      const parsedUser = { ...user }
+      parsedUser.last_connection = parsedDate.toLocaleString()
+      return parsedUser
+    })
+
+    res.render('admin', {
+      parsedUsers,
+      style: 'styles.css',
+      title: 'Ephemer - Admin Panel'
+    })
+  } catch (error) {
+    req.logger.error(`Failed to render admin view: ${error}`)
+    res
+      .status(500)
+      .send({ status: 'error', error: 'Failed to render admin view' })
   }
 }
 
