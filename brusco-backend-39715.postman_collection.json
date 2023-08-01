@@ -475,7 +475,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "\t{\r\n\t\t\"title\": \"Postman Test\",\r\n\t\t\"description\": \"This is a Postman Test Product\",\r\n\t\t\"code\": \"POSTMAN-TEST\",\r\n\t\t\"price\": 500,\r\n\t\t\"stock\": 50,\r\n\t\t\"category\": \"TEST\",\r\n\t\t\"thumbnails\": [\r\n\t\t\t\"http://localhost:8080/thumbnails/TEST1.jpg\",\r\n\t\t\t\"http://localhost:8080/thumbnails/TEST2.jpg\"\r\n\t\t]\r\n\t}",
+							"raw": "\t{\r\n\t\t\"title\": \"Postman Test\",\r\n\t\t\"description\": \"This is a Postman Test Product\",\r\n\t\t\"code\": \"POSTMAN-TEST\",\r\n\t\t\"price\": 500,\r\n\t\t\"stock\": 50,\r\n\t\t\"category\": \"TEST\",\r\n\t\t\"thumbnails\": [\r\n\t\t\t\"http://localhost:8080/images/TEST1.jpg\",\r\n\t\t\t\"http://localhost:8080/images/TEST2.jpg\"\r\n\t\t]\r\n\t}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -565,7 +565,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "\t{\r\n\t\t\"status\": true,\r\n\t\t\"title\": \"This is a Test Product Updated\",\r\n\t\t\"description\": \"Test Product Updated\",\r\n\t\t\"code\": \"TEST-PRODOO\",\r\n\t\t\"price\": 454560,\r\n\t\t\"stock\": 12,\r\n\t\t\"category\": \"TEST\",\r\n\t\t\"thumbnails\": [\r\n\t\t\t\"http://localhost:8080/thumbnails/image3.jpg\",\r\n\t\t\t\"http://localhost:8080/thumbnails/image4.jpg\"\r\n\t\t]\r\n\t}",
+							"raw": "\t{\r\n\t\t\"status\": true,\r\n\t\t\"title\": \"This is a Test Product Updated\",\r\n\t\t\"description\": \"Test Product Updated\",\r\n\t\t\"code\": \"TEST-PRODOO\",\r\n\t\t\"price\": 454560,\r\n\t\t\"stock\": 12,\r\n\t\t\"category\": \"TEST\",\r\n\t\t\"thumbnails\": [\r\n\t\t\t\"http://localhost:8080/images/image3.jpg\",\r\n\t\t\t\"http://localhost:8080/images/image4.jpg\"\r\n\t\t]\r\n\t}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -573,7 +573,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{lh8080}}/api/v1/products/64672787d1ffaae3e5337139",
+							"raw": "{{lh8080}}/api/v1/products/64a06590e6efe18c1256b6cc",
 							"host": [
 								"{{lh8080}}"
 							],
@@ -581,7 +581,7 @@
 								"api",
 								"v1",
 								"products",
-								"64672787d1ffaae3e5337139"
+								"64a06590e6efe18c1256b6cc"
 							]
 						}
 					},
@@ -613,6 +613,26 @@
 			"name": "users-jwt",
 			"item": [
 				{
+					"name": "get-users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/v1/users/",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "current-user",
 					"request": {
 						"auth": {
@@ -630,6 +650,30 @@
 								"v1",
 								"users",
 								"current"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "current-user-status",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/v1/users/6460771a9d94f3d716abd6ae/status",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"6460771a9d94f3d716abd6ae",
+								"status"
 							]
 						}
 					},
@@ -807,6 +851,47 @@
 								"v1",
 								"users",
 								"resetPassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-user-cartid",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/v1/users/649d1eca442ecd3e81dad953/",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"649d1eca442ecd3e81dad953",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-users-inactive",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{lh8080}}/api/v1/users/inactive",
+							"host": [
+								"{{lh8080}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"inactive"
 							]
 						}
 					},
