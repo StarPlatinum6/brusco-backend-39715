@@ -132,6 +132,7 @@ export const logoutUser = async (req, res) => {
 export const restorePasswordProcess = async (req, res) => {
   try {
     const { email } = req.body
+    const domain = req.get('host')
 
     if (!email) {
       return res.status(400).send({
@@ -140,7 +141,7 @@ export const restorePasswordProcess = async (req, res) => {
       })
     }
 
-    await userService.restorePasswordProcess(email)
+    await userService.restorePasswordProcess(email, domain)
 
     return res.status(200).send({
       status: 'success',

@@ -4,9 +4,9 @@ import GitHubStrategy from 'passport-github2'
 import jwt from 'passport-jwt'
 
 import { cartService, userService } from '../services/index.js'
+import { usersRepository } from '../repositories/index.js'
 
 import { config } from '../config/config.js'
-
 import { createHash } from '../utils.js'
 
 const cookieExtractor = (req) => {
@@ -96,7 +96,7 @@ const initializePassport = () => {
       },
       async (accessToken, refreshToken, profile, done) => {
         try {
-          const user = await userService.getUser(profile._json.email)
+          const user = await usersRepository.getUser({ email: profile._json.email })
           if (!user) {
             const cart = await cartService.createCart()
             let role

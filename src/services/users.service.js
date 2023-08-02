@@ -121,7 +121,7 @@ export default class UserService {
     }
   }
 
-  async restorePasswordProcess (email) {
+  async restorePasswordProcess (email, domain) {
     try {
       const user = await usersRepository.getUser({ email })
       if (!user) throw new Error('Something went wrong')
@@ -137,7 +137,7 @@ export default class UserService {
       const mail = {
         to: email,
         subject: `Your Ephemer Gaming password restore, ${name}!`,
-        html: emailTemplates.passwordRestoreEmail(email, name, token)
+        html: emailTemplates.passwordRestoreEmail(email, name, token, domain)
       }
 
       await this.mailService.sendEmail(mail)

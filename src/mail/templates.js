@@ -118,7 +118,7 @@ export const emailTemplates = {
     </body>
     </html>
   `,
-  passwordRestoreEmail: (email, name, token) => `
+  passwordRestoreEmail: (email, name, token, domain) => `
     <!DOCTYPE html>
     <html>
     <head>
@@ -149,7 +149,7 @@ export const emailTemplates = {
             <br><br>
             We received a request to reset your password. To proceed with the password restore process, please click on the link below:
             <br><br>
-            <a href="http://localhost:8080/resetPassword?token=${token}" target="_blank">Reset Password</a>
+            <a href="${domain}/resetPassword?token=${token}" target="_blank">Reset Password</a>
             <br><br>
             This link will be valid for 1 hour. Please, remember to set a different password from the one you had before.
             <br><br>
