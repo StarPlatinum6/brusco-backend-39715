@@ -6,6 +6,7 @@ import messagesRouter from './messages.routes.js'
 import usersRouter from './users.routes.js'
 import viewsRouter from './views.routes.js'
 import ticketsRouter from './tickets.routes.js'
+import paymentsRouter from './payments.routes.js'
 
 import { swaggerUi } from '../config/swagger.js'
 
@@ -28,6 +29,7 @@ const routerAPI = (app) => {
   router.use('/messages', messagesRouter)
   router.use('/users', usersRouter)
   router.use('/tickets', ticketsRouter)
+  router.use('/payments', paymentsRouter)
 
   router.use('/docs', swaggerUi())
 }

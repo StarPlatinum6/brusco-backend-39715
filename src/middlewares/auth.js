@@ -81,7 +81,7 @@ export const checkLogged = (req, res, next) => {
 }
 
 /// ////////////////////////////
-/// /// Auth middlewares ///////
+/// Authorization middlewares //
 /// ////////////////////////////
 
 export const verifyRole = (req, res, next, rolesToVerify) => {

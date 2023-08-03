@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 
 import cowsay from 'cowsay'
 import colors from 'colors'
@@ -25,6 +26,7 @@ const env = async () => {
   app.use(winstonLogger)
   app.use(cookieParser())
   app.use(errorHandler)
+  app.use(cors())
   initializePassport()
 
   routerAPI(app)

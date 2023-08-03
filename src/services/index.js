@@ -3,6 +3,7 @@ import MessageService from './messages.service.js'
 import ProductService from './products.service.js'
 import TicketService from './tickets.service.js'
 import UserService from './users.service.js'
+import PaymentService from './payments.service.js'
 
 import NodemailerService from '../mail/nodemailer.js'
 const mailService = new NodemailerService()
@@ -12,3 +13,4 @@ export const messageService = new MessageService()
 export const productService = new ProductService(mailService)
 export const ticketService = new TicketService(mailService)
 export const userService = new UserService(mailService)
+export const paymentService = new PaymentService()

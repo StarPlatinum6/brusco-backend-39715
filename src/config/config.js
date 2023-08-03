@@ -32,5 +32,8 @@ export const config = {
   },
   logs: {
     LOGGER: process.env.LOGGER
+  },
+  stripe: {
+    STRIPE_SECRET: process.env.STRIPE_SECRET
   }
 }

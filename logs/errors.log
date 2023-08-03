@@ -282,3 +282,12 @@
 {"level":"error","message":"Failed to render admin view: TypeError: Cannot read properties of undefined (reading 'reference')"}
 {"level":"error","message":"Failed to render admin view: TypeError: Cannot read properties of undefined (reading 'reference')"}
 {"level":"error","message":"Cannot delete inactive users with error: Error: No inactive users were found"}
+{"level":"error","message":"Failed to create payment intent: Error: Received unknown parameters: products, __v"}
+{"level":"error","message":"Failed to create payment intent: ReferenceError: calculateOrderAmount is not defined"}
+{"level":"error","message":"Failed to create payment intent: Error: This value must be greater than or equal to 1."}
+{"level":"error","message":"Failed to create payment intent: Error: This value must be greater than or equal to 1."}
+{"level":"error","message":"Failed to create payment intent: Error: This value must be greater than or equal to 1."}
+{"level":"error","message":"Failed to create payment intent: Error: This value must be greater than or equal to 1."}
+{"level":"error","message":"Failed to create payment intent: Error: This value must be greater than or equal to 1."}
+{"level":"error","message":"Failed to create payment intent: Error: This value must be greater than or equal to 1."}
+{"level":"error","message":"Failed to create payment intent: Error: This value must be greater than or equal to 1."}
